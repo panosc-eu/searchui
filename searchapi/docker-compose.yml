@@ -1,0 +1,7 @@
+version: '3'
+services:
+  searchapi:
+    restart: unless-stopped
+    build: .
+    ports:
+      - "5000:3000"
