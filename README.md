@@ -2,7 +2,8 @@
 
 ## Local setup
 
-Docker is used to start a local Search API database, seeded with `searchapi/db.json`.
+Docker is used to start a local Search API database, seeded with
+`searchapi/db.json`.
 
 ```
 yarn install

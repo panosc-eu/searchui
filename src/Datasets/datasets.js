@@ -1,8 +1,8 @@
-import css from '@styled-system/css'
-import styled from 'styled-components'
+import css from '@styled-system/css';
+import styled from 'styled-components';
 
-import Dataset from '../Datasets/dataset'
-import Layout from '../Layout/column'
+import Dataset from '../Datasets/dataset';
+import Layout from '../Layout/column';
 
 const Datasets = (props) => {
   return (
@@ -11,12 +11,12 @@ const Datasets = (props) => {
         <Dataset dataset={dataset} key={dataset.pid} />
       ))}
     </SmallerGaps>
-  )
-}
-export default Datasets
+  );
+};
+export default Datasets;
 
 const SmallerGaps = styled(Layout)(
   css({
     gap: [1, 1, 2, 3],
   })
-)
+);

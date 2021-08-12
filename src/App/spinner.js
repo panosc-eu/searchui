@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-import PulseLoader from 'react-spinners/PulseLoader'
+import PulseLoader from 'react-spinners/PulseLoader';
 
-import {Box} from '../Primitives'
+import { Box } from '../Primitives';
 
 const Spinner = () => (
   <Box>
     <PulseLoader />
   </Box>
-)
+);
 
-export default Spinner
+export default Spinner;

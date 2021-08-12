@@ -1,12 +1,12 @@
-import React, {Suspense} from 'react'
+import React, { Suspense } from 'react';
 
-import About from '../About/about'
-import ErrorBoundary from '../App/errorBoundary'
-import Spinner from '../App/spinner'
-import useSections from '../App/useSections'
-import DocumentsList from '../Documents/documentsList'
-import Layout from '../Layout/row'
-import Search from '../Search/search'
+import About from '../About/about';
+import ErrorBoundary from '../App/errorBoundary';
+import Spinner from '../App/spinner';
+import useSections from '../App/useSections';
+import DocumentsList from '../Documents/documentsList';
+import Layout from '../Layout/row';
+import Search from '../Search/search';
 
 const DocumentsPage = () => {
   const sections = [
@@ -25,9 +25,9 @@ const DocumentsPage = () => {
       component: <About />,
       width: [1, 1, 5 / 16, 1 / 5],
     },
-  ]
+  ];
 
-  const {Arrange} = useSections(sections, 1)
+  const { Arrange } = useSections(sections, 1);
   return (
     <ErrorBoundary>
       <Suspense fallback={<Spinner />}>
@@ -36,6 +36,6 @@ const DocumentsPage = () => {
         </Layout>
       </Suspense>
     </ErrorBoundary>
-  )
-}
-export default DocumentsPage
+  );
+};
+export default DocumentsPage;

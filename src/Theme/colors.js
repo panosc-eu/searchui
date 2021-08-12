@@ -11,7 +11,7 @@ export const light = {
   highlight: 'hsla(205, 100%, 40%, 0.125)',
   heading: 'hsl(0, 0%, 0%)',
   pink: '#bb4677',
-}
+};
 
 export const dark = {
   text: 'hsl(0, 0%, 80%)',
@@ -26,4 +26,4 @@ export const dark = {
   highlight: 'hsla(205, 100%, 40%, 0.125)',
   heading: 'hsl(0, 0%, 100%)',
   pink: '#bb4677',
-}
+};

@@ -1,17 +1,17 @@
-import {NavLink} from 'react-router-dom'
-import {useLocation} from 'react-router-dom'
-import Switch from 'react-switch-selector'
+import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import Switch from 'react-switch-selector';
 
-import {useNavigationStore, useAppStore} from '../App/stores'
-import {Image, Flex, Box} from '../Primitives'
+import { useNavigationStore, useAppStore } from '../App/stores';
+import { Image, Flex, Box } from '../Primitives';
 
 const Navigation = () => {
   const [isDark, toggleTheme, isDesktop] = useAppStore((state) => [
     state.isDark,
     state.toggleTheme,
     state.isDesktop,
-  ])
-  const sections = useNavigationStore((state) => state.sections)
+  ]);
+  const sections = useNavigationStore((state) => state.sections);
 
   //Component refactor needed!
   const SectionLink = (props) => (
@@ -29,15 +29,15 @@ const Navigation = () => {
         fontWeight: 600,
         textTransform: 'uppercase',
         px: [1, 2, 3],
-        ':hover': {color: 'text', bg: 'background'},
-        '&.active': {bg: isDesktop && 'background'},
+        ':hover': { color: 'text', bg: 'background' },
+        '&.active': { bg: isDesktop && 'background' },
       }}
       {...props}
     />
-  )
+  );
 
-  const overrideHome = sections.find((s) => s.overrideHome)
-  const mainComponent = sections.find((s) => s.main)
+  const overrideHome = sections.find((s) => s.overrideHome);
+  const mainComponent = sections.find((s) => s.main);
 
   const Home = () => (
     <Box height={'navIcon'} p={[1, 0]} onClick={() => mainComponent?.onClick()}>
@@ -48,13 +48,13 @@ const Navigation = () => {
         src={!isDark ? '/PaNOSC_logo_black.svg' : '/PaNOSC_logo_white.svg'}
       />
     </Box>
-  )
-  const isHome = useLocation().pathname === '/'
+  );
+  const isHome = useLocation().pathname === '/';
   const Breadcrumb = () =>
     isHome ||
     (isDesktop && (
       <SectionLink {...mainComponent}>{mainComponent?.name}</SectionLink>
-    ))
+    ));
 
   return (
     <Flex
@@ -84,19 +84,19 @@ const Navigation = () => {
                 : section.name}
             </SectionLink>
           )
-        )
+        );
       })}
 
       <Box mx="auto" />
       <Box width="80px" mx={2} height="30px">
         <Switch
-          options={[{label: 'Light'}, {label: 'Dark'}]}
+          options={[{ label: 'Light' }, { label: 'Dark' }]}
           forcedSelectedIndex={isDark ? 1 : 0}
           onChange={() => toggleTheme()}
         />
       </Box>
     </Flex>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;

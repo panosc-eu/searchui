@@ -1,22 +1,22 @@
-import NotSoCrispSlider from 'rc-slider'
+import NotSoCrispSlider from 'rc-slider';
 
-import 'rc-slider/assets/index.css'
-import {Box} from '../Primitives'
+import 'rc-slider/assets/index.css';
+import { Box } from '../Primitives';
 
 const RangeSlider = NotSoCrispSlider.createSliderWithTooltip(
   NotSoCrispSlider.Range
-)
+);
 
-const Range = ({obj}) => {
+const Range = ({ obj }) => {
   const handleChange = (e) => {
     if (!obj.isActive) {
-      obj.toggleIsActive(1)
+      obj.toggleIsActive(1);
     }
     if (obj.isActive && e[0] === obj.range[0] && e[1] === obj.range[1]) {
-      obj.toggleIsActive(0)
+      obj.toggleIsActive(0);
     }
-    return obj.assocValue(e)
-  }
+    return obj.assocValue(e);
+  };
   return (
     <Box mt={-2} mb={2}>
       <RangeSlider
@@ -27,6 +27,6 @@ const Range = ({obj}) => {
         onChange={handleChange}
       />
     </Box>
-  )
-}
-export default Range
+  );
+};
+export default Range;

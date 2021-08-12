@@ -1,5 +1,5 @@
-import breakpoints from './breakpoints'
-import {light, dark} from './colors'
+import breakpoints from './breakpoints';
+import { light, dark } from './colors';
 
 const theme = (isDark) => {
   return {
@@ -155,6 +155,6 @@ const theme = (isDark) => {
         lineHeight: 'body',
       },
     },
-  }
-}
-export default theme
+  };
+};
+export default theme;

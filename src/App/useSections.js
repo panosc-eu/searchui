@@ -1,21 +1,21 @@
 /* Originally this hook did way less and was nice and clean,
  * not sure I still like it but does the job */
 
-import React, {Suspense, useState, useEffect} from 'react'
+import React, { Suspense, useState, useEffect } from 'react';
 
-import ErrorBoundary from '../App/errorBoundary'
-import Spinner from '../App/spinner'
-import {useNavigationStore, useAppStore} from '../App/stores'
-import {Box, Heading} from '../Primitives'
+import ErrorBoundary from '../App/errorBoundary';
+import Spinner from '../App/spinner';
+import { useNavigationStore, useAppStore } from '../App/stores';
+import { Box, Heading } from '../Primitives';
 
 const useSections = (sections, main) => {
-  const mainComponent = main ?? 0
+  const mainComponent = main ?? 0;
   const [isShowing, setIsShowing] = useState({
     index: mainComponent,
     name: sections[mainComponent].name,
-  })
-  const setSections = useNavigationStore((state) => state.setSections)
-  const isDesktop = useAppStore((state) => state.isDesktop)
+  });
+  const setSections = useNavigationStore((state) => state.setSections);
+  const isDesktop = useAppStore((state) => state.isDesktop);
 
   useEffect(() => {
     const sectionsObj = sections.map((section, index) => ({
@@ -25,13 +25,13 @@ const useSections = (sections, main) => {
       //whether is shown as default on page view
       main: mainComponent === index,
       name: section.name,
-      onClick: () => setIsShowing({index, name: section.name}),
+      onClick: () => setIsShowing({ index, name: section.name }),
       //whether homebutton should be overriden and point to this section
       overrideHome: section.overrideHome,
-    }))
+    }));
 
-    setSections(sectionsObj)
-  }, [sections, mainComponent, setSections, isShowing])
+    setSections(sectionsObj);
+  }, [sections, mainComponent, setSections, isShowing]);
 
   const Arrange = () =>
     sections.map((section, index) => {
@@ -55,13 +55,13 @@ const useSections = (sections, main) => {
             </ErrorBoundary>
           </Box>
         )
-      )
-    })
+      );
+    });
 
-  return {Arrange, isShowing}
-}
+  return { Arrange, isShowing };
+};
 
-export default useSections
+export default useSections;
 
 /* HOW TO USE THIS 
  * This one should have a storybook :/	

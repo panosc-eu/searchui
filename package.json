@@ -2,6 +2,13 @@
   "name": "panosc-frontend",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "lint": "run-p lint:*",
+    "lint:eslint": "eslint \"**/*.{ts,tsx,js,jsx}\" --max-warnings=0",
+    "lint:prettier": "prettier --check ."
+  },
   "dependencies": {
     "@react-hook/window-size": "^3.0.7",
     "@rebass/forms": "^4.0.6",
@@ -26,28 +33,24 @@
     "swr": "^0.5.6",
     "zustand": "^3.0.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-better-styled-components": "^1.1.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.2",
+    "typescript": "^3.9.6"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "prettier"
+      "react-app"
     ],
     "plugins": [
-      "prettier",
       "better-styled-components",
       "import"
     ],
     "rules": {
-      "prettier/prettier": [
-        "error"
-      ],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "better-styled-components/sort-declarations-alphabetically": 2,
@@ -78,14 +81,6 @@
       ]
     }
   },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true,
-    "bracketSpacing": false,
-    "arrowParens": "always"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -97,14 +92,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-better-styled-components": "^1.1.2",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react-hooks": "^4.0.8",
-    "prettier": "^2.0.5",
-    "typescript": "^3.9.6"
   }
 }

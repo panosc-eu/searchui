@@ -1,11 +1,11 @@
-import {capitalizeAndSpace} from '../App/helpers'
-import {Box, Flex, Heading} from '../Primitives'
-import KeywordsMaybeSomethingElseInTheFutureDunno from './keywordsForNow'
-import OptionsPicker from './optionsPicker'
-import Range from './range'
-import Text from './text'
+import { capitalizeAndSpace } from '../App/helpers';
+import { Box, Flex, Heading } from '../Primitives';
+import KeywordsMaybeSomethingElseInTheFutureDunno from './keywordsForNow';
+import OptionsPicker from './optionsPicker';
+import Range from './range';
+import Text from './text';
 
-const Filter = ({obj}) => {
+const Filter = ({ obj }) => {
   return (
     <Box>
       <Heading
@@ -22,7 +22,7 @@ const Filter = ({obj}) => {
         {capitalizeAndSpace(obj.name ?? obj.value)}
       </Heading>
 
-      <Flex sx={{mx: 2, flexDirection: 'column'}}>
+      <Flex sx={{ mx: 2, flexDirection: 'column' }}>
         {obj?.operator === 'between' ? (
           <Range obj={obj} />
         ) : obj.options ? (
@@ -36,7 +36,7 @@ const Filter = ({obj}) => {
         )}
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;

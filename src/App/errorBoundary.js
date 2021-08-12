@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import {ErrorBoundary} from 'react-error-boundary'
+import { ErrorBoundary } from 'react-error-boundary';
 
-import {Card} from '../Primitives'
+import { Card } from '../Primitives';
 
 const ui = (props) => {
-  const ErrorFallback = ({error, componentStack, resetErrorBoundary}) => {
+  const ErrorFallback = ({ error, componentStack, resetErrorBoundary }) => {
     return (
       <Card role="alert">
         <p>Something went wrong:</p>
@@ -13,8 +13,8 @@ const ui = (props) => {
         <pre>{componentStack}</pre>
         <button onClick={resetErrorBoundary}>Try again</button>
       </Card>
-    )
-  }
+    );
+  };
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
@@ -24,7 +24,7 @@ const ui = (props) => {
     >
       {props.children}
     </ErrorBoundary>
-  )
-}
+  );
+};
 
-export default ui
+export default ui;

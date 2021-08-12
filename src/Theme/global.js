@@ -1,6 +1,6 @@
-import css from '@styled-system/css'
-import normalize from 'normalize.css'
-import {createGlobalStyle} from 'styled-components'
+import css from '@styled-system/css';
+import normalize from 'normalize.css';
+import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle(
   css({
     normalize,
@@ -11,5 +11,5 @@ const GlobalStyle = createGlobalStyle(
       fontSize: [0, 0, 1],
     },
   })
-)
-export default GlobalStyle
+);
+export default GlobalStyle;

@@ -1,16 +1,16 @@
-import {Heading} from '../Primitives'
+import { Heading } from '../Primitives';
 
-const OptionsMapped = ({obj}) => {
+const OptionsMapped = ({ obj }) => {
   const toggleOption = (option) => {
     if (obj.value !== option || !obj.isActive) {
-      obj.assocValue(option)
+      obj.assocValue(option);
       if (!obj.isActive) {
-        obj.toggleIsActive(1)
+        obj.toggleIsActive(1);
       }
     } else {
-      obj.toggleIsActive(0)
+      obj.toggleIsActive(0);
     }
-  }
+  };
   return obj.options.map((option) => (
     <Heading
       fontSize={0}
@@ -26,7 +26,7 @@ const OptionsMapped = ({obj}) => {
     >
       {option}
     </Heading>
-  ))
-}
+  ));
+};
 
-export default OptionsMapped
+export default OptionsMapped;

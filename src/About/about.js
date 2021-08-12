@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import {Card, Link, Heading, Ul, Li} from '../Primitives'
+import { Card, Link, Heading, Ul, Li } from '../Primitives';
 
 const About = () => (
   <Card
@@ -64,6 +64,6 @@ const About = () => (
     sources in Europe to develop common policies, strategies and solutions in
     the area of FAIR data policy, data management and data services.
   </Card>
-)
+);
 
-export default About
+export default About;

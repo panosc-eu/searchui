@@ -1,6 +1,6 @@
-import {Card, Heading, Text} from '../Primitives'
+import { Card, Heading, Text } from '../Primitives';
 
-const Dataset = ({dataset}) => {
+const Dataset = ({ dataset }) => {
   return (
     <Card key={dataset.pid}>
       <Heading>{dataset.title}</Heading>
@@ -8,7 +8,7 @@ const Dataset = ({dataset}) => {
         {dataset.instrument.name} @ {dataset.instrument.facility}
       </Text>
     </Card>
-  )
-}
+  );
+};
 
-export default Dataset
+export default Dataset;

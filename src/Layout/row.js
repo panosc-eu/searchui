@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import {Flex} from '../Primitives'
+import { Flex } from '../Primitives';
 
 const Row = (props) => (
   <Flex
@@ -14,6 +14,6 @@ const Row = (props) => (
   >
     {props.children}
   </Flex>
-)
+);
 
-export default Row
+export default Row;

@@ -1,16 +1,16 @@
-import {capitalizeAndSpace} from '../App/helpers'
-import {Heading} from '../Primitives'
+import { capitalizeAndSpace } from '../App/helpers';
+import { Heading } from '../Primitives';
 
-const Keywords = ({obj}) => {
+const Keywords = ({ obj }) => {
   const toggleKeyword = (word) => {
     if (!obj.isActive) {
-      obj.toggleIsActive(1)
+      obj.toggleIsActive(1);
     }
     if (obj.isActive && obj.value.length === 1 && obj.value.includes(word)) {
-      obj.toggleIsActive(0)
+      obj.toggleIsActive(0);
     }
-    return obj.toggleValueInList(word)
-  }
+    return obj.toggleValueInList(word);
+  };
   return obj.list.map((word) => (
     <Heading
       key={word}
@@ -26,7 +26,7 @@ const Keywords = ({obj}) => {
     >
       {capitalizeAndSpace(word)}
     </Heading>
-  ))
-}
+  ));
+};
 
-export default Keywords
+export default Keywords;

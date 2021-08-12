@@ -1,48 +1,48 @@
-import React from 'react'
+import React from 'react';
 
-import {Link as RouterLink} from 'react-router-dom'
-import styled from 'styled-components'
+import { Link as RouterLink } from 'react-router-dom';
+import styled from 'styled-components';
 
-import {parseDate} from '../App/helpers'
-import {documentSize} from '../App/helpers'
-import Spinner from '../App/spinner'
-import {Card, Box, Flex, Image, Heading, Link, Text} from '../Primitives'
+import { parseDate } from '../App/helpers';
+import { documentSize } from '../App/helpers';
+import Spinner from '../App/spinner';
+import { Card, Box, Flex, Image, Heading, Link, Text } from '../Primitives';
 
-const MetaItem = ({title, data}) => (
+const MetaItem = ({ title, data }) => (
   <S.MetaItem>
     <S.Text>{title}</S.Text>
     <S.Text>{data}</S.Text>
   </S.MetaItem>
-)
+);
 
-const Member = ({data}) => (
+const Member = ({ data }) => (
   <S.Tag>
     {data.person.fullName.substring(data.person.fullName.lastIndexOf(' ') + 1) +
       ' / ' +
       data.affiliation.name}
   </S.Tag>
-)
-const Members = ({members, className}) => (
+);
+const Members = ({ members, className }) => (
   <Flex className={className}>
     {members.map((member) => (
       <Member key={member.id} data={member} />
     ))}
   </Flex>
-)
+);
 
-const HeadingLink = ({title, pid}) => (
+const HeadingLink = ({ title, pid }) => (
   <Link as={RouterLink} to={'/documents/' + encodeURIComponent(pid)}>
     <Heading>{title.substring(0, 90)}</Heading>
   </Link>
-)
+);
 
-const CitationLink = ({citation, doi, className}) => (
+const CitationLink = ({ citation, doi, className }) => (
   <Link className={className} href={'http://doi.org/' + doi}>
     {citation}
   </Link>
-)
+);
 
-const Keywords = ({keywords, className}) => (
+const Keywords = ({ keywords, className }) => (
   <Flex
     sx={{
       gap: [1, 2],
@@ -55,9 +55,9 @@ const Keywords = ({keywords, className}) => (
       </Card>
     ))}
   </Flex>
-)
+);
 
-const Document = ({document}) => {
+const Document = ({ document }) => {
   return !document ? (
     <Spinner />
   ) : (
@@ -76,46 +76,46 @@ const Document = ({document}) => {
         </S.MetaList>
       </Card>
     </S.Layout>
-  )
-}
-export default Document
+  );
+};
+export default Document;
 
-const S = {}
-S.Keywords = styled(Keywords)``
-S.Members = styled(Members)``
-S.CitationLink = styled(CitationLink)``
+const S = {};
+S.Keywords = styled(Keywords)``;
+S.Members = styled(Members)``;
+S.CitationLink = styled(CitationLink)``;
 S.Layout = styled(Flex).attrs({
   flexWrap: 'wrap',
 })`
   ${S.Members}, ${S.CitationLink} {
     display: none;
   }
-`
+`;
 S.Main = styled(Box).attrs({
   p: 3,
-})``
+})``;
 S.MetaList = styled(Box).attrs({
   sx: {
     display: 'flex',
     flexDirection: 'row',
     mt: 1,
   },
-})``
+})``;
 S.MetaItem = styled(Box).attrs({
   bg: 'middleground',
   justifyContent: 'space-evenly',
   mr: 1,
-})``
+})``;
 S.Text = styled(Text).attrs({
   display: 'inline-block',
   pr: 1,
-})``
+})``;
 S.Tag = styled(Box).attrs({
   bg: 'foreground',
   p: 1,
   m: 1,
   marginLeft: 0,
-})``
+})``;
 // S.Image = styled(Image).attrs({
 //   width: '100%',
 // })``
@@ -128,4 +128,4 @@ const ClippedText = styled(Box).attrs({
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-`
+`;

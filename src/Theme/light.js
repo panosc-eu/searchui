@@ -1,5 +1,5 @@
-import breakpoints from './breakpoints'
-import {light, dark} from './colors'
+import breakpoints from './breakpoints';
+import { light, dark } from './colors';
 
 const theme = (isDark) => ({
   fonts: {
@@ -120,5 +120,5 @@ const theme = (isDark) => ({
   },
   breakpoints,
   colors: isDark ? dark : light,
-})
-export default theme
+});
+export default theme;

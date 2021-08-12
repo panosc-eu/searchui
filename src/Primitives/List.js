@@ -1,18 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import css from '@styled-system/css'
-import styled from 'styled-components'
+import css from '@styled-system/css';
+import styled from 'styled-components';
 
-import {Text} from './'
+import { Text } from './';
 
-export const Ul = (props) => <S.ul {...props} />
+export const Ul = (props) => <S.ul {...props} />;
 export const Li = (props) => (
   <S.li {...props}>
     <Text color="text">{props.children}</Text>
   </S.li>
-)
+);
 
-const S = {}
+const S = {};
 
 S.ul = styled.ul(
   css({
@@ -20,9 +20,9 @@ S.ul = styled.ul(
     pl: 3,
     my: 1,
   })
-)
+);
 S.li = styled.li(
   css({
     color: 'pink',
   })
-)
+);

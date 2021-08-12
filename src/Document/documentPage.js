@@ -1,18 +1,18 @@
-import React, {Suspense} from 'react'
+import React, { Suspense } from 'react';
 
-import {translate} from 'search-api-adapter'
-import useSWR from 'swr'
+import { translate } from 'search-api-adapter';
+import useSWR from 'swr';
 
-import ErrorBoundary from '../App/errorBoundary'
-import Spinner from '../App/spinner'
-import useSections from '../App/useSections'
-import Datasets from '../Datasets/datasets'
-import Layout from '../Layout/row'
-import {Image} from '../Primitives'
-import Document from './document'
+import ErrorBoundary from '../App/errorBoundary';
+import Spinner from '../App/spinner';
+import useSections from '../App/useSections';
+import Datasets from '../Datasets/datasets';
+import Layout from '../Layout/row';
+import { Image } from '../Primitives';
+import Document from './document';
 
 const DocumentPage = (props) => {
-  const documentId = props.match.params.documentId
+  const documentId = props.match.params.documentId;
   const config = {
     include: [
       ['datasets', 'instrument'],
@@ -20,9 +20,9 @@ const DocumentPage = (props) => {
       ['members', 'affiliation'],
     ],
     limit: false,
-  }
-  const query = translate([], config)
-  const {data} = useSWR('/Documents/' + documentId + '?filter=' + query)
+  };
+  const query = translate([], config);
+  const { data } = useSWR('/Documents/' + documentId + '?filter=' + query);
 
   const sections = [
     {
@@ -40,8 +40,8 @@ const DocumentPage = (props) => {
       component: <Image src={data.img} />,
       width: [1, 1, 1 / 4],
     },
-  ]
-  const {Arrange} = useSections(sections)
+  ];
+  const { Arrange } = useSections(sections);
   return (
     <ErrorBoundary>
       <Suspense fallback={Spinner}>
@@ -50,7 +50,7 @@ const DocumentPage = (props) => {
         </Layout>
       </Suspense>
     </ErrorBoundary>
-  )
-}
+  );
+};
 
-export default DocumentPage
+export default DocumentPage;

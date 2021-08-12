@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-import {SWRConfig} from 'swr'
+import { SWRConfig } from 'swr';
 
-const SWRProvider = ({children}) => {
+const SWRProvider = ({ children }) => {
   const getUrl = (url) =>
-    (process.env.REACT_APP_SEARCH ?? 'http://localhost:5000/api') + url
+    (process.env.REACT_APP_SEARCH ?? 'http://localhost:5000/api') + url;
   const fetcher = (url) => {
-    const method = url.endsWith('token') ? 'post' : 'get'
+    const method = url.endsWith('token') ? 'post' : 'get';
     return (
       url &&
       fetch(getUrl(url), {
         method,
       }).then((r) => r.json())
-    )
-  }
+    );
+  };
   return (
     <SWRConfig
       value={{
@@ -23,7 +23,7 @@ const SWRProvider = ({children}) => {
     >
       {children}
     </SWRConfig>
-  )
-}
+  );
+};
 
-export default SWRProvider
+export default SWRProvider;

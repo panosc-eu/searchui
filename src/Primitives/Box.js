@@ -1,1 +1,1 @@
-export {Box as default} from 'rebass/styled-components'
+export { Box as default } from 'rebass/styled-components';

@@ -1,16 +1,16 @@
-import {useSearchStore} from '../App/stores'
-import Column from '../Layout/column'
-import {Card, Flex} from '../Primitives'
-import Grouped from './grouped'
+import { useSearchStore } from '../App/stores';
+import Column from '../Layout/column';
+import { Card, Flex } from '../Primitives';
+import Grouped from './grouped';
 
 const Search = () => {
-  const filters = useSearchStore()
-  const sortRootAs = ['title', 'type', 'keywords']
+  const filters = useSearchStore();
+  const sortRootAs = ['title', 'type', 'keywords'];
   const sortedRoot = [...filters?.root?.filters].sort(
     (a, b) => sortRootAs.indexOf(a?.name) - sortRootAs.indexOf(b?.name)
-  )
-  const techniques = filters?.techniques?.filters
-  const parameters = filters?.parameters?.filters
+  );
+  const techniques = filters?.techniques?.filters;
+  const parameters = filters?.parameters?.filters;
   return (
     <Column>
       <Card>
@@ -26,7 +26,7 @@ const Search = () => {
         </Flex>
       </Card>
     </Column>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

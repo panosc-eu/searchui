@@ -1,19 +1,16 @@
 [
   {
-    "filters":[
+    "filters": [
       {
-        "name":"type",
-        "options":[
-          "Proposal",
-          "Publication"
-        ]
+        "name": "type",
+        "options": ["Proposal", "Publication"]
       },
       {
-        "name":"title"
+        "name": "title"
       },
       {
-        "name":"keywords",
-        "list":[
+        "name": "keywords",
+        "list": [
           "keyword 1",
           "keyword 2",
           "keyword 3",
@@ -24,74 +21,51 @@
     ]
   },
   {
-    "target":[
-      "parameters"
-    ],
-    "filters":[
+    "target": ["parameters"],
+    "filters": [
       {
-        "name":"wavelength",
-        "initialRange":[
-          200,
-          1100
-        ],
-        "initialUnit":"nm"
+        "name": "wavelength",
+        "initialRange": [200, 1100],
+        "initialUnit": "nm"
       },
       {
-        "name":"unitless number thing",
-        "initialRange":[
-          200,
-          1100
-        ]
+        "name": "unitless number thing",
+        "initialRange": [200, 1100]
       },
       {
-        "name":"photon_energy",
-        "initialRange":[
-          0,
-          1000
-        ],
-        "initialUnit":"eV"
+        "name": "photon_energy",
+        "initialRange": [0, 1000],
+        "initialUnit": "eV"
       },
       {
-        "name":"chemical_formula"
+        "name": "chemical_formula"
       },
       {
-        "name":"Rainbow Generator",
-        "options":[
-          "Off",
-          "Half",
-          "Full",
-          "DOUBLE"
-        ]
+        "name": "Rainbow Generator",
+        "options": ["Off", "Half", "Full", "DOUBLE"]
       }
     ]
   },
   {
-    "target":[
-      "datasets",
-      "techniques"
-    ],
-    "filters":[
+    "target": ["datasets", "techniques"],
+    "filters": [
       {
-        "value":"technique a"
+        "value": "technique a"
       },
       {
-        "value":"technique b"
+        "value": "technique b"
       },
       {
-        "value":"technique c"
+        "value": "technique c"
       }
     ]
   },
   {
-    "filters":[
+    "filters": [
       {
-        "name":"fullName"
+        "name": "fullName"
       }
     ],
-    "target":[
-      "members",
-      "person"
-    ]
+    "target": ["members", "person"]
   }
 ]
-
