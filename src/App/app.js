@@ -8,10 +8,11 @@ import shallow from 'zustand/shallow';
 import ErrorBoundary from '../App/errorBoundary';
 import DocumentPage from '../Document/documentPage';
 import DocumentsPage from '../Documents/documentsPage';
+import Home from '../Home/home';
 import Navigation from '../Navigation/navigation';
 import { Box } from '../Primitives';
 import breakpoints from '../Theme/breakpoints';
-import Global from '../Theme/global';
+import GlobalStyles from '../Theme/global';
 import theme from '../Theme/theme';
 import Spinner from './spinner';
 import { useAppStore } from './stores';
@@ -37,10 +38,12 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme(isDark)}>
-      <Global />
+      <GlobalStyles />
+
       <Box as="nav" sx={{ position: 'sticky', top: 0, mb: [4, 5] }}>
         <Navigation />
       </Box>
+
       <Box
         ref={ref}
         mx={[4, 4, 4, 5]}
@@ -48,7 +51,7 @@ const App = () => {
       >
         <ErrorBoundary>
           <Suspense fallback={<Spinner />}>
-            <Route exact path="/" component={DocumentsPage} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/documents" component={DocumentsPage} />
             <Route
               exact

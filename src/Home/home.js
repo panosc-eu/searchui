@@ -1,14 +1,9 @@
 import React from 'react';
 
-import { Card, Link, Heading, Ul, Li } from '../Primitives';
+import { Link, Heading, Ul, Li } from '../Primitives';
 
-const About = () => (
-  <Card
-    sx={{
-      overflowY: 'auto',
-      height: 'inherit',
-    }}
-  >
+const Home = () => (
+  <>
     <Heading>The Photon and Neutron Open Science Cloud</Heading>
     The PaNOSC project brings together six strategic European research
     infrastructures and two e-infrastructures:
@@ -63,7 +58,7 @@ const About = () => (
     This is why the project works closely with the national photon and neutron
     sources in Europe to develop common policies, strategies and solutions in
     the area of FAIR data policy, data management and data services.
-  </Card>
+  </>
 );
 
-export default About;
+export default Home;

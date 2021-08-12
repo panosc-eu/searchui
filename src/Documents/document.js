@@ -62,9 +62,6 @@ const Document = ({ document }) => {
     <Spinner />
   ) : (
     <S.Layout>
-      <Box width={[1, 1 / 2, 1 / 2, 1 / 3, 2 / 7]}>
-        <Image width="100%" src={document.img} />
-      </Box>
       <Card width={[1, 1 / 2, 1 / 2, 2 / 3, 5 / 7]}>
         <HeadingLink pid={document.pid} title={document.title} />
         <S.Keywords keywords={document.keywords} />
@@ -75,6 +72,9 @@ const Document = ({ document }) => {
           <MetaItem title="Size" data={documentSize(document.datasets)} />
         </S.MetaList>
       </Card>
+      <Box width={[1, 1 / 2, 1 / 2, 1 / 3, 2 / 7]}>
+        <Image width="100%" src={document.img} />
+      </Box>
     </S.Layout>
   );
 };

@@ -13,7 +13,6 @@ export const Li = (props) => (
 );
 
 const S = {};
-
 S.ul = styled.ul(
   css({
     listStyle: 'square',

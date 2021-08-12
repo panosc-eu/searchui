@@ -1,10 +1,8 @@
-import { NavLink } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import Switch from 'react-switch-selector';
 import shallow from 'zustand/shallow';
 
 import { useNavigationStore, useAppStore } from '../App/stores';
-import { Image, Flex, Box } from '../Primitives';
+import { Image, Flex, Box, NavLink } from '../Primitives';
 
 const Navigation = () => {
   const [isDark, toggleTheme, isDesktop] = useAppStore(
@@ -18,9 +16,7 @@ const Navigation = () => {
   const SectionLink = (props) => (
     <Flex
       sx={{
-        height: '100%',
-        flexDirection: 'column',
-        justifyContent: 'center',
+        alignItems: 'center',
         fontSize: [0, 1],
         cursor: 'pointer',
         bg: props.active ? 'background' : 'nav',
@@ -40,7 +36,7 @@ const Navigation = () => {
   const overrideHome = sections.find((s) => s.overrideHome);
   const mainComponent = sections.find((s) => s.main);
 
-  const Home = () => (
+  const Logo = () => (
     <Box height={'navIcon'} p={[1, 0]} onClick={() => mainComponent?.onClick()}>
       <Image
         height="100%"
@@ -50,31 +46,22 @@ const Navigation = () => {
       />
     </Box>
   );
-  const isHome = useLocation().pathname === '/';
-  const Breadcrumb = () =>
-    isHome ||
-    (isDesktop && (
-      <SectionLink {...mainComponent}>{mainComponent?.name}</SectionLink>
-    ));
 
   return (
-    <Flex
-      sx={{
-        bg: 'nav',
-        height: 'nav',
-        alignItems: 'center',
-      }}
-    >
+    <Flex sx={{ bg: 'nav', height: 'nav' }}>
       {overrideHome ? (
         <SectionLink {...overrideHome}>
-          <Home />
+          <Logo />
         </SectionLink>
       ) : (
-        <SectionLink as={NavLink} exact={true} to="/">
-          <Home />
-        </SectionLink>
+        <NavLink to="/" exact>
+          <Logo />
+        </NavLink>
       )}
-      <Breadcrumb />
+
+      <NavLink to="/documents" exact>
+        Browse
+      </NavLink>
 
       {sections.map((section) => {
         return (
@@ -89,7 +76,7 @@ const Navigation = () => {
       })}
 
       <Box mx="auto" />
-      <Box width="80px" mx={2} height="30px">
+      <Box width="80px" mx={2} height="30px" alignSelf="center">
         <Switch
           options={[{ label: 'Light' }, { label: 'Dark' }]}
           forcedSelectedIndex={isDark ? 1 : 0}

@@ -1,7 +1,8 @@
 import css from '@styled-system/css';
 import normalize from 'normalize.css';
 import { createGlobalStyle } from 'styled-components';
-const GlobalStyle = createGlobalStyle(
+
+const GlobalStyles = createGlobalStyle(
   css({
     normalize,
     body: {
@@ -12,4 +13,5 @@ const GlobalStyle = createGlobalStyle(
     },
   })
 );
-export default GlobalStyle;
+
+export default GlobalStyles;
