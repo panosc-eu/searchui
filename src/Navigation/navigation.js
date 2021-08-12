@@ -1,16 +1,17 @@
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Switch from 'react-switch-selector';
+import shallow from 'zustand/shallow';
 
 import { useNavigationStore, useAppStore } from '../App/stores';
 import { Image, Flex, Box } from '../Primitives';
 
 const Navigation = () => {
-  const [isDark, toggleTheme, isDesktop] = useAppStore((state) => [
-    state.isDark,
-    state.toggleTheme,
-    state.isDesktop,
-  ]);
+  const [isDark, toggleTheme, isDesktop] = useAppStore(
+    (state) => [state.isDark, state.toggleTheme, state.isDesktop],
+    shallow
+  );
+
   const sections = useNavigationStore((state) => state.sections);
 
   //Component refactor needed!

@@ -9,6 +9,7 @@ import React, {
 import { useInView } from 'react-intersection-observer';
 import { translate } from 'search-api-adapter';
 import { useSWRInfinite } from 'swr';
+import shallow from 'zustand/shallow';
 
 import ErrorBoundary from '../App/errorBoundary';
 import Spinner from '../App/spinner';
@@ -18,10 +19,10 @@ import { Box } from '../Primitives';
 import Document from './document';
 
 const DocumentsList = () => {
-  const [initialSize, setInitialSize] = useDocumentsStore((state) => [
-    state.page,
-    state.setPage,
-  ]);
+  const [initialSize, setInitialSize] = useDocumentsStore(
+    (state) => [state.page, state.setPage],
+    shallow
+  );
 
   const queryConfig = {
     include: [['datasets'], ['members', 'affiliation'], ['members', 'person']],

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary as Boundary } from 'react-error-boundary';
 
 import { Card } from '../Primitives';
 
-const ui = (props) => {
+const ErrorBoundary = (props) => {
   const ErrorFallback = ({ error, componentStack, resetErrorBoundary }) => {
     return (
       <Card role="alert">
@@ -16,15 +16,15 @@ const ui = (props) => {
     );
   };
   return (
-    <ErrorBoundary
+    <Boundary
       FallbackComponent={ErrorFallback}
       onReset={() => {
         // reset the state of your app so the error doesn't happen again
       }}
     >
       {props.children}
-    </ErrorBoundary>
+    </Boundary>
   );
 };
 
-export default ui;
+export default ErrorBoundary;

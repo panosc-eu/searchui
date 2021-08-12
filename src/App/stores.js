@@ -24,8 +24,10 @@ export const useAppStore = create((set, get) => ({
     localStorage.setItem('isDark', newTheme);
     set(() => ({ isDark: newTheme }));
   },
+
   windowWidth: false,
   setWindowWidth: (n) => set(() => ({ windowWidth: n })),
+
   //should be determined from above once i learn how to middleware
   isDesktop: true,
   setIsDesktop: (bool) => set(() => ({ isDesktop: bool })),

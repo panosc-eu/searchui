@@ -1,14 +1,16 @@
 import { useEffect, useCallback } from 'react';
 
 import debounce from 'lodash.debounce';
+import shallow from 'zustand/shallow';
 
 import { useDocumentsStore } from '../App/stores';
 
 const useScrollPosition = (loading) => {
-  const scrollPosition = useDocumentsStore((state) => state.scrollPosition);
-  const setScrollPosition = useDocumentsStore(
-    (state) => state.setScrollPosition
+  const [scrollPosition, setScrollPosition] = useDocumentsStore(
+    (state) => [state.scrollPosition, state.setScrollPosition],
+    shallow
   );
+
   const handleScroll = useCallback(() => {
     if (!loading) {
       setScrollPosition(window.scrollY);

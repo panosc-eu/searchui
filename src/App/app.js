@@ -3,6 +3,7 @@ import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { useWindowWidth } from '@react-hook/window-size';
 import { Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import shallow from 'zustand/shallow';
 
 import ErrorBoundary from '../App/errorBoundary';
 import DocumentPage from '../Document/documentPage';
@@ -16,11 +17,11 @@ import Spinner from './spinner';
 import { useAppStore } from './stores';
 
 const App = () => {
-  const [isDark, setWindowWidth, setIsDesktop] = useAppStore((state) => [
-    state.isDark,
-    state.setWindowWidth,
-    state.setIsDesktop,
-  ]);
+  const [isDark, setWindowWidth, setIsDesktop] = useAppStore(
+    (state) => [state.isDark, state.setWindowWidth, state.setIsDesktop],
+    shallow
+  );
+
   const windowWidth = useWindowWidth();
   const ref = useRef(null);
   const [contentHeight, setContentHeight] = useState(0);

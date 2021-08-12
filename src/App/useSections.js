@@ -10,10 +10,12 @@ import { Box, Heading } from '../Primitives';
 
 const useSections = (sections, main) => {
   const mainComponent = main ?? 0;
+
   const [isShowing, setIsShowing] = useState({
     index: mainComponent,
     name: sections[mainComponent].name,
   });
+
   const setSections = useNavigationStore((state) => state.setSections);
   const isDesktop = useAppStore((state) => state.isDesktop);
 
@@ -63,9 +65,9 @@ const useSections = (sections, main) => {
 
 export default useSections;
 
-/* HOW TO USE THIS 
- * This one should have a storybook :/	
- *  	
+/* HOW TO USE THIS
+ * This one should have a storybook :/
+ *
   const sectionsArray = [
 	  {
 		  name: 'component name',
@@ -73,19 +75,19 @@ export default useSections;
 
 		//Keys bellow are optional, see defaults
 		//array of widths, each key corresnponds to a breakpoint
-		  width: [1, 1, 1/3], 
+		  width: [1, 1, 1/3],
 		//whether title for component should be automatically rendered
 		  hideTitle:  false,
 		//whether homebutton should point to this section
 		  overrideHome: false
 	  }, {...}, {...}
   ]
- 
+
   const {Arrange, isShowing} = useSections(sectionsArray, mainSectionKey)
 
   console.log(`which component is currently being shown ${isShowing}`)
 
-	
+
   return <Arrange />
 
 */
