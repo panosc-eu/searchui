@@ -6,9 +6,7 @@ const Column = (props) => (
   <Flex
     sx={{
       flexDirection: 'column',
-      gap: [3, 2, 3, 4],
-      overflowY: 'auto',
-      height: 'inherit',
+      gap: [3, 3, 3, 4],
     }}
     ref={props?.forwardRef}
     className={props.className}

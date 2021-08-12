@@ -1,11 +1,11 @@
-import React, { Suspense, useRef, useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { Suspense } from 'react';
 
 import { useWindowWidth } from '@react-hook/window-size';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import shallow from 'zustand/shallow';
 
-import ErrorBoundary from '../App/errorBoundary';
 import DocumentPage from '../Document/documentPage';
 import DocumentsPage from '../Documents/documentsPage';
 import Home from '../Home/home';
@@ -14,6 +14,7 @@ import { Box } from '../Primitives';
 import breakpoints from '../Theme/breakpoints';
 import GlobalStyles from '../Theme/global';
 import theme from '../Theme/theme';
+import ErrorBoundary from './errorBoundary';
 import Spinner from './spinner';
 import { useAppStore } from './stores';
 
@@ -24,12 +25,6 @@ const App = () => {
   );
 
   const windowWidth = useWindowWidth();
-  const ref = useRef(null);
-  const [contentHeight, setContentHeight] = useState(0);
-  useEffect(() => {
-    const height = ref.current.getBoundingClientRect().top + window.scrollY;
-    setContentHeight(height);
-  }, [ref]);
 
   useEffect(() => {
     setWindowWidth(windowWidth);
@@ -40,24 +35,22 @@ const App = () => {
     <ThemeProvider theme={theme(isDark)}>
       <GlobalStyles />
 
-      <Box as="nav" sx={{ position: 'sticky', top: 0, mb: [4, 5] }}>
+      <Box as="nav" sx={{ position: 'sticky', top: 0, mb: [3, 4] }}>
         <Navigation />
       </Box>
 
-      <Box
-        ref={ref}
-        mx={[4, 4, 4, 5]}
-        sx={{ height: `calc(100vh - ${contentHeight + 64}px)` }}
-      >
+      <Box mx={[3, 3, 3, 4]} mb={5}>
         <ErrorBoundary>
           <Suspense fallback={<Spinner />}>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/documents" component={DocumentsPage} />
-            <Route
-              exact
-              path="/documents/:documentId"
-              component={DocumentPage}
-            />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/documents" component={DocumentsPage} />
+              <Route
+                exact
+                path="/documents/:documentId"
+                component={DocumentPage}
+              />
+            </Switch>
           </Suspense>
         </ErrorBoundary>
       </Box>

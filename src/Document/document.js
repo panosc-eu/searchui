@@ -14,7 +14,7 @@ const Detail = (props) => (
 const Document = ({ data }) => {
   return (
     <Box>
-      <Card>
+      <Card p={2}>
         <Heading>Description</Heading>
         <Text>{data.summary}</Text>
       </Card>

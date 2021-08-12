@@ -1,14 +1,10 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import { translate } from 'search-api-adapter';
 import useSWR from 'swr';
 
-import ErrorBoundary from '../App/errorBoundary';
-import Spinner from '../App/spinner';
-import useSections from '../App/useSections';
 import Datasets from '../Datasets/datasets';
-import Layout from '../Layout/row';
-import { Image } from '../Primitives';
+import { Image, Box, Heading, Flex } from '../Primitives';
 import Document from './document';
 
 const DocumentPage = (props) => {
@@ -24,32 +20,26 @@ const DocumentPage = (props) => {
   const query = translate([], config);
   const { data } = useSWR('/Documents/' + documentId + '?filter=' + query);
 
-  const sections = [
-    {
-      name: data.title,
-      component: <Document data={data} />,
-      width: [1, 1, 1 / 2],
-    },
-    {
-      name: 'Datasets',
-      component: <Datasets datasets={data.datasets} />,
-      width: [1, 1, 1 / 4],
-    },
-    {
-      name: 'Preview',
-      component: <Image src={data.img} />,
-      width: [1, 1, 1 / 4],
-    },
-  ];
-  const { Arrange } = useSections(sections);
   return (
-    <ErrorBoundary>
-      <Suspense fallback={Spinner}>
-        <Layout>
-          <Arrange />
-        </Layout>
-      </Suspense>
-    </ErrorBoundary>
+    <Flex
+      sx={{
+        flexDirection: ['column', 'column', 'row'],
+        gap: [3, 3, 3, 4],
+      }}
+    >
+      <Box width={[1, 1, 1 / 2]}>
+        <Heading variant="display">{data.title}</Heading>
+        <Document data={data} />
+      </Box>
+      <Box width={[1, 1, 1 / 4]}>
+        <Heading variant="display">Datasets</Heading>
+        <Datasets datasets={data.datasets} />
+      </Box>
+      <Box width={[1, 1, 1 / 4]}>
+        <Heading variant="display">Preview</Heading>
+        <Image src={data.img} />
+      </Box>
+    </Flex>
   );
 };
 

@@ -18,7 +18,7 @@ const NavLink = (props) => {
         fontWeight: 600,
         textDecoration: 'none',
         textTransform: 'uppercase',
-        px: [1, 2, 3],
+        px: [2, 3],
         ':hover': { color: 'text', bg: 'background' },
       }}
       {...props}

@@ -16,7 +16,7 @@ import Spinner from '../App/spinner';
 import { useDocumentsStore, useSearchStore } from '../App/stores';
 import Column from '../Layout/column';
 import { Box } from '../Primitives';
-import Document from './document';
+import DocumentResult from './documentResult';
 
 const DocumentsList = () => {
   const [initialSize, setInitialSize] = useDocumentsStore(
@@ -92,7 +92,7 @@ const DocumentsList = () => {
       <Suspense fallback={<Spinner />}>
         <Column forwardRef={documentsRef}>
           {documents?.map((document) => (
-            <Document document={document} key={document.pid} />
+            <DocumentResult document={document} key={document.pid} />
           ))}
           {!isReachingEnd && !isLoadingMore && <Box ref={ref}>Loading...</Box>}
         </Column>

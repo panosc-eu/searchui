@@ -57,12 +57,20 @@ const Keywords = ({ keywords, className }) => (
   </Flex>
 );
 
-const Document = ({ document }) => {
+const DocumentResult = ({ document }) => {
   return !document ? (
     <Spinner />
   ) : (
-    <S.Layout>
-      <Card width={[1, 1 / 2, 1 / 2, 2 / 3, 5 / 7]}>
+    <Box display={['block', 'flex']}>
+      <Box
+        display={['block', 'none']}
+        bg="middleground"
+        height="10rem"
+        overflow="hidden"
+      >
+        <Image src={document.img} width="100%" height="100%" />
+      </Box>
+      <Card p={[3, 3, 3]} width={[1, 2 / 3, 3 / 4]}>
         <HeadingLink pid={document.pid} title={document.title} />
         <S.Keywords keywords={document.keywords} />
         <ClippedText mt={2} lineHeight="1.5" children={document.summary} />
@@ -72,13 +80,17 @@ const Document = ({ document }) => {
           <MetaItem title="Size" data={documentSize(document.datasets)} />
         </S.MetaList>
       </Card>
-      <Box width={[1, 1 / 2, 1 / 2, 1 / 3, 2 / 7]}>
-        <Image width="100%" src={document.img} />
+      <Box
+        display={['none', 'block']}
+        width={[1, 1 / 3, 1 / 4]}
+        bg="middleground"
+      >
+        <Image width="100%" src={document.img} minHeight="0" />
       </Box>
-    </S.Layout>
+    </Box>
   );
 };
-export default Document;
+export default DocumentResult;
 
 const S = {};
 S.Keywords = styled(Keywords)``;

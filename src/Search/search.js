@@ -13,7 +13,7 @@ const Search = () => {
   const parameters = filters?.parameters?.filters;
   return (
     <Column>
-      <Card>
+      <Card p={2}>
         <Flex
           sx={{
             gap: [3, 2, 3, 4],

@@ -1,35 +1,34 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
-import ErrorBoundary from '../App/errorBoundary';
-import Spinner from '../App/spinner';
-import useSections from '../App/useSections';
 import DocumentsList from '../Documents/documentsList';
-import Layout from '../Layout/row';
+import { Flex, Box } from '../Primitives';
 import Search from '../Search/search';
 
 const DocumentsPage = () => {
-  const sections = [
-    {
-      name: 'Search',
-      component: <Search />,
-      width: [1, 1, 1 / 4],
-    },
-    {
-      name: 'Data',
-      component: <DocumentsList name="Data" />,
-      width: [1, 1, 3 / 4],
-    },
-  ];
-
-  const { Arrange } = useSections(sections, 1);
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<Spinner />}>
-        <Layout>
-          <Arrange />
-        </Layout>
-      </Suspense>
-    </ErrorBoundary>
+    <Flex
+      sx={{
+        flexDirection: ['column', 'column', 'row'],
+        gap: [3, 3, 3, 4],
+      }}
+    >
+      <Box display={['block', 'block', 'none']} width={[1, 1, 1 / 4]}>
+        <Box as="details">
+          <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>
+            Filters
+          </Box>
+          <Box mt={2}>
+            <Search />
+          </Box>
+        </Box>
+      </Box>
+      <Box display={['none', 'none', 'block']} width={[1, 1, 1 / 4]}>
+        <Search />
+      </Box>
+      <Box width={[1, 1, 3 / 4]}>
+        <DocumentsList name="Data" />
+      </Box>
+    </Flex>
   );
 };
 export default DocumentsPage;

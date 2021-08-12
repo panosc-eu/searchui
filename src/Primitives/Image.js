@@ -9,4 +9,5 @@ export default RImage;
 
 const SImage = styled(Image)`
   display: block;
+  object-fit: cover;
 `;

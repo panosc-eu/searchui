@@ -32,11 +32,6 @@ export const useAppStore = create((set, get) => ({
   setIsDesktop: (bool) => set(() => ({ isDesktop: bool })),
 }));
 
-export const useNavigationStore = create((set) => ({
-  sections: [],
-  setSections: (arr) => set(() => ({ sections: arr })),
-}));
-
 export const useSearchStore = create((set) =>
   init(filterables, { setter: set, debounce: 50 })
 );
