@@ -3,10 +3,11 @@ import NotSoCrispSlider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import {Box} from '../Primitives'
 
+const RangeSlider = NotSoCrispSlider.createSliderWithTooltip(
+  NotSoCrispSlider.Range
+)
+
 const Range = ({obj}) => {
-  const RangeSlider = NotSoCrispSlider.createSliderWithTooltip(
-    NotSoCrispSlider.Range
-  )
   const handleChange = (e) => {
     if (!obj.isActive) {
       obj.toggleIsActive(1)
