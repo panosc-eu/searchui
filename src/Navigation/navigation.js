@@ -1,12 +1,11 @@
-import Switch from 'react-switch-selector';
 import shallow from 'zustand/shallow';
 
 import { useNavigationStore, useAppStore } from '../App/stores';
 import { Image, Flex, Box, NavLink } from '../Primitives';
 
 const Navigation = () => {
-  const [isDark, toggleTheme, isDesktop] = useAppStore(
-    (state) => [state.isDark, state.toggleTheme, state.isDesktop],
+  const [isDark, isDesktop] = useAppStore(
+    (state) => [state.isDark, state.isDesktop],
     shallow
   );
 
@@ -33,7 +32,6 @@ const Navigation = () => {
     />
   );
 
-  const overrideHome = sections.find((s) => s.overrideHome);
   const mainComponent = sections.find((s) => s.main);
 
   const Logo = () => (
@@ -49,16 +47,9 @@ const Navigation = () => {
 
   return (
     <Flex sx={{ bg: 'nav', height: 'nav' }}>
-      {overrideHome ? (
-        <SectionLink {...overrideHome}>
-          <Logo />
-        </SectionLink>
-      ) : (
-        <NavLink to="/" exact>
-          <Logo />
-        </NavLink>
-      )}
-
+      <NavLink to="/" exact>
+        <Logo />
+      </NavLink>
       <NavLink to="/documents" exact>
         Browse
       </NavLink>
@@ -75,14 +66,14 @@ const Navigation = () => {
         );
       })}
 
-      <Box mx="auto" />
+      {/* <Box mx="auto" />
       <Box width="80px" mx={2} height="30px" alignSelf="center">
         <Switch
           options={[{ label: 'Light' }, { label: 'Dark' }]}
           forcedSelectedIndex={isDark ? 1 : 0}
           onChange={() => toggleTheme()}
         />
-      </Box>
+      </Box> */}
     </Flex>
   );
 };

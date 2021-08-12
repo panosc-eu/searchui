@@ -3,12 +3,11 @@ import create from 'zustand';
 
 import filterables from '../Search/filterables.json';
 
-const preset =
-  localStorage.getItem('isDark') === 'true' ||
-  (window.matchMedia &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ? true
-    : false;
+// const preset =
+//   localStorage.getItem('isDark') === 'true' ||
+//   window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+//     ? true
+//     : false;
 
 export const useDocumentsStore = create((set) => ({
   page: 1,
@@ -18,10 +17,10 @@ export const useDocumentsStore = create((set) => ({
 }));
 
 export const useAppStore = create((set, get) => ({
-  isDark: preset,
+  isDark: true, // preset,
   toggleTheme: () => {
     const newTheme = !get().isDark;
-    localStorage.setItem('isDark', newTheme);
+    // localStorage.setItem('isDark', newTheme);
     set(() => ({ isDark: newTheme }));
   },
 

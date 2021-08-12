@@ -28,8 +28,6 @@ const useSections = (sections, main) => {
       main: mainComponent === index,
       name: section.name,
       onClick: () => setIsShowing({ index, name: section.name }),
-      //whether homebutton should be overriden and point to this section
-      overrideHome: section.overrideHome,
     }));
 
     setSections(sectionsObj);
@@ -78,8 +76,6 @@ export default useSections;
 		  width: [1, 1, 1/3],
 		//whether title for component should be automatically rendered
 		  hideTitle:  false,
-		//whether homebutton should point to this section
-		  overrideHome: false
 	  }, {...}, {...}
   ]
 
