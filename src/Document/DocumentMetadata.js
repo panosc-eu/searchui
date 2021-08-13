@@ -4,21 +4,28 @@ import styled from 'styled-components';
 
 import { Box, Card, Heading, Link, Text } from '../Primitives';
 
-const Detail = (props) => (
-  <S.Detail as="p">
-    <S.Text fontWeight="bold">{props.caption}</S.Text>
-    <S.Text>{props.children}</S.Text>
-  </S.Detail>
-);
+function Detail(props) {
+  return (
+    <S.Detail as="li">
+      <S.Text fontWeight="bold">{props.caption}</S.Text>
+      <S.Text>{props.children}</S.Text>
+    </S.Detail>
+  );
+}
 
-const DocumentMetadata = ({ data }) => {
+function DocumentMetadata({ data }) {
   return (
     <Box>
       <Card p={2}>
         <Heading>Description</Heading>
         <Text as="p">{data.summary}</Text>
       </Card>
-      <Box sx={{ 'p:last-child > div': { pb: [2, 2, 3, 4] } }}>
+      <Box
+        as="ul"
+        color="inherit"
+        pl={0}
+        sx={{ 'li:last-child > div': { pb: [2, 2, 3, 4] } }}
+      >
         <Detail caption="Citation">
           <Link display="block" href={'http://doi.org/' + data.doi} blank>
             {data.citation}
@@ -31,7 +38,7 @@ const DocumentMetadata = ({ data }) => {
       </Box>
     </Box>
   );
-};
+}
 
 export default DocumentMetadata;
 

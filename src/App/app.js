@@ -14,7 +14,7 @@ import GlobalStyles from './GlobalStyles';
 import Navigation from './Navigation';
 import Spinner from './Spinner';
 
-const App = () => {
+function App() {
   const theme = useTheme();
 
   return (
@@ -42,6 +42,6 @@ const App = () => {
       </Box>
     </ThemeProvider>
   );
-};
+}
 
 export default App;

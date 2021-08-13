@@ -1,7 +1,9 @@
 import { Heading } from '../Primitives';
 
-const OptionsPicker = ({ obj }) => {
-  const toggleOption = (option) => {
+function OptionsPicker(props) {
+  const { obj } = props;
+
+  function toggleOption(option) {
     if (obj.value !== option || !obj.isActive) {
       obj.assocValue(option);
       if (!obj.isActive) {
@@ -10,7 +12,7 @@ const OptionsPicker = ({ obj }) => {
     } else {
       obj.toggleIsActive(0);
     }
-  };
+  }
 
   return obj.options.map((option) => (
     <Heading
@@ -28,6 +30,6 @@ const OptionsPicker = ({ obj }) => {
       {option}
     </Heading>
   ));
-};
+}
 
 export default OptionsPicker;

@@ -1,11 +1,11 @@
 import { capitalizeAndSpace } from '../App/helpers';
 import { Box, Flex, Heading } from '../Primitives';
-import KeywordsPicker from './KeywordsPicker';
-import OptionsPicker from './OptionsPicker';
-import Range from './Range';
-import TextInput from './TextInput';
+import FilterControl from './FilterControl';
 
-const Filter = ({ obj }) => {
+function Filter(props) {
+  const { obj } = props;
+  const control = <FilterControl obj={obj} />;
+
   return (
     <Box>
       <Heading
@@ -22,21 +22,13 @@ const Filter = ({ obj }) => {
         {capitalizeAndSpace(obj.name ?? obj.value)}
       </Heading>
 
-      <Flex column mx={2}>
-        {obj?.operator === 'between' ? (
-          <Range obj={obj} />
-        ) : obj.options ? (
-          <OptionsPicker obj={obj} />
-        ) : obj.list ? (
-          <KeywordsPicker obj={obj} />
-        ) : (
-          ['ilike', 'nilike', 'like', 'nlike', 'regexp', 'eq', 'neq'].includes(
-            obj?.operator
-          ) && <TextInput obj={obj} />
-        )}
-      </Flex>
+      {control && (
+        <Flex column mx={2}>
+          {control}
+        </Flex>
+      )}
     </Box>
   );
-};
+}
 
 export default Filter;

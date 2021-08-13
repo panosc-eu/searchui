@@ -4,7 +4,7 @@ import { Flex, Box } from '../Primitives';
 import Search from '../Search/Search';
 import DocumentList from './DocumentList';
 
-const ExplorePage = () => {
+function ExplorePage() {
   return (
     <Flex flexDirection={['column', 'column', 'row']} gap={[3, 3, 3, 4]}>
       <Box display={['block', 'block', 'none']} width={[1, 1, 1 / 4]}>
@@ -25,5 +25,5 @@ const ExplorePage = () => {
       </Box>
     </Flex>
   );
-};
+}
 export default ExplorePage;

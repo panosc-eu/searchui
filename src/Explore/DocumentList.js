@@ -17,7 +17,7 @@ import { useDocumentsStore, useSearchStore } from '../App/stores';
 import { Box, Flex } from '../Primitives';
 import DocumentItem from './DocumentItem';
 
-const DocumentList = () => {
+function DocumentList() {
   const [initialSize, setInitialSize] = useDocumentsStore(
     (state) => [state.page, state.setPage],
     shallow
@@ -30,13 +30,14 @@ const DocumentList = () => {
 
   const filters = useSearchStore();
 
-  const getQuery = (idx, previous) =>
-    previous && !previous.length
+  function getQuery(idx, previous) {
+    return previous && !previous.length
       ? null
       : `/Documents?filter=${translate(filters, {
           ...queryConfig,
           page: idx + 1,
         })}`;
+  }
 
   const { data, error, size, setSize, mutate } = useSWRInfinite(getQuery, {
     persistSize: true,
@@ -98,5 +99,5 @@ const DocumentList = () => {
       </Suspense>
     </ErrorBoundary>
   );
-};
+}
 export default DocumentList;

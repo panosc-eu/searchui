@@ -4,14 +4,13 @@ import { Link, useRouteMatch } from 'react-router-dom';
 
 import { Flex } from '.';
 
-const NavLink = ({ to, exact, sx, ...props }) => {
+function NavLink({ to, exact, sx, ...props }) {
   const match = useRouteMatch({ path: to, exact });
 
   return (
     <Flex
       as={Link}
       to={to}
-      exact={exact}
       sx={{
         alignItems: 'center',
         px: [2, 3],
@@ -27,6 +26,6 @@ const NavLink = ({ to, exact, sx, ...props }) => {
       {...props}
     />
   );
-};
+}
 
 export default NavLink;

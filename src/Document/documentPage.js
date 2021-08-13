@@ -4,20 +4,20 @@ import { translate } from 'search-api-adapter';
 import useSWR from 'swr';
 
 import { Image, Box, Heading, Flex } from '../Primitives';
-import DatasetList from './DatasetList';
+import Dataset from './Dataset';
 import DocumentMetadata from './DocumentMetadata';
 
-const DocumentPage = (props) => {
-  const documentId = props.match.params.documentId;
-  const config = {
+function DocumentPage(props) {
+  const query = translate([], {
     include: [
       ['datasets', 'instrument'],
       ['members', 'person'],
       ['members', 'affiliation'],
     ],
     limit: false,
-  };
-  const query = translate([], config);
+  });
+
+  const documentId = props.match.params.documentId;
   const { data } = useSWR('/Documents/' + documentId + '?filter=' + query);
 
   return (
@@ -30,7 +30,11 @@ const DocumentPage = (props) => {
       </Box>
       <Box width={[1, 1, 1 / 4]}>
         <Heading variant="display">Datasets</Heading>
-        <DatasetList datasets={data.datasets} />
+        <Flex column gap={[1, 1, 2, 3]}>
+          {data.datasets?.map((dataset) => (
+            <Dataset key={dataset.pid} {...dataset} />
+          ))}
+        </Flex>
       </Box>
       <Box width={[1, 1, 1 / 4]}>
         <Heading variant="display">Preview</Heading>
@@ -38,6 +42,6 @@ const DocumentPage = (props) => {
       </Box>
     </Flex>
   );
-};
+}
 
 export default DocumentPage;

@@ -17,8 +17,6 @@ const GlobalStyles = createGlobalStyle(
     },
     ul: {
       listStyleType: 'square',
-    },
-    li: {
       color: 'pink',
     },
   })

@@ -4,10 +4,12 @@ import PulseLoader from 'react-spinners/PulseLoader';
 
 import { Box } from '../Primitives';
 
-const Spinner = () => (
-  <Box>
-    <PulseLoader />
-  </Box>
-);
+function Spinner() {
+  return (
+    <Box>
+      <PulseLoader />
+    </Box>
+  );
+}
 
 export default Spinner;

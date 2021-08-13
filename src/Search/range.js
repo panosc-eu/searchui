@@ -7,8 +7,10 @@ const RangeSlider = NotSoCrispSlider.createSliderWithTooltip(
   NotSoCrispSlider.Range
 );
 
-const Range = ({ obj }) => {
-  const handleChange = (e) => {
+function Range(props) {
+  const { obj } = props;
+
+  function handleChange(e) {
     if (!obj.isActive) {
       obj.toggleIsActive(1);
     }
@@ -16,7 +18,8 @@ const Range = ({ obj }) => {
       obj.toggleIsActive(0);
     }
     return obj.assocValue(e);
-  };
+  }
+
   return (
     <Box mt={-2} mb={2}>
       <RangeSlider
@@ -28,6 +31,6 @@ const Range = ({ obj }) => {
       />
     </Box>
   );
-};
+}
 
 export default Range;

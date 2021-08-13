@@ -1,7 +1,9 @@
 import { Heading, Flex, Box } from '../Primitives';
-import Generic from './Filter';
+import Filter from './Filter';
 
-const FilterGroup = ({ name, filters }) => {
+function FilterGroup(props) {
+  const { name, filters } = props;
+
   const isAnyActive = filters
     .reduce((acc, item) => [...acc, item.isActive], [])
     .includes(true);
@@ -21,11 +23,11 @@ const FilterGroup = ({ name, filters }) => {
       <Flex column mx={2}>
         {filters.map((obj) => (
           <Box key={obj.name ?? obj.value}>
-            <Generic obj={obj} />
+            <Filter obj={obj} />
           </Box>
         ))}
       </Flex>
     </Box>
   );
-};
+}
 export default FilterGroup;
