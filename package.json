@@ -10,12 +10,8 @@
     "lint:prettier": "prettier --check ."
   },
   "dependencies": {
-    "@react-hook/window-size": "^3.0.7",
     "@rebass/forms": "^4.0.6",
     "@styled-system/css": "^5.1.5",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "moment": "^2.27.0",
     "normalize.css": "^8.0.1",
     "rc-slider": "^9.7.2",
@@ -34,6 +30,9 @@
     "zustand": "^3.0.3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
     "eslint": "^7.32.0",
     "eslint-plugin-better-styled-components": "^1.1.2",
     "eslint-plugin-import": "^2.22.0",

@@ -1,11 +1,9 @@
-import NotSoCrispSlider from 'rc-slider';
+import RCSlider from 'rc-slider';
 
 import 'rc-slider/assets/index.css';
 import { Box } from '../Primitives';
 
-const RangeSlider = NotSoCrispSlider.createSliderWithTooltip(
-  NotSoCrispSlider.Range
-);
+const RangeSlider = RCSlider.createSliderWithTooltip(RCSlider.Range);
 
 function Range(props) {
   const { obj } = props;
