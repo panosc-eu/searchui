@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { parseDate } from '../App/helpers';
@@ -30,12 +30,6 @@ const Members = ({ members, className }) => (
   </Flex>
 );
 
-const HeadingLink = ({ title, pid }) => (
-  <Link as={RouterLink} to={'/documents/' + encodeURIComponent(pid)}>
-    <Heading>{title.substring(0, 90)}</Heading>
-  </Link>
-);
-
 const CitationLink = ({ citation, doi, className }) => (
   <Link className={className} href={'http://doi.org/' + doi}>
     {citation}
@@ -58,10 +52,25 @@ const Keywords = ({ keywords, className }) => (
 );
 
 const DocumentResult = ({ document }) => {
+  const history = useHistory();
+  const url = '/documents/' + encodeURIComponent(document.pid);
+
   return !document ? (
     <Spinner />
   ) : (
-    <Box display={['block', 'flex']}>
+    <Box
+      as="article"
+      sx={{
+        display: ['block', 'flex'],
+        cursor: 'pointer',
+        '@media (pointer: fine)': {
+          ':hover h2': { textDecoration: ['none', 'underline'] },
+        },
+      }}
+      onClick={() => {
+        history.push(url);
+      }}
+    >
       <Box
         display={['block', 'none']}
         bg="middleground"
@@ -71,7 +80,9 @@ const DocumentResult = ({ document }) => {
         <Image src={document.img} width="100%" height="100%" />
       </Box>
       <Card p={[3, 3, 3]} width={[1, 2 / 3, 3 / 4]}>
-        <HeadingLink pid={document.pid} title={document.title} />
+        <Link as={RouterLink} to={url}>
+          <Heading>{document.title}</Heading>
+        </Link>
         <S.Keywords keywords={document.keywords} />
         <ClippedText mt={2} lineHeight="1.5" children={document.summary} />
 
