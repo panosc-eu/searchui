@@ -10,9 +10,7 @@ function Filter(props) {
     <Box>
       <Heading
         variant="small"
-        onClick={(e) => obj.toggleIsActive(e)}
         sx={{
-          cursor: 'pointer',
           color: obj.isActive ? 'heading' : 'text',
           fontSize: 1,
           fontWeight: obj.isActive ? 600 : 400,

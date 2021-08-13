@@ -177,8 +177,10 @@ export function useTheme() {
         py: 0,
         fontSize: 1,
       },
-      ghost: {
+      action: {
         variant: 'buttons.base',
+        ml: 2,
+        fontSize: 2,
         ':hover': { bg: 'secondary', color: 'background' },
       },
     },

@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import { Input } from '@rebass/forms/styled-components';
-import { FiDelete } from 'react-icons/fi';
+import { FiSlash } from 'react-icons/fi';
 
 import { Flex, Button } from '../Primitives';
 
@@ -26,17 +26,16 @@ function TextInput(props) {
         }}
       />
       <Button
-        disabled={!obj.value}
-        variant="ghost"
-        ml={2}
-        fontSize={2}
+        variant="action"
+        disabled={!obj.isActive}
+        aria-label="Clear"
         onClick={() => {
           inputRef.current.value = '';
           obj.toggleIsActive(0);
           obj.assocValue('');
         }}
       >
-        <FiDelete />
+        <FiSlash />
       </Button>
     </Flex>
   );
