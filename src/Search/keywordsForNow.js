@@ -14,14 +14,14 @@ const Keywords = ({ obj }) => {
   return obj.list.map((word) => (
     <Heading
       key={word}
-      fontSize={0}
-      variant="small"
       as="a"
+      variant="small"
       onClick={() => toggleKeyword(word)}
       sx={{
-        cursor: 'pointer',
         color: obj.isActive && obj.value.includes(word) ? 'heading' : 'text',
+        fontSize: 0,
         fontWeight: obj.isActive && obj.value.includes(word) ? 600 : 400,
+        cursor: 'pointer',
       }}
     >
       {capitalizeAndSpace(word)}

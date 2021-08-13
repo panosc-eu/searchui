@@ -10,11 +10,11 @@ const Filter = ({ obj }) => {
     <Box>
       <Heading
         variant="small"
-        fontSize={1}
         onClick={(e) => obj.toggleIsActive(e)}
         sx={{
           cursor: 'pointer',
           color: obj.isActive ? 'heading' : 'text',
+          fontSize: 1,
           fontWeight: obj.isActive ? 600 : 400,
           textTransform: 'capitalize',
         }}

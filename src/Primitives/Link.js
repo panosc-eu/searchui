@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Link } from 'rebass/styled-components';
+import { Link as RebassLink } from 'rebass/styled-components';
 
-const RLink = ({ sx, ...props }) => (
-  <Link
+const Link = ({ sx, ...props }) => (
+  <RebassLink
     sx={{
       ...sx,
       ':hover': props.noUnderline && { textDecoration: 'none' },
@@ -13,4 +13,4 @@ const RLink = ({ sx, ...props }) => (
   />
 );
 
-export default RLink;
+export default Link;

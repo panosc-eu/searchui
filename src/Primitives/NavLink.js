@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NavLink as RouterLink, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import { Flex } from '.';
 
@@ -9,7 +9,7 @@ const NavLink = (props) => {
 
   return (
     <Flex
-      as={RouterLink}
+      as={Link}
       sx={{
         alignItems: 'center',
         px: [2, 3],

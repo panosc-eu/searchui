@@ -13,15 +13,15 @@ const OptionsMapped = ({ obj }) => {
   };
   return obj.options.map((option) => (
     <Heading
-      fontSize={0}
       key={option}
-      variant="small"
       as="a"
+      variant="small"
       onClick={() => toggleOption(option)}
       sx={{
-        cursor: 'pointer',
         color: obj.isActive && obj.value === option ? 'heading' : 'text',
+        fontSize: 0,
         fontWeight: obj.isActive && obj.value === option ? 600 : 400,
+        cursor: 'pointer',
       }}
     >
       {option}
