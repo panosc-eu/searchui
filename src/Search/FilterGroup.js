@@ -4,23 +4,12 @@ import Filter from './Filter';
 function FilterGroup(props) {
   const { name, filters } = props;
 
-  const isAnyActive = filters
-    .reduce((acc, item) => [...acc, item.isActive], [])
-    .includes(true);
-
   return (
     <Box>
-      <Heading
-        variant="small"
-        sx={{
-          color: isAnyActive ? 'heading' : 'text',
-          fontWeight: isAnyActive ? 600 : 400,
-          textTransform: 'capitalize',
-        }}
-      >
+      <Heading variant="caps" mb={2}>
         {name}
       </Heading>
-      <Flex column mx={2}>
+      <Flex column gap={2}>
         {filters.map((obj) => (
           <Box key={obj.name ?? obj.value}>
             <Filter obj={obj} />

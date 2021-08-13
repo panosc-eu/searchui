@@ -51,8 +51,11 @@ export function useTheme() {
         mb: 2,
       },
       caps: {
+        fontSize: [0],
+        fontWeight: 'bold',
         textTransform: 'uppercase',
         letterSpacing: '0.1em',
+        lineHeight: 'body',
       },
       badge: {
         px: 2,
@@ -113,6 +116,25 @@ export function useTheme() {
       },
     },
     buttons: {
+      base: {
+        display: 'flex',
+        flex: 'none',
+        alignItems: 'center',
+        justifyContent: 'center',
+        px: 2,
+        py: 0,
+        bg: 'transparent',
+        border: 'none',
+        borderRadius: 8,
+        color: 'inherit',
+        fontSize: 'inherit',
+        cursor: 'pointer',
+        ':disabled': {
+          pointerEvents: 'none',
+          cursor: 'default',
+          opacity: 0.4,
+        },
+      },
       primary: {
         fontSize: [2],
         fontWeight: 'bold',
@@ -155,12 +177,24 @@ export function useTheme() {
         py: 0,
         fontSize: 1,
       },
+      ghost: {
+        variant: 'buttons.base',
+        ':hover': { bg: 'secondary', color: 'background' },
+      },
     },
     styles: {
       root: {
         fontFamily: 'body',
         fontWeight: 'body',
         lineHeight: 'body',
+      },
+    },
+    forms: {
+      input: {
+        p: 1,
+        bg: 'highlight',
+        borderRadius: 4,
+        borderColor: 'secondary',
       },
     },
   };

@@ -23,7 +23,7 @@ function OptionsPicker(props) {
       sx={{
         color: obj.isActive && obj.value === option ? 'heading' : 'text',
         fontSize: 0,
-        fontWeight: obj.isActive && obj.value === option ? 600 : 400,
+        fontWeight: obj.isActive && obj.value === option ? 'bold' : 'body',
         cursor: 'pointer',
       }}
     >

@@ -15,9 +15,9 @@ const Search = () => {
 
   return (
     <Flex column gap={[3, 3, 3, 4]}>
-      <Card p={2}>
+      <Card p={[3, 3]}>
         <Flex column gap={[3, 2, 3, 4]}>
-          <FilterGroup name="Document" filters={rootFilters} />
+          <FilterGroup name="Search" filters={rootFilters} />
           <FilterGroup name="Technique" filters={techniques} />
           <FilterGroup name="Parameter" filters={parameters} />
         </Flex>

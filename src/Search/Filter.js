@@ -22,11 +22,7 @@ function Filter(props) {
         {capitalizeAndSpace(obj.name ?? obj.value)}
       </Heading>
 
-      {control && (
-        <Flex column mx={2}>
-          {control}
-        </Flex>
-      )}
+      {control && <Flex column>{control}</Flex>}
     </Box>
   );
 }

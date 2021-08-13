@@ -1,13 +1,19 @@
-import { Input } from '@rebass/forms/styled-components';
+import { useRef } from 'react';
 
-import { Box } from '../Primitives';
+import { Input } from '@rebass/forms/styled-components';
+import { FiDelete } from 'react-icons/fi';
+
+import { Flex, Button } from '../Primitives';
 
 function TextInput(props) {
   const { obj } = props;
+  const inputRef = useRef(null);
 
   return (
-    <Box mx={-1} mt={-1} mb={2}>
+    <Flex mb={2}>
       <Input
+        ref={inputRef}
+        variant="input"
         onChange={(e) => {
           if (!obj.isActive) {
             obj.toggleIsActive(1);
@@ -15,10 +21,24 @@ function TextInput(props) {
           if (e.target.value === '') {
             obj.toggleIsActive(0);
           }
-          return obj.assocValue(e.target.value);
+
+          obj.assocValue(e.target.value);
         }}
       />
-    </Box>
+      <Button
+        disabled={!obj.value}
+        variant="ghost"
+        ml={2}
+        fontSize={2}
+        onClick={() => {
+          inputRef.current.value = '';
+          obj.toggleIsActive(0);
+          obj.assocValue('');
+        }}
+      >
+        <FiDelete />
+      </Button>
+    </Flex>
   );
 }
 

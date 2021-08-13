@@ -79,7 +79,7 @@ function DocumentList() {
       if (plainQuery) {
         setSize(1);
         mutate();
-        documentsRef.current.scroll({ top: 0 });
+        // documentsRef.current.scroll({ top: 0 });
       }
       setPlainQuery(nonPaginatedQuery);
     }
