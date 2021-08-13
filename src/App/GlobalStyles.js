@@ -15,6 +15,12 @@ const GlobalStyles = createGlobalStyle(
       fontSize: [0, 0, 1],
       lineHeight: 'body',
     },
+    ul: {
+      listStyleType: 'square',
+    },
+    li: {
+      color: 'pink',
+    },
   })
 );
 

@@ -3,9 +3,9 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './App/app';
-import ErrorBoundary from './App/errorBoundary';
-import SWRProvider from './App/swrProvider';
+import App from './App/App';
+import ErrorBoundary from './App/ErrorBoundary';
+import SWRProvider from './App/SWRProvider';
 
 ReactDOM.render(
   <StrictMode>

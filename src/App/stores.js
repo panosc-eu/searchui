@@ -1,7 +1,7 @@
 import { init } from 'search-api-adapter';
 import create from 'zustand';
 
-import filterables from '../Search/filterables.json';
+import filterables from '../filterables.json';
 
 // const preset =
 //   localStorage.getItem('isDark') === 'true' ||

@@ -11,13 +11,13 @@ import { translate } from 'search-api-adapter';
 import { useSWRInfinite } from 'swr';
 import shallow from 'zustand/shallow';
 
-import ErrorBoundary from '../App/errorBoundary';
-import Spinner from '../App/spinner';
+import ErrorBoundary from '../App/ErrorBoundary';
+import Spinner from '../App/Spinner';
 import { useDocumentsStore, useSearchStore } from '../App/stores';
 import { Box, Flex } from '../Primitives';
-import DocumentResult from './documentResult';
+import DocumentItem from './DocumentItem';
 
-const DocumentsList = () => {
+const DocumentList = () => {
   const [initialSize, setInitialSize] = useDocumentsStore(
     (state) => [state.page, state.setPage],
     shallow
@@ -91,7 +91,7 @@ const DocumentsList = () => {
       <Suspense fallback={<Spinner />}>
         <Flex ref={documentsRef} column gap={[3, 3, 3, 4]}>
           {documents?.map((document) => (
-            <DocumentResult document={document} key={document.pid} />
+            <DocumentItem document={document} key={document.pid} />
           ))}
           {!isReachingEnd && !isLoadingMore && <Box ref={ref}>Loading...</Box>}
         </Flex>
@@ -99,4 +99,4 @@ const DocumentsList = () => {
     </ErrorBoundary>
   );
 };
-export default DocumentsList;
+export default DocumentList;

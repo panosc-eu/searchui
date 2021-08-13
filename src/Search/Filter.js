@@ -1,9 +1,9 @@
 import { capitalizeAndSpace } from '../App/helpers';
 import { Box, Flex, Heading } from '../Primitives';
-import KeywordsMaybeSomethingElseInTheFutureDunno from './keywordsForNow';
-import OptionsPicker from './optionsPicker';
-import Range from './range';
-import Text from './text';
+import KeywordsPicker from './KeywordsPicker';
+import OptionsPicker from './OptionsPicker';
+import Range from './Range';
+import TextInput from './TextInput';
 
 const Filter = ({ obj }) => {
   return (
@@ -28,11 +28,11 @@ const Filter = ({ obj }) => {
         ) : obj.options ? (
           <OptionsPicker obj={obj} />
         ) : obj.list ? (
-          <KeywordsMaybeSomethingElseInTheFutureDunno obj={obj} />
+          <KeywordsPicker obj={obj} />
         ) : (
           ['ilike', 'nilike', 'like', 'nlike', 'regexp', 'eq', 'neq'].includes(
             obj?.operator
-          ) && <Text obj={obj} />
+          ) && <TextInput obj={obj} />
         )}
       </Flex>
     </Box>

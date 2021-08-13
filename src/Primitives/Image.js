@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { Image } from 'rebass/styled-components';
-import styled from 'styled-components';
+import { Image as RebassImage } from 'rebass/styled-components';
 
-const RImage = (props) => <SImage {...props} />;
+const Image = ({ sx, ...props }) => (
+  <RebassImage
+    sx={{ display: 'block', objectFit: 'cover', ...sx }}
+    {...props}
+  />
+);
 
-export default RImage;
-
-const SImage = styled(Image)`
-  display: block;
-  object-fit: cover;
-`;
+export default Image;

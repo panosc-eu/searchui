@@ -1,7 +1,8 @@
 import { Input } from '@rebass/forms/styled-components';
 
 import { Box } from '../Primitives';
-const Text = ({ obj }) => (
+
+const TextInput = ({ obj }) => (
   <Box mx={-1} mt={-1} mb={2}>
     <Input
       onChange={(e) => {
@@ -16,4 +17,5 @@ const Text = ({ obj }) => (
     />
   </Box>
 );
-export default Text;
+
+export default TextInput;

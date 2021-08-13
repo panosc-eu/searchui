@@ -1,10 +1,12 @@
-import breakpoints from './breakpoints';
+import { useAppStore } from './App/stores';
 import { light, dark } from './colors';
 
-const theme = (isDark) => {
+export function useTheme() {
+  const isDark = useAppStore((state) => state.isDark);
+
   return {
     colors: isDark ? dark : light,
-    breakpoints,
+    breakpoints: ['37.5em', '56.25em', '75em', '112.5em'],
     fonts: {
       body: 'Open Sans, system-ui, sans-serif',
       heading: 'inherit',
@@ -162,5 +164,4 @@ const theme = (isDark) => {
       },
     },
   };
-};
-export default theme;
+}

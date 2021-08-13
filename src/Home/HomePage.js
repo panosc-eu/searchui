@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link, Heading, Ul, Li } from '../Primitives';
 
-const Home = () => (
+const HomePage = () => (
   <>
     <Heading as="h1" variant="display">
       The Photon and Neutron Open Science Cloud
@@ -11,48 +11,48 @@ const Home = () => (
       The PaNOSC project brings together six strategic European research
       infrastructures and two e-infrastructures:
     </p>
-    <Ul>
-      <Li>
+    <ul>
+      <li>
         <Link href="https://www.esrf.eu/" blank>
           European Synchrotron Radiation Facility
         </Link>
-      </Li>
-      <Li>
+      </li>
+      <li>
         <Link href="https://www.ceric-eric.eu/" blank>
           Central European Research Infrastructure Consortium
         </Link>
-      </Li>
-      <Li>
+      </li>
+      <li>
         <Link href="https://eli-laser.eu/" blank>
           Extreme Light Infrastructure Delivery Consortium
         </Link>
-      </Li>
-      <Li>
+      </li>
+      <li>
         <Link href="https://europeanspallationsource.se/" blank>
           European Spallation Source
         </Link>
-      </Li>
-      <Li>
+      </li>
+      <li>
         <Link href="https://www.xfel.eu/" blank>
           European X-Ray Free-Electron Laser Facility
         </Link>
-      </Li>
-      <Li>
+      </li>
+      <li>
         <Link href="https://www.ill.eu/" blank>
           Institut Laue Langevin
         </Link>
-      </Li>
-      <Li>
+      </li>
+      <li>
         <Link href="https://www.egi.eu/" blank>
           European Grid Infrastructure
         </Link>
-      </Li>
-      <Li>
+      </li>
+      <li>
         <Link href="https://www.geant.org/" blank>
           GÉANT
         </Link>
-      </Li>
-    </Ul>
+      </li>
+    </ul>
     <p>
       The mission is to contribute to the realization of a data commons for
       Neutron and Photon science, providing services and tools for data storage,
@@ -68,4 +68,4 @@ const Home = () => (
   </>
 );
 
-export default Home;
+export default HomePage;

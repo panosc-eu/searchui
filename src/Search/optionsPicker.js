@@ -1,6 +1,6 @@
 import { Heading } from '../Primitives';
 
-const OptionsMapped = ({ obj }) => {
+const OptionsPicker = ({ obj }) => {
   const toggleOption = (option) => {
     if (obj.value !== option || !obj.isActive) {
       obj.assocValue(option);
@@ -11,6 +11,7 @@ const OptionsMapped = ({ obj }) => {
       obj.toggleIsActive(0);
     }
   };
+
   return obj.options.map((option) => (
     <Heading
       key={option}
@@ -29,4 +30,4 @@ const OptionsMapped = ({ obj }) => {
   ));
 };
 
-export default OptionsMapped;
+export default OptionsPicker;

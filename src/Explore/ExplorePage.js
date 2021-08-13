@@ -1,10 +1,10 @@
 import React from 'react';
 
-import DocumentsList from '../Documents/documentsList';
 import { Flex, Box } from '../Primitives';
-import Search from '../Search/search';
+import Search from '../Search/Search';
+import DocumentList from './DocumentList';
 
-const DocumentsPage = () => {
+const ExplorePage = () => {
   return (
     <Flex flexDirection={['column', 'column', 'row']} gap={[3, 3, 3, 4]}>
       <Box display={['block', 'block', 'none']} width={[1, 1, 1 / 4]}>
@@ -21,9 +21,9 @@ const DocumentsPage = () => {
         <Search />
       </Box>
       <Box width={[1, 1, 3 / 4]}>
-        <DocumentsList name="Data" />
+        <DocumentList name="Data" />
       </Box>
     </Flex>
   );
 };
-export default DocumentsPage;
+export default ExplorePage;

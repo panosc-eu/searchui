@@ -1,6 +1,6 @@
 import { Card, Heading, Text } from '../Primitives';
 
-const Dataset = ({ dataset }) => {
+const DatasetItem = ({ dataset }) => {
   return (
     <Card as="article" key={dataset.pid} p={[2, 2, 3]}>
       <Heading as="h3">{dataset.title}</Heading>
@@ -11,4 +11,4 @@ const Dataset = ({ dataset }) => {
   );
 };
 
-export default Dataset;
+export default DatasetItem;

@@ -29,4 +29,5 @@ const Range = ({ obj }) => {
     </Box>
   );
 };
+
 export default Range;

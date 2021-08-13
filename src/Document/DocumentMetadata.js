@@ -11,7 +11,7 @@ const Detail = (props) => (
   </S.Detail>
 );
 
-const Document = ({ data }) => {
+const DocumentMetadata = ({ data }) => {
   return (
     <Box>
       <Card p={2}>
@@ -33,7 +33,7 @@ const Document = ({ data }) => {
   );
 };
 
-export default Document;
+export default DocumentMetadata;
 
 const S = {};
 S.Box = styled(Box).attrs({

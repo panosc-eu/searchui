@@ -4,7 +4,7 @@ import { Link as RouterLink, useHistory } from 'react-router-dom';
 
 import { parseDate } from '../App/helpers';
 import { documentSize } from '../App/helpers';
-import Spinner from '../App/spinner';
+import Spinner from '../App/Spinner';
 import { Card, Box, Flex, Image, Heading, Link, Text } from '../Primitives';
 
 const Keywords = ({ keywords }) => (
@@ -54,7 +54,7 @@ const MetaItem = ({ title, data }) => (
 //   </Flex>
 // );
 
-const DocumentResult = ({ document }) => {
+const DocumentItem = ({ document }) => {
   const history = useHistory();
   const url = '/documents/' + encodeURIComponent(document.pid);
 
@@ -106,4 +106,4 @@ const DocumentResult = ({ document }) => {
   );
 };
 
-export default DocumentResult;
+export default DocumentItem;

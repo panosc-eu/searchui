@@ -1,10 +1,11 @@
 import { Heading, Flex, Box } from '../Primitives';
-import Generic from './filterComponent';
+import Generic from './Filter';
 
-const Grouped = ({ group, filters }) => {
+const FilterGroup = ({ name, filters }) => {
   const isAnyActive = filters
     .reduce((acc, item) => [...acc, item.isActive], [])
     .includes(true);
+
   return (
     <Box>
       <Heading
@@ -15,7 +16,7 @@ const Grouped = ({ group, filters }) => {
           textTransform: 'capitalize',
         }}
       >
-        {group}
+        {name}
       </Heading>
       <Flex column mx={2}>
         {filters.map((obj) => (
@@ -27,4 +28,4 @@ const Grouped = ({ group, filters }) => {
     </Box>
   );
 };
-export default Grouped;
+export default FilterGroup;

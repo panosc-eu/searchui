@@ -1,7 +1,7 @@
 import { capitalizeAndSpace } from '../App/helpers';
 import { Heading } from '../Primitives';
 
-const Keywords = ({ obj }) => {
+const KeywordsPicker = ({ obj }) => {
   const toggleKeyword = (word) => {
     if (!obj.isActive) {
       obj.toggleIsActive(1);
@@ -11,6 +11,7 @@ const Keywords = ({ obj }) => {
     }
     return obj.toggleValueInList(word);
   };
+
   return obj.list.map((word) => (
     <Heading
       key={word}
@@ -29,4 +30,4 @@ const Keywords = ({ obj }) => {
   ));
 };
 
-export default Keywords;
+export default KeywordsPicker;

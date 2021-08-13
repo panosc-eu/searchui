@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Link as RebassLink } from 'rebass/styled-components';
 
-const Link = ({ sx, ...props }) => (
+const Link = ({ blank, noUnderline, sx, ...props }) => (
   <RebassLink
+    target={blank && '_blank'}
     sx={{
+      ':hover': noUnderline && { textDecoration: 'none' },
       ...sx,
-      ':hover': props.noUnderline && { textDecoration: 'none' },
     }}
-    target={props.blank && '_blank'}
     {...props}
   />
 );

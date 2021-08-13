@@ -3,9 +3,9 @@ import React from 'react';
 import { translate } from 'search-api-adapter';
 import useSWR from 'swr';
 
-import Datasets from '../Datasets/datasets';
 import { Image, Box, Heading, Flex } from '../Primitives';
-import Document from './document';
+import DatasetList from './DatasetList';
+import DocumentMetadata from './DocumentMetadata';
 
 const DocumentPage = (props) => {
   const documentId = props.match.params.documentId;
@@ -26,11 +26,11 @@ const DocumentPage = (props) => {
         <Heading as="h1" variant="display">
           {data.title}
         </Heading>
-        <Document data={data} />
+        <DocumentMetadata data={data} />
       </Box>
       <Box width={[1, 1, 1 / 4]}>
         <Heading variant="display">Datasets</Heading>
-        <Datasets datasets={data.datasets} />
+        <DatasetList datasets={data.datasets} />
       </Box>
       <Box width={[1, 1, 1 / 4]}>
         <Heading variant="display">Preview</Heading>
