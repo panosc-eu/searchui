@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 import { Image, Box, Heading, Flex } from '../Primitives';
 import Dataset from './Dataset';
-import DocumentMetadata from './DocumentMetadata';
+import DocumentMeta from './DocumentMeta';
 
 function DocumentPage(props) {
   const query = translate([], {
@@ -26,7 +26,7 @@ function DocumentPage(props) {
         <Heading as="h1" variant="display">
           {data.title}
         </Heading>
-        <DocumentMetadata data={data} />
+        <DocumentMeta data={data} />
       </Box>
       <Box width={[1, 1, 1 / 4]}>
         <Heading variant="display">Datasets</Heading>
