@@ -1,5 +1,4 @@
 import { useSearchStore } from '../App/stores';
-import Column from '../Layout/column';
 import { Card, Flex } from '../Primitives';
 import Grouped from './grouped';
 
@@ -12,20 +11,15 @@ const Search = () => {
   const techniques = filters?.techniques?.filters;
   const parameters = filters?.parameters?.filters;
   return (
-    <Column>
+    <Flex column gap={[3, 3, 3, 4]}>
       <Card p={2}>
-        <Flex
-          sx={{
-            gap: [3, 2, 3, 4],
-            flexDirection: 'column',
-          }}
-        >
+        <Flex column gap={[3, 2, 3, 4]}>
           <Grouped group="Document" filters={sortedRoot} />
           <Grouped group="Technique" filters={techniques} />
           <Grouped group="Parameter" filters={parameters} />
         </Flex>
       </Card>
-    </Column>
+    </Flex>
   );
 };
 

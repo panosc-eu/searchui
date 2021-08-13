@@ -17,7 +17,7 @@ const Grouped = ({ group, filters }) => {
       >
         {group}
       </Heading>
-      <Flex sx={{ mx: 2, flexDirection: 'column' }}>
+      <Flex column mx={2}>
         {filters.map((obj) => (
           <Box mb={2} key={obj.name}>
             <Generic obj={obj} />

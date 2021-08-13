@@ -46,8 +46,8 @@ const MetaItem = ({ title, data }) => (
 //   </Box>
 // );
 
-// const Members = ({ members, className }) => (
-//   <Flex className={className}>
+// const Members = ({ members }) => (
+//   <Flex>
 //     {members.map((member) => (
 //       <Member key={member.id} data={member} />
 //     ))}

@@ -16,7 +16,7 @@ const Navigation = () => {
   );
 
   return (
-    <Flex sx={{ bg: 'nav', height: 'nav' }}>
+    <Flex bg="nav" height="nav">
       <NavLink to="/" exact>
         <Logo />
       </NavLink>

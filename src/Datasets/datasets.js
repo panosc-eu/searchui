@@ -1,22 +1,14 @@
-import css from '@styled-system/css';
-import styled from 'styled-components';
-
 import Dataset from '../Datasets/dataset';
-import Layout from '../Layout/column';
+import { Flex } from '../Primitives';
 
 const Datasets = (props) => {
   return (
-    <SmallerGaps>
+    <Flex column gap={[1, 1, 2, 3]}>
       {props?.datasets?.map((dataset) => (
-        <Dataset dataset={dataset} key={dataset.pid} />
+        <Dataset key={dataset.pid} dataset={dataset} />
       ))}
-    </SmallerGaps>
+    </Flex>
   );
 };
-export default Datasets;
 
-const SmallerGaps = styled(Layout)(
-  css({
-    gap: [1, 1, 2, 3],
-  })
-);
+export default Datasets;

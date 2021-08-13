@@ -12,13 +12,13 @@ const NavLink = (props) => {
       as={RouterLink}
       sx={{
         alignItems: 'center',
+        px: [2, 3],
         bg: !!match && 'background',
         color: !!match ? 'text' : 'inherit',
         fontSize: [0, 1],
         fontWeight: 600,
         textDecoration: 'none',
         textTransform: 'uppercase',
-        px: [2, 3],
         ':hover': { color: 'text', bg: 'background' },
       }}
       {...props}

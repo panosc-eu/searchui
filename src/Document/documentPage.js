@@ -21,12 +21,7 @@ const DocumentPage = (props) => {
   const { data } = useSWR('/Documents/' + documentId + '?filter=' + query);
 
   return (
-    <Flex
-      sx={{
-        flexDirection: ['column', 'column', 'row'],
-        gap: [3, 3, 3, 4],
-      }}
-    >
+    <Flex flexDirection={['column', 'column', 'row']} gap={[3, 3, 3, 4]}>
       <Box width={[1, 1, 1 / 2]}>
         <Heading as="h1" variant="display">
           {data.title}

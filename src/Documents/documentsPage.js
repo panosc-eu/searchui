@@ -6,12 +6,7 @@ import Search from '../Search/search';
 
 const DocumentsPage = () => {
   return (
-    <Flex
-      sx={{
-        flexDirection: ['column', 'column', 'row'],
-        gap: [3, 3, 3, 4],
-      }}
-    >
+    <Flex flexDirection={['column', 'column', 'row']} gap={[3, 3, 3, 4]}>
       <Box display={['block', 'block', 'none']} width={[1, 1, 1 / 4]}>
         <Box as="details">
           <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>

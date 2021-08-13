@@ -22,7 +22,7 @@ const Filter = ({ obj }) => {
         {capitalizeAndSpace(obj.name ?? obj.value)}
       </Heading>
 
-      <Flex sx={{ mx: 2, flexDirection: 'column' }}>
+      <Flex column mx={2}>
         {obj?.operator === 'between' ? (
           <Range obj={obj} />
         ) : obj.options ? (

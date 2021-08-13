@@ -14,8 +14,7 @@ import shallow from 'zustand/shallow';
 import ErrorBoundary from '../App/errorBoundary';
 import Spinner from '../App/spinner';
 import { useDocumentsStore, useSearchStore } from '../App/stores';
-import Column from '../Layout/column';
-import { Box } from '../Primitives';
+import { Box, Flex } from '../Primitives';
 import DocumentResult from './documentResult';
 
 const DocumentsList = () => {
@@ -90,12 +89,12 @@ const DocumentsList = () => {
   return (
     <ErrorBoundary>
       <Suspense fallback={<Spinner />}>
-        <Column forwardRef={documentsRef}>
+        <Flex ref={documentsRef} column gap={[3, 3, 3, 4]}>
           {documents?.map((document) => (
             <DocumentResult document={document} key={document.pid} />
           ))}
           {!isReachingEnd && !isLoadingMore && <Box ref={ref}>Loading...</Box>}
-        </Column>
+        </Flex>
       </Suspense>
     </ErrorBoundary>
   );
