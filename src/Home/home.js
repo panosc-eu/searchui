@@ -4,9 +4,13 @@ import { Link, Heading, Ul, Li } from '../Primitives';
 
 const Home = () => (
   <>
-    <Heading>The Photon and Neutron Open Science Cloud</Heading>
-    The PaNOSC project brings together six strategic European research
-    infrastructures and two e-infrastructures:
+    <Heading as="h1" variant="display">
+      The Photon and Neutron Open Science Cloud
+    </Heading>
+    <p>
+      The PaNOSC project brings together six strategic European research
+      infrastructures and two e-infrastructures:
+    </p>
     <Ul>
       <Li>
         <Link href="https://www.esrf.eu/" blank>
@@ -49,15 +53,18 @@ const Home = () => (
         </Link>
       </Li>
     </Ul>
-    The mission is to contribute to the realization of a data commons for
-    Neutron and Photon science, providing services and tools for data storage,
-    analysis and simulation, for the many scientists from existing and future
-    disciplines using data from photon and neutron sources. To achieve this aim,
-    the exchange of know-how and experiences is crucial to driving a change in
-    culture by embracing Open Science among the targeted scientific communities.
-    This is why the project works closely with the national photon and neutron
-    sources in Europe to develop common policies, strategies and solutions in
-    the area of FAIR data policy, data management and data services.
+    <p>
+      The mission is to contribute to the realization of a data commons for
+      Neutron and Photon science, providing services and tools for data storage,
+      analysis and simulation, for the many scientists from existing and future
+      disciplines using data from photon and neutron sources. To achieve this
+      aim, the exchange of know-how and experiences is crucial to driving a
+      change in culture by embracing Open Science among the targeted scientific
+      communities. This is why the project works closely with the national
+      photon and neutron sources in Europe to develop common policies,
+      strategies and solutions in the area of FAIR data policy, data management
+      and data services.
+    </p>
   </>
 );
 

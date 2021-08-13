@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Box, Card, Heading, Link, Text } from '../Primitives';
 
 const Detail = (props) => (
-  <S.Detail>
+  <S.Detail as="p">
     <S.Text fontWeight="bold">{props.caption}</S.Text>
     <S.Text>{props.children}</S.Text>
   </S.Detail>
@@ -16,17 +16,15 @@ const Document = ({ data }) => {
     <Box>
       <Card p={2}>
         <Heading>Description</Heading>
-        <Text>{data.summary}</Text>
+        <Text as="p">{data.summary}</Text>
       </Card>
-      <Box>
+      <Box sx={{ 'p:last-child > div': { pb: [2, 2, 3, 4] } }}>
         <Detail caption="Citation">
-          <Link to={'http://doi.org/' + data.doi} target="_blank">
+          <Link display="block" href={'http://doi.org/' + data.doi} blank>
             {data.citation}
           </Link>
         </Detail>
-        <Detail caption="Keywords">
-          {data.keywords.map((keyword) => keyword + ', ')}
-        </Detail>
+        <Detail caption="Keywords">{data.keywords.join(', ')}</Detail>
         <Detail caption="Type">{data.type}</Detail>
         <Detail caption="Author">{data.members[0]?.person.fullName}</Detail>
         <Detail caption="Other">Stuff</Detail>

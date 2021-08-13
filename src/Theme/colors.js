@@ -10,6 +10,7 @@ export const light = {
   gray: '#dddddf',
   highlight: 'hsla(205, 100%, 40%, 0.125)',
   heading: 'hsl(0, 0%, 0%)',
+  badge: 'hsl(0, 0%, 0%)',
   pink: '#bb4677',
 };
 
@@ -25,5 +26,6 @@ export const dark = {
   gray: '#dddddf',
   highlight: 'hsla(205, 100%, 40%, 0.125)',
   heading: 'hsl(0, 0%, 100%)',
+  badge: 'hsl(0, 0%, 100%)',
   pink: '#bb4677',
 };

@@ -20,6 +20,7 @@ const theme = (isDark) => {
     lineHeights: {
       body: 1.5,
       heading: 1.25,
+      badge: 1.75,
     },
     space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
     sizes: {
@@ -30,17 +31,17 @@ const theme = (isDark) => {
       heading: {
         fontFamily: 'heading',
         lineHeight: 'heading',
-        fontWeight: 'body',
         color: 'heading',
         fontSize: [1, 2, 2, 3],
+        fontWeight: 'body',
         mb: [1, 2],
       },
       display: {
         fontFamily: 'heading',
-        fontWeight: 'light',
         lineHeight: 'heading',
-        marginBottom: 3,
         fontSize: [3, 4, 4, 5],
+        fontWeight: 'light',
+        mb: 3,
       },
       small: {
         fontSize: [2],
@@ -50,6 +51,14 @@ const theme = (isDark) => {
       caps: {
         textTransform: 'uppercase',
         letterSpacing: '0.1em',
+      },
+      badge: {
+        px: 2,
+        borderRadius: 16,
+        bg: 'foreground',
+        color: 'badge',
+        fontSize: 0,
+        lineHeight: 'badge',
       },
     },
     variants: {
@@ -69,10 +78,6 @@ const theme = (isDark) => {
         lineHeight: 'body',
         bg: 'foreground',
       },
-      badge: {
-        p: 1,
-        bg: 'foreground',
-      },
       keyword: {
         p: [1],
         mr: [1],
@@ -82,9 +87,11 @@ const theme = (isDark) => {
       link: {
         color: 'primary',
         textDecoration: 'none',
-        ':hover,:focus,.active': {
+        ':hover, :focus, .active': {
           color: 'text',
-          textDecoration: 'none',
+        },
+        ':hover': {
+          textDecoration: 'underline',
         },
       },
       nav: {
@@ -126,7 +133,6 @@ const theme = (isDark) => {
         px: 2,
         height: '100%',
         bg: ['foreground', 'foreground', 'transparent'],
-
         ':hover': {
           color: 'primary',
           bg: ['foreground', 'foreground', 'background'],

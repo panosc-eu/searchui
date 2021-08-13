@@ -28,7 +28,9 @@ const DocumentPage = (props) => {
       }}
     >
       <Box width={[1, 1, 1 / 2]}>
-        <Heading variant="display">{data.title}</Heading>
+        <Heading as="h1" variant="display">
+          {data.title}
+        </Heading>
         <Document data={data} />
       </Box>
       <Box width={[1, 1, 1 / 4]}>
