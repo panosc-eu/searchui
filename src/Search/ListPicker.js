@@ -1,5 +1,5 @@
 import { capitalizeAndSpace } from '../App/helpers';
-import { Heading, Flex } from '../Primitives';
+import { Text, Flex } from '../Primitives';
 
 function ListPicker(props) {
   const { obj } = props;
@@ -15,24 +15,25 @@ function ListPicker(props) {
   }
 
   return (
-    <Flex column>
+    <Flex column gap={1}>
       {obj.list.map((word) => (
-        <Flex>
-          <Heading
-            key={word}
-            as="a"
-            variant="small"
-            onClick={() => toggleKeyword(word)}
-            sx={{
-              color:
-                obj.isActive && obj.value.includes(word) ? 'heading' : 'text',
-              fontSize: 0,
-              fontWeight: obj.isActive && obj.value.includes(word) ? 600 : 400,
-              cursor: 'pointer',
-            }}
-          >
-            {capitalizeAndSpace(word)}
-          </Heading>
+        <Flex
+          key={word}
+          as="label"
+          sx={{
+            alignItems: 'center',
+            color: obj.isActive && obj.value.includes(word) && 'heading',
+            fontSize: 0,
+            fontWeight: obj.isActive && obj.value.includes(word) && 'bold',
+            cursor: 'pointer',
+          }}
+        >
+          <input
+            type="checkbox"
+            onChange={() => toggleKeyword(word)}
+            style={{ cursor: 'inherit' }}
+          />
+          <Text ml={2}>{capitalizeAndSpace(word)}</Text>
         </Flex>
       ))}
     </Flex>
