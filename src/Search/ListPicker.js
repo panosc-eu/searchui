@@ -26,6 +26,7 @@ function ListPicker(props) {
             fontSize: 0,
             fontWeight: obj.isActive && obj.value.includes(word) && 'bold',
             cursor: 'pointer',
+            ':hover': { textDecoration: 'underline' },
           }}
         >
           <input
@@ -33,7 +34,9 @@ function ListPicker(props) {
             onChange={() => toggleKeyword(word)}
             style={{ cursor: 'inherit' }}
           />
-          <Text ml={2}>{capitalizeAndSpace(word)}</Text>
+          <Text flex="1 1 0%" ml={2}>
+            {capitalizeAndSpace(word)}
+          </Text>
         </Flex>
       ))}
     </Flex>

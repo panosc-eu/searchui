@@ -1,37 +1,49 @@
-import { Heading, Flex } from '../Primitives';
+import { Text, Flex } from '../Primitives';
 
 function OptionsPicker(props) {
   const { obj } = props;
 
   function toggleOption(option) {
-    if (obj.value !== option || !obj.isActive) {
-      obj.assocValue(option);
-      if (!obj.isActive) {
-        obj.toggleIsActive(1);
-      }
-    } else {
-      obj.toggleIsActive(0);
+    obj.assocValue(option);
+    if (!obj.isActive) {
+      obj.toggleIsActive(1);
     }
   }
 
   return (
-    <Flex column>
-      {obj.options.map((option) => (
-        <Heading
-          key={option}
-          as="a"
-          variant="small"
-          onClick={() => toggleOption(option)}
-          sx={{
-            color: obj.isActive && obj.value === option ? 'heading' : 'text',
-            fontSize: 0,
-            fontWeight: obj.isActive && obj.value === option ? 'bold' : 'body',
-            cursor: 'pointer',
-          }}
-        >
-          {option}
-        </Heading>
-      ))}
+    <Flex column gap={1}>
+      {obj.options.map((option) => {
+        const isSelected = obj.isActive && obj.value === option;
+
+        return (
+          <Flex
+            key={option}
+            as="label"
+            sx={{
+              position: 'relative',
+              alignItems: 'center',
+              color: isSelected && 'heading',
+              fontSize: 0,
+              fontWeight: isSelected && 'bold',
+              cursor: 'pointer',
+              ':hover': { textDecoration: 'underline' },
+            }}
+          >
+            <input
+              name={obj.name}
+              value={option}
+              type="radio"
+              checked={isSelected}
+              onChange={(evt) => toggleOption(evt.target.value)}
+              style={{ cursor: 'inherit' }}
+            />
+
+            <Text flex="1 1 0%" ml={2}>
+              {option}
+            </Text>
+          </Flex>
+        );
+      })}
     </Flex>
   );
 }
