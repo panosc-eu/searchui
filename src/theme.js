@@ -121,7 +121,7 @@ export function useTheme() {
         flex: 'none',
         alignItems: 'center',
         justifyContent: 'center',
-        px: 2,
+        px: 0,
         py: 0,
         bg: 'transparent',
         border: 'none',
@@ -132,7 +132,7 @@ export function useTheme() {
         ':disabled': {
           pointerEvents: 'none',
           cursor: 'default',
-          opacity: 0.4,
+          opacity: 0.2,
         },
       },
       primary: {
@@ -179,9 +179,15 @@ export function useTheme() {
       },
       action: {
         variant: 'buttons.base',
+        p: 2,
         ml: 2,
+        border: '1px solid transparent',
         fontSize: 2,
-        ':hover': { bg: 'secondary', color: 'background' },
+        ':hover': {
+          bg: 'background',
+          color: 'white',
+          boxShadow: '0 0 2px background',
+        },
       },
     },
     styles: {

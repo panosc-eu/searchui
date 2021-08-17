@@ -5,40 +5,46 @@ function ListPicker(props) {
   const { obj } = props;
 
   function toggleKeyword(word) {
-    if (!obj.isActive) {
+    const isWordSelected = obj.value.includes(word);
+    obj.toggleValueInList(word);
+
+    if (isWordSelected && obj.value.length === 1) {
+      obj.toggleIsActive(0);
+    } else if (!isWordSelected && !obj.isActive) {
       obj.toggleIsActive(1);
     }
-    if (obj.isActive && obj.value.length === 1 && obj.value.includes(word)) {
-      obj.toggleIsActive(0);
-    }
-    return obj.toggleValueInList(word);
   }
 
   return (
     <Flex column gap={1}>
-      {obj.list.map((word) => (
-        <Flex
-          key={word}
-          as="label"
-          sx={{
-            alignItems: 'center',
-            color: obj.isActive && obj.value.includes(word) && 'heading',
-            fontSize: 0,
-            fontWeight: obj.isActive && obj.value.includes(word) && 'bold',
-            cursor: 'pointer',
-            ':hover': { textDecoration: 'underline' },
-          }}
-        >
-          <input
-            type="checkbox"
-            onChange={() => toggleKeyword(word)}
-            style={{ cursor: 'inherit' }}
-          />
-          <Text flex="1 1 0%" ml={2}>
-            {capitalizeAndSpace(word)}
-          </Text>
-        </Flex>
-      ))}
+      {obj.list.map((word) => {
+        const isSelected = obj.value.includes(word);
+
+        return (
+          <Flex
+            key={word}
+            as="label"
+            sx={{
+              alignItems: 'center',
+              color: isSelected && 'heading',
+              fontSize: 0,
+              fontWeight: isSelected && 'bold',
+              cursor: 'pointer',
+              ':hover': { textDecoration: 'underline' },
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={isSelected}
+              onChange={() => toggleKeyword(word)}
+              style={{ cursor: 'inherit' }}
+            />
+            <Text flex="1 1 0%" ml={2}>
+              {capitalizeAndSpace(word)}
+            </Text>
+          </Flex>
+        );
+      })}
     </Flex>
   );
 }

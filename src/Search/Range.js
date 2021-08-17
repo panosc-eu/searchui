@@ -35,7 +35,6 @@ function Range(props) {
       </Flex>
       <Button
         variant="action"
-        py={2}
         disabled={!obj.isActive}
         aria-label="Clear"
         onClick={() => {
