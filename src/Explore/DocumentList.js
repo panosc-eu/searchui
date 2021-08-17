@@ -1,100 +1,61 @@
-import React, {
-  useRef,
-  useState,
-  Suspense,
-  useCallback,
-  useEffect,
-} from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 import { useInView } from 'react-intersection-observer';
 import { translate } from 'search-api-adapter';
 import { useSWRInfinite } from 'swr';
-import shallow from 'zustand/shallow';
 
 import Boundary from '../App/Boundary';
 import Spinner from '../App/Spinner';
-import { useDocumentsStore, useSearchStore } from '../App/stores';
-import { Box, Flex } from '../Primitives';
+import { useSearchStore } from '../App/stores';
+import { Flex, Card, Text, Heading } from '../Primitives';
 import DocumentItem from './DocumentItem';
 
+const PAGE_SIZE = 5;
+const QUERY_CONFIG = {
+  include: [['datasets'], ['members', 'affiliation'], ['members', 'person']],
+  pageSize: PAGE_SIZE,
+};
+
 function DocumentList() {
-  const [initialSize, setInitialSize] = useDocumentsStore(
-    (state) => [state.page, state.setPage],
-    shallow
-  );
-
-  const queryConfig = {
-    include: [['datasets'], ['members', 'affiliation'], ['members', 'person']],
-    pageSize: 5,
-  };
-
   const filters = useSearchStore();
 
-  function getQuery(idx, previous) {
-    return previous && !previous.length
-      ? null
-      : `/Documents?filter=${translate(filters, {
-          ...queryConfig,
-          page: idx + 1,
-        })}`;
-  }
-
-  const { data, error, size, setSize, mutate } = useSWRInfinite(getQuery, {
-    persistSize: true,
-    initialSize,
+  const { data, size, setSize } = useSWRInfinite((page, previous) => {
+    const filter = translate(filters, { ...QUERY_CONFIG, page: page + 1 });
+    return `/Documents?filter=${filter}`;
   });
 
-  //copypasta from swr docs
-  const isLoadingInitialData = !data && !error;
-  const isLoadingMore =
-    isLoadingInitialData ||
-    (size > 0 && data && typeof data[size - 1] === 'undefined');
-  const isEmpty = data?.[0]?.length === 0;
-  const isReachingEnd =
-    isEmpty ||
-    (data && data[data.length - 1]?.length < (queryConfig?.pageSize ?? 25));
-
-  //fetch one more page when scrolled to bottom
-  const { ref, inView } = useInView();
+  // Infinite scroll
+  const { ref: infiniteScrollRef, inView } = useInView();
   useEffect(() => {
     inView && setSize((int) => int + 1);
   }, [inView, setSize]);
 
-  //save pagination for scroll restoration
-  const updateInitalSize = useCallback(() => {
-    setInitialSize(size);
-  }, [setInitialSize, size]);
-  useEffect(() => {
-    return () => {
-      updateInitalSize();
-    };
-  }, [updateInitalSize]);
-
-  //reset data on filters changed
-  const [plainQuery, setPlainQuery] = useState(false);
-  const documentsRef = useRef(null);
-  useEffect(() => {
-    const nonPaginatedQuery = translate(filters, {});
-    if (nonPaginatedQuery !== plainQuery) {
-      if (plainQuery) {
-        setSize(1);
-        mutate();
-        // documentsRef.current.scroll({ top: 0 });
-      }
-      setPlainQuery(nonPaginatedQuery);
-    }
-  }, [setSize, mutate, filters, plainQuery]);
-
-  const documents = data ? [].concat(...data) : [];
+  const documents = data.flat();
+  const isEmpty = documents.length > 0;
+  const isLoadingMore = !data[size - 1];
+  const hasReachedEnd = data[data.length - 1].length < PAGE_SIZE;
 
   return (
     <Boundary>
       <Suspense fallback={<Spinner />}>
-        <Flex ref={documentsRef} column gap={[3, 3, 3, 4]}>
-          {documents?.map((document) => (
-            <DocumentItem document={document} key={document.pid} />
-          ))}
-          {!isReachingEnd && !isLoadingMore && <Box ref={ref}>Loading...</Box>}
+        <Flex column gap={[3, 3, 3, 4]}>
+          {isEmpty ? (
+            documents.map((doc) => (
+              <DocumentItem document={doc} key={doc.pid} />
+            ))
+          ) : (
+            <Card>
+              <Heading>No results</Heading>
+              <Text>Please adjust the search filters.</Text>
+            </Card>
+          )}
+          {!hasReachedEnd ? (
+            <Text ref={infiniteScrollRef}>
+              {isLoadingMore ? 'Loading more results...' : ' '}
+            </Text>
+          ) : (
+            <Text>End of results</Text>
+          )}
         </Flex>
       </Suspense>
     </Boundary>
