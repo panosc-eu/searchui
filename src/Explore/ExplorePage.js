@@ -17,7 +17,7 @@ function ExplorePage() {
           </Box>
         </Box>
       </Box>
-      <Box display={['none', 'none', 'block']} width={[1, 1, 1 / 4]}>
+      <Box as="aside" display={['none', 'none', 'block']} width={[1, 1, 1 / 4]}>
         <Search />
       </Box>
       <Box width={[1, 1, 3 / 4]}>
@@ -26,4 +26,5 @@ function ExplorePage() {
     </Flex>
   );
 }
+
 export default ExplorePage;

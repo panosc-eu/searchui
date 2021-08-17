@@ -1,6 +1,6 @@
 import React from 'react';
 
-import KeywordsPicker from './KeywordsPicker';
+import ListPicker from './ListPicker';
 import OptionsPicker from './OptionsPicker';
 import Range from './Range';
 import TextInput from './TextInput';
@@ -27,7 +27,7 @@ function FilterControl(props) {
   }
 
   if (obj.list) {
-    return <KeywordsPicker obj={obj} />;
+    return <ListPicker obj={obj} />;
   }
 
   if (TEXT_OPERATORS.includes(obj.operator)) {

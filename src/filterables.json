@@ -42,30 +42,24 @@
       },
       {
         "name": "Rainbow Generator",
-        "options": ["Off", "Half", "Full", "DOUBLE"]
+        "options": ["Half", "Full", "Double"]
       }
     ]
   },
   {
     "target": ["datasets", "techniques"],
     "filters": [
-      {
-        "value": "technique a"
-      },
-      {
-        "value": "technique b"
-      },
-      {
-        "value": "technique c"
-      }
+      { "value": "technique a" },
+      { "value": "technique b" },
+      { "value": "technique c" }
     ]
   },
   {
+    "target": ["members", "person"],
     "filters": [
       {
         "name": "fullName"
       }
-    ],
-    "target": ["members", "person"]
+    ]
   }
 ]

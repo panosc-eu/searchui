@@ -1,26 +1,26 @@
 import { capitalizeAndSpace } from '../App/helpers';
-import { Box, Flex, Heading } from '../Primitives';
+import { Heading, Box } from '../Primitives';
 import FilterControl from './FilterControl';
 
 function Filter(props) {
   const { obj } = props;
-  const control = <FilterControl obj={obj} />;
 
   return (
     <Box>
       <Heading
+        as="h3"
         variant="small"
         sx={{
-          color: obj.isActive ? 'heading' : 'text',
+          color: obj.isActive && 'heading',
           fontSize: 1,
-          fontWeight: obj.isActive ? 600 : 400,
+          fontWeight: obj.isActive ? 600 : 'normal',
           textTransform: 'capitalize',
         }}
       >
         {capitalizeAndSpace(obj.name ?? obj.value)}
       </Heading>
 
-      {control && <Flex column>{control}</Flex>}
+      <FilterControl obj={obj} />
     </Box>
   );
 }

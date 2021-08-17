@@ -10,7 +10,7 @@ function TextInput(props) {
   const inputRef = useRef(null);
 
   return (
-    <Flex mb={2}>
+    <Flex>
       <Input
         ref={inputRef}
         variant="input"

@@ -21,7 +21,7 @@ function Range(props) {
   }
 
   return (
-    <Flex mt={-2}>
+    <Flex mt={-2} mb={-2}>
       <Flex flex="1 1 0%" alignItems="center" mx={2}>
         <RangeSlider
           value={value}
