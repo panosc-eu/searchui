@@ -1,5 +1,8 @@
+import { FiArrowLeft } from 'react-icons/fi';
+import { Route } from 'react-router-dom';
+
 import { useAppStore } from '../App/stores';
-import { Image, Flex, Box, NavLink } from '../Primitives';
+import { Image, Flex, Box, NavLink, Text } from '../Primitives';
 
 function Navigation() {
   const isDark = useAppStore((state) => state.isDark);
@@ -19,6 +22,13 @@ function Navigation() {
       <NavLink to="/documents" exact>
         Explore
       </NavLink>
+
+      <Route exact path="/documents/:documentId">
+        <NavLink to="/documents" exact ml="auto">
+          <FiArrowLeft style={{ fontSize: '1.5em', paddingTop: '1px' }} />
+          <Text ml={2}>Back to results</Text>
+        </NavLink>
+      </Route>
 
       {/* <Box mx="auto" />
       <Box width="80px" mx={2} height="30px" alignSelf="center">
