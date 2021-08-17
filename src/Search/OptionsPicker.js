@@ -20,7 +20,6 @@ function OptionsPicker(props) {
             key={option}
             as="label"
             sx={{
-              position: 'relative',
               alignItems: 'center',
               color: isSelected && 'heading',
               fontSize: 0,

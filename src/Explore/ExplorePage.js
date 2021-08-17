@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Boundary from '../App/Boundary';
 import { Flex, Box } from '../Primitives';
 import Search from '../Search/Search';
 import DocumentList from './DocumentList';
@@ -21,7 +22,9 @@ function ExplorePage() {
         <Search />
       </Box>
       <Box width={[1, 1, 3 / 4]}>
-        <DocumentList name="Data" />
+        <Boundary>
+          <DocumentList name="Data" />
+        </Boundary>
       </Box>
     </Flex>
   );

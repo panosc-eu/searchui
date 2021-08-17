@@ -1,8 +1,10 @@
 import React from 'react';
+import { Suspense } from 'react';
 
-import { ErrorBoundary as Boundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { Card } from '../Primitives';
+import Spinner from './Spinner';
 
 function ErrorFallback(props) {
   const { error, componentStack, resetErrorBoundary } = props;
@@ -17,19 +19,19 @@ function ErrorFallback(props) {
   );
 }
 
-function ErrorBoundary(props) {
+function Boundary(props) {
   const { children } = props;
 
   return (
-    <Boundary
+    <ErrorBoundary
       FallbackComponent={ErrorFallback}
       onReset={() => {
         // reset the state of your app so the error doesn't happen again
       }}
     >
-      {children}
-    </Boundary>
+      <Suspense fallback={<Spinner />}>{children}</Suspense>
+    </ErrorBoundary>
   );
 }
 
-export default ErrorBoundary;
+export default Boundary;

@@ -11,7 +11,7 @@ import { translate } from 'search-api-adapter';
 import { useSWRInfinite } from 'swr';
 import shallow from 'zustand/shallow';
 
-import ErrorBoundary from '../App/ErrorBoundary';
+import Boundary from '../App/Boundary';
 import Spinner from '../App/Spinner';
 import { useDocumentsStore, useSearchStore } from '../App/stores';
 import { Box, Flex } from '../Primitives';
@@ -88,7 +88,7 @@ function DocumentList() {
   const documents = data ? [].concat(...data) : [];
 
   return (
-    <ErrorBoundary>
+    <Boundary>
       <Suspense fallback={<Spinner />}>
         <Flex ref={documentsRef} column gap={[3, 3, 3, 4]}>
           {documents?.map((document) => (
@@ -97,7 +97,7 @@ function DocumentList() {
           {!isReachingEnd && !isLoadingMore && <Box ref={ref}>Loading...</Box>}
         </Flex>
       </Suspense>
-    </ErrorBoundary>
+    </Boundary>
   );
 }
 export default DocumentList;

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useParams } from 'react-router-dom';
 import { translate } from 'search-api-adapter';
 import useSWR from 'swr';
 
@@ -7,7 +8,7 @@ import { Image, Box, Heading, Flex } from '../Primitives';
 import Dataset from './Dataset';
 import DocumentMeta from './DocumentMeta';
 
-function DocumentPage(props) {
+function DocumentPage() {
   const query = translate([], {
     include: [
       ['datasets', 'instrument'],
@@ -17,7 +18,7 @@ function DocumentPage(props) {
     limit: false,
   });
 
-  const documentId = props.match.params.documentId;
+  const { documentId } = useParams();
   const { data } = useSWR('/Documents/' + documentId + '?filter=' + query);
 
   return (
