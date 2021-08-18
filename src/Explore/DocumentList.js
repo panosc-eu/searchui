@@ -6,8 +6,8 @@ import { useSWRInfinite } from 'swr';
 
 import Boundary from '../App/Boundary';
 import Spinner from '../App/Spinner';
-import { useSearchStore } from '../App/stores';
-import { Flex, Card, Text, Heading } from '../Primitives';
+import { useSearchStore, useAppStore } from '../App/stores';
+import { Flex, Card, Text, Heading, Button, Box } from '../Primitives';
 import DocumentItem from './DocumentItem';
 
 const PAGE_SIZE = 5;
@@ -17,6 +17,7 @@ const QUERY_CONFIG = {
 };
 
 function DocumentList() {
+  const loadOnScroll = useAppStore((state) => state.loadOnScroll);
   const filters = useSearchStore();
 
   const { data, size, setSize } = useSWRInfinite((page, previous) => {
@@ -27,8 +28,8 @@ function DocumentList() {
   // Infinite scroll
   const { ref: infiniteScrollRef, inView } = useInView();
   useEffect(() => {
-    inView && setSize((int) => int + 1);
-  }, [inView, setSize]);
+    loadOnScroll && inView && setSize((val) => val + 1);
+  }, [loadOnScroll, inView, setSize]);
 
   const documents = data.flat();
   const isEmpty = documents.length > 0;
@@ -49,12 +50,20 @@ function DocumentList() {
               <Text>Please adjust the search filters.</Text>
             </Card>
           )}
-          {!hasReachedEnd ? (
-            <Text ref={infiniteScrollRef}>
-              {isLoadingMore ? 'Loading more results...' : ' '}
-            </Text>
-          ) : (
+          {isLoadingMore ? (
+            <Text>Loading more results...</Text>
+          ) : hasReachedEnd ? (
             <Text>End of results</Text>
+          ) : loadOnScroll ? (
+            <Box ref={infiniteScrollRef} />
+          ) : (
+            <Button
+              variant="primary"
+              alignSelf="flex-start"
+              onClick={() => setSize((val) => val + 1)}
+            >
+              Load more results
+            </Button>
           )}
         </Flex>
       </Suspense>

@@ -9,19 +9,17 @@ import filterables from '../filterables.json';
 //     ? true
 //     : false;
 
-export const useDocumentsStore = create((set) => ({
-  page: 1,
-  setPage: (int) => set(() => ({ page: int })),
-  scrollPosition: 0,
-  setScrollPosition: (scrollPosition) => set(() => ({ scrollPosition })),
-}));
-
 export const useAppStore = create((set, get) => ({
   isDark: true, // preset,
   toggleTheme: () => {
     const newTheme = !get().isDark;
     // localStorage.setItem('isDark', newTheme);
     set(() => ({ isDark: newTheme }));
+  },
+
+  loadOnScroll: false,
+  toggleLoadOnScroll: () => {
+    set(() => ({ loadOnScroll: !get().loadOnScroll }));
   },
 }));
 

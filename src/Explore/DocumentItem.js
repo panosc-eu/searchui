@@ -18,6 +18,8 @@ function DocumentItem(props) {
       as="article"
       sx={{
         display: ['block', 'flex'],
+        borderRadius: 4,
+        overflow: 'hidden',
         cursor: 'pointer',
         '@media (pointer: fine)': {
           ':hover h2': { textDecoration: ['none', 'underline'] },

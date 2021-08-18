@@ -2,8 +2,12 @@ import { useEffect, useCallback } from 'react';
 
 import debounce from 'lodash.debounce';
 import shallow from 'zustand/shallow';
+import create from 'zustand/vanilla';
 
-import { useDocumentsStore } from '../App/stores';
+export const useDocumentsStore = create((set) => ({
+  scrollPosition: 0,
+  setScrollPosition: (scrollPosition) => set(() => ({ scrollPosition })),
+}));
 
 const useScrollPosition = (loading) => {
   const [scrollPosition, setScrollPosition] = useDocumentsStore(
