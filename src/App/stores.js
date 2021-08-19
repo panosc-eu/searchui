@@ -11,11 +11,11 @@ import filterables from '../filterables.json';
 
 export const useAppStore = create((set, get) => ({
   isDark: true, // preset,
-  toggleTheme: () => {
-    const newTheme = !get().isDark;
-    // localStorage.setItem('isDark', newTheme);
-    set(() => ({ isDark: newTheme }));
-  },
+  // toggleTheme: () => {
+  //   const newTheme = !get().isDark;
+  //   localStorage.setItem('isDark', newTheme);
+  //   set(() => ({ isDark: newTheme }));
+  // },
 
   loadOnScroll: false,
   toggleLoadOnScroll: () => {

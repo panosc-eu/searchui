@@ -13,7 +13,6 @@ function DocumentPage() {
     include: [
       ['datasets', 'instrument'],
       ['members', 'person'],
-      ['members', 'affiliation'],
     ],
     limit: false,
   });

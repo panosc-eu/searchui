@@ -12,7 +12,7 @@ import DocumentItem from './DocumentItem';
 
 const PAGE_SIZE = 5;
 const QUERY_CONFIG = {
-  include: [['datasets'], ['members', 'affiliation'], ['members', 'person']],
+  include: [['datasets']],
   pageSize: PAGE_SIZE,
 };
 
