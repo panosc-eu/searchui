@@ -19,7 +19,7 @@ function DocumentPage() {
   });
 
   const { documentId } = useParams();
-  const { data } = useSWR(`/Documents/${documentId}?filter=${query}`);
+  const { data } = useSWR(`/documents/${documentId}?filter=${query}`);
 
   return (
     <Flex flexDirection={['column', 'column', 'row']} gap={[3, 3, 3, 4]}>

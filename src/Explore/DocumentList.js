@@ -22,7 +22,7 @@ function DocumentList() {
 
   const { data, size, setSize } = useSWRInfinite((page, previous) => {
     const filter = translate(filters, { ...QUERY_CONFIG, page: page + 1 });
-    return `/Documents?filter=${filter}`;
+    return `/documents?filter=${filter}`;
   });
 
   // Infinite scroll

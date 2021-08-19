@@ -11,7 +11,11 @@ function SWRProvider(props) {
     return fetch(url, { method }).then((r) => r.json());
   }
 
-  return <SWRConfig value={{ suspense: true, fetcher }}>{children}</SWRConfig>;
+  return (
+    <SWRConfig value={{ suspense: true, revalidateOnFocus: false, fetcher }}>
+      {children}
+    </SWRConfig>
+  );
 }
 
 export default SWRProvider;
