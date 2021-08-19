@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { useMediaQuery } from '@react-hookz/web';
+import { ThemeContext } from 'styled-components';
 
 import Boundary from '../App/Boundary';
 import { Flex, Box } from '../Primitives';
@@ -6,10 +9,25 @@ import Search from '../Search/Search';
 import DocumentList from './DocumentList';
 
 function ExplorePage() {
+  const { breakpoints } = useContext(ThemeContext);
+  const isDesktop = useMediaQuery(`(min-width: ${breakpoints[1]})`);
+
   return (
     <Flex flexDirection={['column', 'column', 'row']} gap={[3, 3, 3, 4]}>
-      <Box display={['block', 'block', 'none']} width={[1, 1, 1 / 4]}>
-        <Box as="details">
+      {isDesktop ? (
+        <Box
+          as="aside"
+          display={['none', 'none', 'block']}
+          width={[1, 1, 1 / 4]}
+        >
+          <Search />
+        </Box>
+      ) : (
+        <Box
+          as="details"
+          display={['block', 'block', 'none']}
+          width={[1, 1, 1 / 4]}
+        >
           <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>
             Filters
           </Box>
@@ -17,10 +35,7 @@ function ExplorePage() {
             <Search />
           </Box>
         </Box>
-      </Box>
-      <Box as="aside" display={['none', 'none', 'block']} width={[1, 1, 1 / 4]}>
-        <Search />
-      </Box>
+      )}
       <Box width={[1, 1, 3 / 4]}>
         <Boundary>
           <DocumentList name="Data" />
