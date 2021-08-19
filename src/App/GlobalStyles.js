@@ -10,22 +10,22 @@ const GlobalStyles = createGlobalStyle(
       boxSizing: 'border-box',
     },
     body: {
-      backgroundColor: 'background',
+      bg: 'background',
       color: 'text',
-      fontFamily: 'body',
+      fontFamily: 'text',
       fontSize: [0, 0, 1],
-      lineHeight: 'body',
+      lineHeight: 'text',
     },
     ul: {
       listStyleType: 'square',
-      color: 'pink',
+      color: 'ternary',
     },
     rcSlider,
     '.rc-slider-track': { bg: 'secondary' },
-    '.rc-slider-handle': { border: 'none', bg: 'pink' },
+    '.rc-slider-handle': { border: 'none', bg: 'ternary' },
     '.rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging':
       {
-        boxShadow: '0 0 0 3px white',
+        boxShadow: 'rangeHandle',
       },
   })
 );

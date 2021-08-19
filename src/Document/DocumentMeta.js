@@ -6,13 +6,13 @@ import MetaItem from './MetaItem';
 function DocumentMeta({ data }) {
   return (
     <Box>
-      <Card p={2}>
+      <Card p={[3, 3, 3, 4]}>
         <Heading>Description</Heading>
         <Text as="p">{data.summary}</Text>
       </Card>
       <Box as="ul" bg="middleground" color="inherit" pl={0}>
         <MetaItem label="Citation">
-          <Link display="block" href={'http://doi.org/' + data.doi} blank>
+          <Link display="block" href={`http://doi.org/${data.doi}`} blank>
             {data.citation}
           </Link>
         </MetaItem>

@@ -19,9 +19,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
 
-      <Box as="nav" sx={{ position: 'sticky', top: 0, mb: [3, 4], zIndex: 1 }}>
-        <Navigation />
-      </Box>
+      <Navigation />
 
       <Box mx={[3, 3, 3, 4]} mb={5}>
         <Switch>

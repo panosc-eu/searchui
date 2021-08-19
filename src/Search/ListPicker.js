@@ -26,7 +26,7 @@ function ListPicker(props) {
             as="label"
             sx={{
               alignItems: 'center',
-              color: isSelected && 'heading',
+              color: isSelected && 'textVivid',
               fontSize: 0,
               fontWeight: isSelected && 'bold',
               cursor: 'pointer',

@@ -32,7 +32,7 @@ function DocumentList() {
   }, [loadOnScroll, inView, setSize]);
 
   const documents = data.flat();
-  const isEmpty = documents.length > 0;
+  const isEmpty = documents.length === 0;
   const isLoadingMore = !data[size - 1];
   const hasReachedEnd = data[data.length - 1].length < PAGE_SIZE;
 
@@ -41,29 +41,31 @@ function DocumentList() {
       <Suspense fallback={<Spinner />}>
         <Flex column gap={[3, 3, 3, 4]}>
           {isEmpty ? (
-            documents.map((doc) => (
-              <DocumentItem document={doc} key={doc.pid} />
-            ))
-          ) : (
-            <Card>
+            <Card p={[3, 4]}>
               <Heading>No results</Heading>
-              <Text>Please adjust the search filters.</Text>
+              <Text as="p">Please adjust the search filters.</Text>
             </Card>
-          )}
-          {isLoadingMore ? (
-            <Text>Loading more results...</Text>
-          ) : hasReachedEnd ? (
-            <Text>End of results</Text>
-          ) : loadOnScroll ? (
-            <Box ref={infiniteScrollRef} />
           ) : (
-            <Button
-              variant="primary"
-              alignSelf="flex-start"
-              onClick={() => setSize((val) => val + 1)}
-            >
-              Load more results
-            </Button>
+            <>
+              {documents.map((doc) => (
+                <DocumentItem document={doc} key={doc.pid} />
+              ))}
+              {isLoadingMore ? (
+                <Text as="p">Loading more results...</Text>
+              ) : hasReachedEnd ? (
+                <Text as="p">End of results</Text>
+              ) : loadOnScroll ? (
+                <Box ref={infiniteScrollRef} />
+              ) : (
+                <Button
+                  variant="primary"
+                  alignSelf="flex-start"
+                  onClick={() => setSize((val) => val + 1)}
+                >
+                  Load more results
+                </Button>
+              )}
+            </>
           )}
         </Flex>
       </Suspense>

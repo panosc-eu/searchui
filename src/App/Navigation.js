@@ -8,9 +8,19 @@ function Navigation() {
   const isDark = useAppStore((state) => state.isDark);
 
   return (
-    <Flex bg="nav" height="nav">
+    <Flex
+      as="nav"
+      sx={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 1,
+        height: 'navHeight',
+        mb: [3, 4],
+        bg: 'bgNav',
+      }}
+    >
       <NavLink to="/" exact>
-        <Box height={'navIcon'} p={[1, 0]}>
+        <Box height="logoHeight" p={[1, 0]}>
           <Image
             height="100%"
             width="unset"

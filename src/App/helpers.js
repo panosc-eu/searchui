@@ -5,7 +5,7 @@ export function parseDate(date) {
 }
 
 export function capitalizeAndSpace(str) {
-  return str[0].toUpperCase() + str.slice(1).split('_').join(' ');
+  return `${str[0].toUpperCase()}${str.slice(1).replace(/_/g, ' ')}`;
 }
 
 export function documentSize(datasets) {

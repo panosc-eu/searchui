@@ -17,7 +17,7 @@ function NavLink({ to, exact, sx, ...props }) {
         bg: !!match && 'background',
         color: !!match ? 'text' : 'inherit',
         fontSize: [0, 1],
-        fontWeight: 600,
+        fontWeight: 'semibold',
         textDecoration: 'none',
         textTransform: 'uppercase',
         ':hover': { color: 'text', bg: 'background' },

@@ -6,9 +6,7 @@ function FilterGroup(props) {
 
   return (
     <Box as="section">
-      <Heading variant="caps" mb={2}>
-        {name}
-      </Heading>
+      <Heading variant="filterGroup">{name}</Heading>
       <Flex column gap={3}>
         {filters.map((obj) => (
           <Filter key={obj.name ?? obj.value} obj={obj} />

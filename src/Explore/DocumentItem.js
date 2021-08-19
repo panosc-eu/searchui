@@ -11,7 +11,7 @@ function DocumentItem(props) {
   const { pid, img, title, keywords, summary, releseDate, datasets } = document;
 
   const history = useHistory();
-  const url = '/documents/' + encodeURIComponent(pid);
+  const url = `/documents/${encodeURIComponent(pid)}`;
 
   return (
     <Box
@@ -38,14 +38,14 @@ function DocumentItem(props) {
         <Image src={img} width="100%" height="100%" />
       </Box>
 
-      <Card p={[3, 3, 3]} width={[1, 2 / 3, 3 / 4]}>
+      <Card width={[1, 2 / 3, 3 / 4]}>
         <Link as={RouterLink} to={url} noUnderline>
           <Heading>{title}</Heading>
         </Link>
 
         <Flex>
           {keywords.map((keyword) => (
-            <Text key={keyword} variant="badge" mr={[1, 2]}>
+            <Text key={keyword} variant="keyword" mr={[1, 2]}>
               {keyword.toLowerCase()}
             </Text>
           ))}
@@ -65,7 +65,7 @@ function DocumentItem(props) {
           {summary}
         </Box>
 
-        <Flex gap={2} mt={2} fontStyle="italic" fontSize="small">
+        <Flex as="footer" gap={2} mt={2} fontStyle="italic" fontSize="small">
           <Text>Created: {parseDate(releseDate)}</Text>
           <Text>Size: {documentSize(datasets)}</Text>
         </Flex>

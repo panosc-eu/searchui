@@ -10,16 +10,7 @@ function Filter(props) {
 
   return (
     <Box sx={{ position: 'relative', pr: withClearBtn && 5 }}>
-      <Heading
-        as="h3"
-        variant="small"
-        sx={{
-          color: obj.isActive && 'heading',
-          fontSize: 1,
-          fontWeight: obj.isActive ? 600 : 'normal',
-          textTransform: 'capitalize',
-        }}
-      >
+      <Heading as="h3" variant="filter" data-active={obj.isActive || undefined}>
         {capitalizeAndSpace(obj.name ?? obj.value)}
       </Heading>
 
@@ -28,11 +19,7 @@ function Filter(props) {
       {withClearBtn && (
         <Button
           variant="action"
-          sx={{
-            position: 'absolute',
-            top: -2,
-            right: 0,
-          }}
+          sx={{ position: 'absolute', top: -2, right: 0 }}
           disabled={!obj.isActive}
           aria-label="Clear"
           onClick={() => {

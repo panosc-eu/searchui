@@ -13,7 +13,6 @@ function TextInput(props) {
     <Flex>
       <Input
         ref={inputRef}
-        variant="input"
         onChange={(e) => {
           if (!obj.isActive) {
             obj.toggleIsActive(1);

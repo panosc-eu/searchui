@@ -10,13 +10,13 @@ function MetaItem(props) {
       as="li"
       sx={{
         borderTop: '1px solid background',
-        ':last-child > div': { pb: [2, 2, 3, 4] },
+        ':last-child > div': { pb: [3, 3, 3, 4] },
       }}
     >
       <Text
         sx={{
           width: '25%',
-          px: [1, 2, 3, 4],
+          px: [3, 3, 3, 4],
           py: [2],
           borderRight: '1px solid background',
           fontWeight: 'bold',
@@ -27,7 +27,7 @@ function MetaItem(props) {
       <Text
         sx={{
           flex: '1 1 0%',
-          px: [1, 2, 3, 4],
+          px: [3, 3, 3, 4],
           py: [2],
         }}
       >
