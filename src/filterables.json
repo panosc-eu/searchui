@@ -47,14 +47,6 @@
     ]
   },
   {
-    "target": ["datasets", "techniques"],
-    "filters": [
-      { "value": "technique a" },
-      { "value": "technique b" },
-      { "value": "technique c" }
-    ]
-  },
-  {
     "target": ["members", "person"],
     "filters": [
       {

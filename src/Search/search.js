@@ -17,7 +17,6 @@ const Search = () => {
   const rootFilters = [...filters?.root?.filters].sort(
     (a, b) => ORDER.indexOf(a?.name) - ORDER.indexOf(b?.name)
   );
-  const techniques = filters?.techniques?.filters;
   const parameters = filters?.parameters?.filters;
 
   return (
@@ -25,7 +24,6 @@ const Search = () => {
       <Card>
         <Flex column gap={[3, 2, 3, 4]}>
           <FilterGroup name="Search" filters={rootFilters} />
-          <FilterGroup name="Technique" filters={techniques} />
           <FilterGroup name="Parameter" filters={parameters} />
         </Flex>
       </Card>
