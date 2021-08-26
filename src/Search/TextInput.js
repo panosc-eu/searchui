@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 
+import { useDebouncedCallback } from '@react-hookz/web';
 import { Input } from '@rebass/forms/styled-components';
 import { FiSlash } from 'react-icons/fi';
 
@@ -9,21 +10,24 @@ function TextInput(props) {
   const { obj } = props;
   const inputRef = useRef(null);
 
+  const handleChange = useDebouncedCallback(
+    (evt) => {
+      if (!obj.isActive) {
+        obj.toggleIsActive(1);
+      }
+      if (evt.target.value === '') {
+        obj.toggleIsActive(0);
+      }
+
+      obj.assocValue(evt.target.value);
+    },
+    [obj],
+    300
+  );
+
   return (
     <Flex>
-      <Input
-        ref={inputRef}
-        onChange={(e) => {
-          if (!obj.isActive) {
-            obj.toggleIsActive(1);
-          }
-          if (e.target.value === '') {
-            obj.toggleIsActive(0);
-          }
-
-          obj.assocValue(e.target.value);
-        }}
-      />
+      <Input ref={inputRef} onChange={handleChange} />
       <Button
         variant="action"
         disabled={!obj.isActive}
