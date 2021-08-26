@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { useMediaQuery } from '@react-hookz/web';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import { breakpoints } from '../breakpoints';
 import DocumentPage from '../Document/DocumentPage';
 import ExplorePage from '../Explore/ExplorePage';
 import HomePage from '../Home/HomePage';
@@ -14,6 +16,7 @@ import Navigation from './Navigation';
 
 function App() {
   const theme = useTheme();
+  const isDesktop = useMediaQuery(`(min-width: ${breakpoints[1]})`);
 
   return (
     <ThemeProvider theme={theme}>
@@ -27,7 +30,7 @@ function App() {
             <HomePage />
           </Route>
           <Route exact path="/documents">
-            <ExplorePage />
+            <ExplorePage isDesktop={isDesktop} />
           </Route>
           <Route exact path="/documents/:documentId">
             <Boundary>

@@ -1,4 +1,5 @@
 import { useAppStore } from './App/stores';
+import { breakpoints } from './breakpoints';
 import { light, dark } from './colors';
 
 export function useTheme() {
@@ -6,7 +7,7 @@ export function useTheme() {
 
   return {
     colors: isDark ? dark : light,
-    breakpoints: ['37.5em', '56.25em', '75em', '112.5em'],
+    breakpoints,
     fonts: {
       text: 'Open Sans, system-ui, sans-serif',
       heading: 'inherit',
