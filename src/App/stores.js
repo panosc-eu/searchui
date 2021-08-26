@@ -19,3 +19,12 @@ export const useAppStore = create((set, get) => ({
     set(() => ({ loadOnScroll: !get().loadOnScroll }));
   },
 }));
+
+export const useSearchStore = create((set, get) => ({
+  search: '',
+  setSearch: (search) => {
+    if (search !== get().search) {
+      set({ search });
+    }
+  },
+}));

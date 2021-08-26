@@ -25,9 +25,7 @@ function DocumentItem(props) {
           ':hover h2': { textDecoration: ['none', 'underline'] },
         },
       }}
-      onClick={() => {
-        history.push(url);
-      }}
+      onClick={() => history.push(url)}
     >
       <Box
         display={['block', 'none']}
@@ -39,7 +37,12 @@ function DocumentItem(props) {
       </Box>
 
       <Card width={[1, 2 / 3, 3 / 4]}>
-        <Link as={RouterLink} to={url} noUnderline>
+        <Link
+          as={RouterLink}
+          to={url}
+          onClick={(evt) => evt.stopPropagation()}
+          noUnderline
+        >
           <Heading>{title}</Heading>
         </Link>
 

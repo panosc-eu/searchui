@@ -3,14 +3,16 @@ import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import { Flex } from '.';
+import { useSearchStore } from '../App/stores';
 
 function NavLink({ to, exact, sx, ...props }) {
   const match = useRouteMatch({ path: to, exact });
+  const search = useSearchStore((state) => state.search);
 
   return (
     <Flex
       as={Link}
-      to={to}
+      to={to === '/documents' ? { pathname: to, search } : to}
       sx={{
         alignItems: 'center',
         px: [2, 3],
