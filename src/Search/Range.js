@@ -10,11 +10,11 @@ const RangeSlider = RCSlider.createSliderWithTooltip(RCSlider.Range);
 function Range(props) {
   const { obj } = props;
   const [value, setValue] = useState(obj.range);
+  const isInitialRange = value[0] === obj.range[0] && value[1] === obj.range[1];
 
   function handleChange(val) {
-    const shouldActivate = val[0] !== obj.range[0] || val[1] !== obj.range[1];
-    if (obj.isActive !== shouldActivate) {
-      obj.toggleIsActive(shouldActivate ? 1 : 0);
+    if (!obj.isActive) {
+      obj.toggleIsActive(true);
     }
 
     obj.assocValue(val);
@@ -22,7 +22,13 @@ function Range(props) {
 
   return (
     <Flex mt={-2} mb={-2}>
-      <Flex flex="1 1 0%" alignItems="center" mx={2}>
+      <input
+        type="checkbox"
+        checked={obj.isActive}
+        onChange={() => obj.toggleIsActive(!obj.isActive)}
+        style={{ cursor: 'inherit' }}
+      />
+      <Flex flex="1 1 0%" alignItems="center" mr={2} ml={3}>
         <RangeSlider
           value={value}
           min={obj.range[0]}
@@ -35,7 +41,7 @@ function Range(props) {
       </Flex>
       <Button
         variant="action"
-        disabled={!obj.isActive}
+        disabled={!obj.isActive && isInitialRange}
         aria-label="Clear"
         onClick={() => {
           setValue(obj.range);
