@@ -25,7 +25,12 @@ function DocumentItem(props) {
           ':hover h2': { textDecoration: ['none', 'underline'] },
         },
       }}
-      onClick={() => history.push(url)}
+      onClick={() => {
+        history.push({
+          pathname: url,
+          state: { fromExplorePage: true },
+        });
+      }}
     >
       <Box
         display={['block', 'none']}
@@ -40,7 +45,7 @@ function DocumentItem(props) {
         <Link
           as={RouterLink}
           to={url}
-          onClick={(evt) => evt.stopPropagation()}
+          onClick={(evt) => evt.preventDefault()} // let parent handler perform navigation
           noUnderline
         >
           <Heading>{title}</Heading>

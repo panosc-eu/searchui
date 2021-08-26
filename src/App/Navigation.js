@@ -1,11 +1,14 @@
 import { FiArrowLeft } from 'react-icons/fi';
-import { Route } from 'react-router-dom';
+import { Route, useLocation, useHistory } from 'react-router-dom';
 
 import { useAppStore } from '../App/stores';
 import { Image, Flex, Box, NavLink, Text } from '../Primitives';
 
 function Navigation() {
   const isDark = useAppStore((state) => state.isDark);
+
+  const history = useHistory();
+  const { state } = useLocation();
 
   return (
     <Flex
@@ -34,7 +37,17 @@ function Navigation() {
       </NavLink>
 
       <Route exact path="/documents/:documentId">
-        <NavLink to="/documents" exact ml="auto">
+        <NavLink
+          to="/documents"
+          exact
+          ml="auto"
+          onClick={(evt) => {
+            if (state?.fromExplorePage) {
+              evt.preventDefault();
+              history.goBack();
+            }
+          }}
+        >
           <FiArrowLeft style={{ fontSize: '1.5em', paddingTop: '1px' }} />
           <Text ml={2}>Back to results</Text>
         </NavLink>

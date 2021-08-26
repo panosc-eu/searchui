@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Boundary from '../App/Boundary';
 import { useSearchStore } from '../App/stores';
