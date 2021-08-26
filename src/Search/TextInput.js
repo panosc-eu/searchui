@@ -1,46 +1,50 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 
 import { useDebouncedCallback } from '@react-hookz/web';
 import { Input } from '@rebass/forms/styled-components';
 import { FiSlash } from 'react-icons/fi';
 
 import { Flex, Button } from '../Primitives';
+import { useQueryParam } from '../router-utils';
+import FilterBox from './Filter';
 
 function TextInput(props) {
   const { obj } = props;
-  const inputRef = useRef(null);
+
+  const param = useQueryParam(obj.name);
+  const [inputValue, setInputValue] = useState(param.value || '');
 
   const handleChange = useDebouncedCallback(
-    (evt) => {
-      if (!obj.isActive) {
-        obj.toggleIsActive(1);
-      }
-      if (evt.target.value === '') {
-        obj.toggleIsActive(0);
-      }
-
-      obj.assocValue(evt.target.value);
-    },
-    [obj],
-    300
+    (val) => param.setValue(val),
+    [param],
+    500
   );
 
   return (
-    <Flex>
-      <Input ref={inputRef} onChange={handleChange} />
-      <Button
-        variant="action"
-        disabled={!obj.isActive}
-        aria-label="Clear"
-        onClick={() => {
-          inputRef.current.value = '';
-          obj.toggleIsActive(0);
-          obj.assocValue('');
-        }}
-      >
-        <FiSlash />
-      </Button>
-    </Flex>
+    <FilterBox title={obj.name} isActive={param.isActive}>
+      <Flex>
+        <Input
+          px={2}
+          value={inputValue}
+          onChange={(evt) => {
+            const { value } = evt.target;
+            setInputValue(value);
+            handleChange(value);
+          }}
+        />
+        <Button
+          variant="action"
+          disabled={!inputValue}
+          aria-label="Clear"
+          onClick={() => {
+            setInputValue('');
+            param.remove();
+          }}
+        >
+          <FiSlash />
+        </Button>
+      </Flex>
+    </FilterBox>
   );
 }
 

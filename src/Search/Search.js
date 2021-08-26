@@ -1,9 +1,11 @@
 import { Switch } from '@rebass/forms/styled-components';
 import shallow from 'zustand/shallow';
 
-import { useSearchStore, useAppStore } from '../App/stores';
+import { useAppStore } from '../App/stores';
+import { initialFilters } from '../filters';
 import { Card, Flex, Text, Button } from '../Primitives';
 import FilterGroup from './FilterGroup';
+
 const ORDER = ['title', 'type', 'keywords'];
 
 const Search = () => {
@@ -12,12 +14,10 @@ const Search = () => {
     shallow
   );
 
-  const filters = useSearchStore();
-
-  const rootFilters = [...filters?.root?.filters].sort(
+  const rootFilters = [...initialFilters.root?.filters].sort(
     (a, b) => ORDER.indexOf(a?.name) - ORDER.indexOf(b?.name)
   );
-  const parameters = filters?.parameters?.filters;
+  const parameters = initialFilters.parameters?.filters;
 
   return (
     <Flex column gap={[3, 3, 3, 4]}>

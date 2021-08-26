@@ -4,54 +4,58 @@ import RCSlider from 'rc-slider';
 import { FiSlash } from 'react-icons/fi';
 
 import { Button, Flex } from '../Primitives';
+import { JOIN_CHAR, useQueryParam } from '../router-utils';
+import FilterBox from './Filter';
 
 const RangeSlider = RCSlider.createSliderWithTooltip(RCSlider.Range);
 
 function Range(props) {
   const { obj } = props;
-  const [value, setValue] = useState(obj.range);
-  const isInitialRange = value[0] === obj.range[0] && value[1] === obj.range[1];
 
-  function handleChange(val) {
-    if (!obj.isActive) {
-      obj.toggleIsActive(true);
-    }
-
-    obj.assocValue(val);
-  }
+  const param = useQueryParam(obj.name);
+  const [value, setValue] = useState(
+    param.value ? param.value.split(JOIN_CHAR) : obj.range
+  );
 
   return (
-    <Flex mt={-2} mb={-2}>
-      <input
-        type="checkbox"
-        checked={obj.isActive}
-        onChange={() => obj.toggleIsActive(!obj.isActive)}
-        style={{ cursor: 'inherit' }}
-      />
-      <Flex flex="1 1 0%" alignItems="center" mr={2} ml={3}>
-        <RangeSlider
-          value={value}
-          min={obj.range[0]}
-          max={obj.range[1]}
-          step={(obj.range[1] - obj.range[0]) / 100}
-          allowCross={false}
-          onChange={(val) => setValue(val)}
-          onAfterChange={handleChange}
+    <FilterBox title={obj.name} isActive={param.isActive}>
+      <Flex mt={-2} mb={-2}>
+        <input
+          type="checkbox"
+          checked={param.isActive}
+          onChange={() => {
+            if (param.isActive) {
+              param.remove();
+            } else {
+              param.setValue(value.join(JOIN_CHAR));
+            }
+          }}
+          style={{ cursor: 'inherit' }}
         />
+        <Flex flex="1 1 0%" alignItems="center" mr={2} ml={3}>
+          <RangeSlider
+            value={value}
+            min={obj.range[0]}
+            max={obj.range[1]}
+            step={(obj.range[1] - obj.range[0]) / 100}
+            allowCross={false}
+            onChange={(val) => setValue(val)}
+            onAfterChange={(val) => param.setValue(val.join(JOIN_CHAR))}
+          />
+        </Flex>
+        <Button
+          variant="action"
+          disabled={!param.isActive}
+          aria-label="Clear"
+          onClick={() => {
+            setValue(obj.range);
+            param.remove();
+          }}
+        >
+          <FiSlash />
+        </Button>
       </Flex>
-      <Button
-        variant="action"
-        disabled={!obj.isActive && isInitialRange}
-        aria-label="Clear"
-        onClick={() => {
-          setValue(obj.range);
-          obj.toggleIsActive(0);
-          obj.assocValue(obj.range);
-        }}
-      >
-        <FiSlash />
-      </Button>
-    </Flex>
+    </FilterBox>
   );
 }
 

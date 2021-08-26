@@ -45,13 +45,5 @@
         "options": ["Half", "Full", "Double"]
       }
     ]
-  },
-  {
-    "target": ["members", "person"],
-    "filters": [
-      {
-        "name": "fullName"
-      }
-    ]
   }
 ]

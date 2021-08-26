@@ -6,7 +6,8 @@ import { useSWRInfinite } from 'swr';
 
 import Boundary from '../App/Boundary';
 import Spinner from '../App/Spinner';
-import { useSearchStore, useAppStore } from '../App/stores';
+import { useAppStore } from '../App/stores';
+import { useFilters } from '../filters';
 import { Flex, Card, Text, Heading, Button, Box } from '../Primitives';
 import DocumentItem from './DocumentItem';
 
@@ -18,7 +19,7 @@ const QUERY_CONFIG = {
 
 function DocumentList() {
   const loadOnScroll = useAppStore((state) => state.loadOnScroll);
-  const filters = useSearchStore();
+  const filters = useFilters();
 
   const { data, size, setSize } = useSWRInfinite((page, previous) => {
     const filter = translate(filters, { ...QUERY_CONFIG, page: page + 1 });

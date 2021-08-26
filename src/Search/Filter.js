@@ -2,30 +2,25 @@ import { FiSlash } from 'react-icons/fi';
 
 import { capitalizeAndSpace } from '../App/helpers';
 import { Heading, Box, Button } from '../Primitives';
-import FilterControl from './FilterControl';
 
-function Filter(props) {
-  const { obj } = props;
-  const withClearBtn = !!obj.options;
+function FilterBox(props) {
+  const { title, isActive, onClear, children } = props;
 
   return (
-    <Box sx={{ position: 'relative', pr: withClearBtn && 5 }}>
-      <Heading as="h3" variant="filter" data-active={obj.isActive || undefined}>
-        {capitalizeAndSpace(obj.name ?? obj.value)}
+    <Box sx={{ position: 'relative', pr: onClear && 5 }}>
+      <Heading as="h3" variant="filter" data-active={isActive || undefined}>
+        {capitalizeAndSpace(title)}
       </Heading>
 
-      <FilterControl obj={obj} />
+      {children}
 
-      {withClearBtn && (
+      {onClear && (
         <Button
           variant="action"
           sx={{ position: 'absolute', top: -2, right: 0 }}
-          disabled={!obj.isActive}
+          disabled={!isActive}
           aria-label="Clear"
-          onClick={() => {
-            obj.assocValue(undefined);
-            obj.toggleIsActive(0);
-          }}
+          onClick={() => onClear()}
         >
           <FiSlash />
         </Button>
@@ -34,4 +29,4 @@ function Filter(props) {
   );
 }
 
-export default Filter;
+export default FilterBox;
