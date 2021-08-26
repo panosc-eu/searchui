@@ -13,6 +13,7 @@ import { useTheme } from '../theme';
 import Boundary from './Boundary';
 import GlobalStyles from './GlobalStyles';
 import Navigation from './Navigation';
+import ScrollToTop from './ScrollToTop';
 
 function App() {
   const theme = useTheme();
@@ -27,6 +28,7 @@ function App() {
       <Box mx={[3, 3, 3, 4]} mb={5}>
         <Switch>
           <Route exact path="/">
+            <ScrollToTop />
             <HomePage />
           </Route>
           <Route exact path="/documents">
@@ -34,6 +36,7 @@ function App() {
           </Route>
           <Route exact path="/documents/:documentId">
             <Boundary>
+              <ScrollToTop />
               <DocumentPage />
             </Boundary>
           </Route>
