@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useParams } from 'react-router-dom';
 import { translate } from 'search-api-adapter';
 import useSWR from 'swr';

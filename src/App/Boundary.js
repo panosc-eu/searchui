@@ -1,6 +1,4 @@
-import React from 'react';
-import { Suspense } from 'react';
-
+import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { Card } from '../Primitives';
@@ -14,7 +12,9 @@ function ErrorFallback(props) {
       <p>Something went wrong:</p>
       <pre>{error.message}</pre>
       <pre>{componentStack}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
+      <button type="button" onClick={resetErrorBoundary}>
+        Try again
+      </button>
     </Card>
   );
 }

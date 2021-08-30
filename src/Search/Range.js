@@ -1,6 +1,5 @@
-import { useState } from 'react';
-
 import RCSlider from 'rc-slider';
+import { useState } from 'react';
 import { FiSlash } from 'react-icons/fi';
 
 import { Button, Flex } from '../Primitives';
@@ -23,6 +22,7 @@ function Range(props) {
         <input
           type="checkbox"
           checked={param.isActive}
+          aria-label="Toggle range filter"
           onChange={() => {
             if (param.isActive) {
               param.remove();

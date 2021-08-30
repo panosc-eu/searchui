@@ -4,7 +4,7 @@ import OptionsPicker from './OptionsPicker';
 import Range from './Range';
 import TextInput from './TextInput';
 
-const TEXT_OPERATORS = [
+const TEXT_OPERATORS = new Set([
   'ilike',
   'nilike',
   'like',
@@ -12,7 +12,7 @@ const TEXT_OPERATORS = [
   'regexp',
   'eq',
   'neq',
-];
+]);
 
 function getFilterComponent(obj) {
   if (obj.operator === 'between') {
@@ -27,7 +27,7 @@ function getFilterComponent(obj) {
     return ListPicker;
   }
 
-  if (TEXT_OPERATORS.includes(obj.operator)) {
+  if (TEXT_OPERATORS.has(obj.operator)) {
     return TextInput;
   }
 

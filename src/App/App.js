@@ -1,14 +1,14 @@
-import React from 'react';
 
 import { useMediaQuery } from '@react-hookz/web';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { breakpoints } from '../breakpoints';
 import DocumentPage from '../Document/DocumentPage';
 import ExplorePage from '../Explore/ExplorePage';
 import HomePage from '../Home/HomePage';
 import { Box } from '../Primitives';
+import { breakpoints } from '../breakpoints';
 import { useTheme } from '../theme';
 import Boundary from './Boundary';
 import GlobalStyles from './GlobalStyles';

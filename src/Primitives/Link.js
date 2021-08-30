@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Link as RebassLink } from 'rebass/styled-components';
 
 function Link({ blank, noUnderline, sx, ...props }) {

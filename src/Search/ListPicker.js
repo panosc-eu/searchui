@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import { capitalizeAndSpace } from '../App/helpers';
 import { Text, Flex } from '../Primitives';
 import { useListQueryParam } from '../router-utils';

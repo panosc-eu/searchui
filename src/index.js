@@ -1,5 +1,4 @@
 import { StrictMode } from 'react';
-
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -14,5 +13,5 @@ ReactDOM.render(
       </BrowserRouter>
     </SWRProvider>
   </StrictMode>,
-  document.getElementById('root')
+  document.querySelector('#root')
 );

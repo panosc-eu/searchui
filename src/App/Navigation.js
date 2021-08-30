@@ -28,7 +28,7 @@ function Navigation() {
             height="100%"
             width="unset"
             alt="PaNOSC logo"
-            src={!isDark ? '/PaNOSC_logo_black.svg' : '/PaNOSC_logo_white.svg'}
+            src={isDark ? '/PaNOSC_logo_white.svg' : '/PaNOSC_logo_black.svg'}
           />
         </Box>
       </NavLink>

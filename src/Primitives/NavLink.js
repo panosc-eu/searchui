@@ -1,8 +1,7 @@
 import React from 'react';
-
 import { Link, useRouteMatch } from 'react-router-dom';
+import { Flex } from 'rebass/styled-components';
 
-import { Flex } from '.';
 import { useSearchStore } from '../App/stores';
 
 function NavLink({ to, exact, sx, ...props }) {
@@ -17,7 +16,7 @@ function NavLink({ to, exact, sx, ...props }) {
         alignItems: 'center',
         px: [2, 3],
         bg: !!match && 'background',
-        color: !!match ? 'text' : 'inherit',
+        color: match ? 'text' : 'inherit',
         fontSize: [0, 1],
         fontWeight: 'semibold',
         textDecoration: 'none',

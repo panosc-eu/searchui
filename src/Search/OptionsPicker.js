@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import { Text, Flex } from '../Primitives';
 import { useQueryParam } from '../router-utils';
 import FilterBox from './Filter';

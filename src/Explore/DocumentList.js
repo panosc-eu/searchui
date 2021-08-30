@@ -1,5 +1,4 @@
 import React, { Suspense, useEffect } from 'react';
-
 import { useInView } from 'react-intersection-observer';
 import { translate } from 'search-api-adapter';
 import { useSWRInfinite } from 'swr';
@@ -7,8 +6,8 @@ import { useSWRInfinite } from 'swr';
 import Boundary from '../App/Boundary';
 import Spinner from '../App/Spinner';
 import { useAppStore } from '../App/stores';
-import { useFilters } from '../filters';
 import { Flex, Card, Text, Heading, Button, Box } from '../Primitives';
+import { useFilters } from '../filters';
 import DocumentItem from './DocumentItem';
 
 const PAGE_SIZE = 5;

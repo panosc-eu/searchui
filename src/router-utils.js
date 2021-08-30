@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react';
-
 import { useHistory, useLocation } from 'react-router-dom';
 
 export const JOIN_CHAR = '~';

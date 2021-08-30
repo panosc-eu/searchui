@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-
 import { Flex as RebassFlex } from 'rebass/styled-components';
 
 const Flex = forwardRef((props, ref) => {

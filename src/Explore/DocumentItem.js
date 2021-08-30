@@ -1,9 +1,7 @@
 import React from 'react';
-
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 
-import { parseDate } from '../App/helpers';
-import { documentSize } from '../App/helpers';
+import { parseDate , documentSize } from '../App/helpers';
 import { Card, Box, Flex, Image, Heading, Link, Text } from '../Primitives';
 
 function DocumentItem(props) {

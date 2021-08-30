@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Image as RebassImage } from 'rebass/styled-components';
 
 function Image({ sx, ...props }) {
