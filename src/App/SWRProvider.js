@@ -2,10 +2,15 @@ import React from 'react';
 import { SWRConfig } from 'swr';
 
 async function fetcher(endpoint) {
-  const method = endpoint.endsWith('token') ? 'post' : 'get';
-  const url = `${process.env.REACT_APP_SEARCH}${endpoint}`;
-  const response = await fetch(url, { method });
-  return response.json();
+  const url = `${
+    process.env.REACT_APP_SEARCH || 'http://localhost:5000/api'
+  }${endpoint}`;
+  const response = await fetch(url);
+  if (response.ok) {
+    return response.json();
+  }
+  const error = { info: response.json, status: response.status };
+  throw error;
 }
 
 function SWRProvider(props) {

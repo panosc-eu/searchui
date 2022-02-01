@@ -6,10 +6,10 @@ import FilterBox from './Filter';
 
 function ListPicker(props) {
   const { obj } = props;
-  const param = useListQueryParam(obj.name);
+  const param = useListQueryParam(obj.label);
 
   return (
-    <FilterBox title={obj.name} isActive={param.isActive}>
+    <FilterBox title={obj.label} isActive={param.isActive}>
       <Flex column gap={1}>
         {obj.list.map((word) => {
           const isSelected = param.values.includes(word);

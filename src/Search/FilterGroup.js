@@ -43,7 +43,7 @@ function FilterGroup(props) {
       <Flex column gap={3}>
         {filters.map((obj) => {
           const Filter = getFilterComponent(obj);
-          return Filter && <Filter key={obj.name} obj={obj} />;
+          return Filter && <Filter key={obj.name || obj.label} obj={obj} />;
         })}
       </Flex>
     </Box>

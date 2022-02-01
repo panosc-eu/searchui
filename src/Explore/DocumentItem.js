@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 
-import { parseDate , documentSize } from '../App/helpers';
+import { parseDate, documentSize } from '../App/helpers';
 import { Card, Box, Flex, Image, Heading, Link, Text } from '../Primitives';
 
 function DocumentItem(props) {
@@ -18,16 +18,6 @@ function DocumentItem(props) {
         display: ['block', 'flex'],
         borderRadius: 4,
         overflow: 'hidden',
-        cursor: 'pointer',
-        '@media (pointer: fine)': {
-          ':hover h2': { textDecoration: ['none', 'underline'] },
-        },
-      }}
-      onClick={() => {
-        history.push({
-          pathname: url,
-          state: { fromExplorePage: true },
-        });
       }}
     >
       <Box
@@ -40,22 +30,16 @@ function DocumentItem(props) {
       </Box>
 
       <Card width={[1, 2 / 3, 3 / 4]}>
-        <Link
-          as={RouterLink}
-          to={url}
-          onClick={(evt) => evt.preventDefault()} // let parent handler perform navigation
-          noUnderline
-        >
           <Heading>{title}</Heading>
-        </Link>
-
-        <Flex>
-          {keywords.map((keyword) => (
-            <Text key={keyword} variant="keyword" mr={[1, 2]}>
-              {keyword.toLowerCase()}
-            </Text>
-          ))}
-        </Flex>
+        {keywords && (
+          <Flex>
+            {keywords.map((keyword) => (
+              <Text key={keyword} variant="keyword" mr={[1, 2]}>
+                {keyword.toLowerCase()}
+              </Text>
+            ))}
+          </Flex>
+        )}
 
         <Box
           as="p"

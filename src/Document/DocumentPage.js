@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { translate } from 'search-api-adapter';
 import useSWR from 'swr';
 
 import { Image, Box, Heading, Flex } from '../Primitives';
 import Dataset from './Dataset';
 import DocumentMeta from './DocumentMeta';
 
+  const translate = (...rest) => true
 function DocumentPage() {
   const query = translate([], {
     include: [

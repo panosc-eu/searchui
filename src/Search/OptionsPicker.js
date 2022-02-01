@@ -5,11 +5,11 @@ import FilterBox from './Filter';
 
 function OptionsPicker(props) {
   const { obj } = props;
-  const param = useQueryParam(obj.name);
+  const param = useQueryParam(obj.label);
 
   return (
     <FilterBox
-      title={obj.name}
+      title={obj.label}
       isActive={param.isActive}
       onClear={() => param.remove()}
     >

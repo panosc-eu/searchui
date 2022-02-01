@@ -1,4 +1,3 @@
-
 import { useDebouncedCallback } from '@react-hookz/web';
 import { Input } from '@rebass/forms/styled-components';
 import { useState } from 'react';
@@ -11,7 +10,7 @@ import FilterBox from './Filter';
 function TextInput(props) {
   const { obj } = props;
 
-  const param = useQueryParam(obj.name);
+  const param = useQueryParam(obj.label);
   const [inputValue, setInputValue] = useState(param.value || '');
 
   const handleChange = useDebouncedCallback(
