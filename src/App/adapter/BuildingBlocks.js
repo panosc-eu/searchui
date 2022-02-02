@@ -84,10 +84,10 @@ const byTargetLength = (arr) => {
     .sort((a, b) => a.length - b.length)
     .reverse();
   return deepestTarget.reduce((acc, _, idx, list) => {
-    const len = list.length - idx
-    const layer = groups.filter(({target}) => target.length === len)
-    return [...acc, layer]
-  }, [])
+    const len = list.length - idx;
+    const layer = groups.filter(({ target }) => target.length === len);
+    return [...acc, layer];
+  }, []);
 };
 export const stripEmptyKeys = (obj) =>
   Object.fromEntries(Object.entries(obj).filter(([, v]) => v && !isEmpty(v)));
@@ -125,7 +125,7 @@ const buildGroup = (group, acc) => {
   return [nestedIn, parsed];
 };
 
-const includeCrawler = (stash, layer) => {
+const layerReducer = (stash, layer) => {
   const current = new Set(layer.map((g) => JSON.stringify(g.target)));
   const missing = Object.keys(stash)
     .filter((k) => !current.has(k))
@@ -141,6 +141,10 @@ const includeCrawler = (stash, layer) => {
     {}
   );
 };
+
+export const buildIncludeKey = (groups) =>
+  byTargetLength(groups).reduce(layerReducer, {}).include;
+
 export const buildWhereKey = (groups) => {
   const { operator, filters } = groups.find((g) => !g.target) || {};
   if (filters?.length > 0) {
@@ -150,5 +154,3 @@ export const buildWhereKey = (groups) => {
   }
   return {};
 };
-export const buildIncludeKey = (groups) =>
-  byTargetLength(groups).reduce(includeCrawler, {}).include;
