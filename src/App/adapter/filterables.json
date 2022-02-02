@@ -3,35 +3,25 @@
     "label": "datasets",
     "operator": "and",
     "type": "filterGroup",
-    "target": [
-      "datasets"
-    ]
+    "target": ["datasets"]
   },
-{
+  {
     "label": "person",
     "operator": "and",
     "type": "filterGroup",
-    "target": [
-      "members",
-      "person"
-    ]
+    "target": ["members", "person"]
   },
-{
+  {
     "label": "members",
     "operator": "and",
     "type": "filterGroup",
-    "target": [
-      "members"
-    ]
+    "target": ["members"]
   },
-{
+  {
     "label": "affiliation",
     "operator": "and",
     "type": "filterGroup",
-    "target": [
-      "members",
-      "affiliation"
-    ]
+    "target": ["members", "affiliation"]
   },
   {
     "label": "name",
@@ -69,10 +59,7 @@
     "type": "filter",
     "group": "root",
     "displayName": "Type",
-    "options": [
-      "Proposal",
-      "Publication"
-    ]
+    "options": ["Proposal", "Publication"]
   },
   {
     "label": "title",
@@ -85,19 +72,14 @@
     "label": "parameters",
     "operator": "and",
     "type": "filterGroup",
-    "target": [
-      "parameters"
-    ]
+    "target": ["parameters"]
   },
   {
     "label": "wavelength",
     "name": "wavelength",
     "type": "filter",
     "group": "parameters",
-    "range": [
-      200,
-      1100
-    ],
+    "range": [200, 1100],
     "unit": "nm"
   },
   {
@@ -105,10 +87,7 @@
     "name": "photon_energy",
     "type": "filter",
     "group": "parameters",
-    "range": [
-      0,
-      1000
-    ],
+    "range": [0, 1000],
     "unit": "eV"
   },
   {
@@ -122,19 +101,13 @@
     "name": "Chemical Formula",
     "type": "filter",
     "group": "parameters",
-    "options": [
-      "Cu"
-    ]
+    "options": ["Cu"]
   },
   {
     "label": "sample_state",
     "name": "sample_state",
     "type": "filter",
     "group": "parameters",
-    "options": [
-      "solid",
-      "liquid",
-      "gas"
-    ]
+    "options": ["solid", "liquid", "gas"]
   }
 ]
