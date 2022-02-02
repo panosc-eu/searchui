@@ -126,7 +126,7 @@ const buildGroup = (group, acc) => {
 };
 
 const layerReducer = (acc, layer) => {
-  const current = new Set(layer.map((g) => JSON.stringify(g.target)));
+  const current = layer.map((g) => JSON.stringify(g.target));
   const missing = Object.keys(acc)
     .filter((k) => !current.has(k))
     .map((str) => ({ target: JSON.parse(str) }));
