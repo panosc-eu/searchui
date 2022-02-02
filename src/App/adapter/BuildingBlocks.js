@@ -77,26 +77,17 @@ const buildSimple = (item) => {
   const { name, value, operator } = item;
   return { [name || 'name']: operator ? { [operator]: value } : value };
 };
-const distributeBackwards = (arr) => {
+const byTargetLength = (arr) => {
   const groups = arr.filter((i) => i.target);
   const [deepestTarget] = groups
     .map((g) => g.target)
     .sort((a, b) => a.length - b.length)
     .reverse();
-  const list = deepestTarget?.length
-    ? [...Array(deepestTarget.length).keys()]
-    : [];
-  let obj = {};
-  list.forEach(
-    (i) =>
-      (obj[i] = [
-        ...(obj[i] || []),
-        ...groups.filter((g) => g.target.length === i + 1),
-      ])
-  );
-  return Object.entries(obj)
-    .reverse()
-    .map((a) => a[1]);
+  return deepestTarget.reduce((acc, _, idx, list) => {
+    const len = list.length - idx
+    const layer = groups.filter(({target}) => target.length === len)
+    return [...acc, layer]
+  }, [])
 };
 export const stripEmptyKeys = (obj) =>
   Object.fromEntries(Object.entries(obj).filter(([, v]) => v && !isEmpty(v)));
@@ -160,4 +151,4 @@ export const buildWhereKey = (groups) => {
   return {};
 };
 export const buildIncludeKey = (groups) =>
-  distributeBackwards(groups).reduce(includeCrawler, {}).include;
+  byTargetLength(groups).reduce(includeCrawler, {}).include;
