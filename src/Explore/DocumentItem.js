@@ -30,7 +30,7 @@ function DocumentItem(props) {
       </Box>
 
       <Card width={[1, 2 / 3, 3 / 4]}>
-          <Heading>{title}</Heading>
+        <Heading>{title}</Heading>
         {keywords && (
           <Flex>
             {keywords.map((keyword) => (

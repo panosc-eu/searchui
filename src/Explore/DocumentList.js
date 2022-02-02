@@ -10,19 +10,23 @@ import { Flex, Card, Text, Heading, Button, Box } from '../Primitives';
 import { initialFilters, useFilters } from '../filters';
 import DocumentItem from './DocumentItem';
 
-
 const decode = (query) => JSON.parse(decodeURIComponent(query));
 function DocumentList() {
   const loadOnScroll = useAppStore((state) => state.loadOnScroll);
-const QUERY_CONFIG = {
-  include: [['datasets'], ['parameters'], ['members', 'person'], ['members', 'affiliation']],
-  type: 'config',
-  limit: 25,
-};
+  const QUERY_CONFIG = {
+    include: [
+      ['datasets'],
+      ['parameters'],
+      ['members', 'person'],
+      ['members', 'affiliation'],
+    ],
+    type: 'config',
+    limit: 25,
+  };
   const state = useFilters();
   const query = translate(initialFilters, [...state, QUERY_CONFIG]);
-  console.log('query')
-  console.log(decode(query))
+  console.log('query');
+  console.log(decode(query));
   const { data, size, setSize, error } = useSWRInfinite((page, previous) => {
     return `/documents?filter=${query}`;
   });
@@ -31,8 +35,8 @@ const QUERY_CONFIG = {
   const { ref: infiniteScrollRef, inView } = useInView();
 
   const documents = data?.flat() || [];
-  console.log('documents retrieved')
-  console.log(documents)
+  console.log('documents retrieved');
+  console.log(documents);
 
   const isEmpty = documents.length === 0;
   const isLoadingMore = !data[size - 1];
@@ -59,8 +63,7 @@ const QUERY_CONFIG = {
               ) : loadOnScroll ? (
                 <Box ref={infiniteScrollRef} />
               ) : (
-                <>
-                </>
+                <></>
               )}
             </>
           )}

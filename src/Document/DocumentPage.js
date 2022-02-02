@@ -6,7 +6,7 @@ import { Image, Box, Heading, Flex } from '../Primitives';
 import Dataset from './Dataset';
 import DocumentMeta from './DocumentMeta';
 
-  const translate = (...rest) => true
+const translate = (...rest) => true;
 function DocumentPage() {
   const query = translate([], {
     include: [

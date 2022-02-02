@@ -1,5 +1,5 @@
 import { useQuery, JOIN_CHAR } from './router-utils';
-import newFilterables from './App/adapter/filterables.json'
+import newFilterables from './App/adapter/filterables.json';
 
 const base = newFilterables.map((obj) =>
   obj.range
