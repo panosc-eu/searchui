@@ -125,13 +125,13 @@ const buildGroup = (group, acc) => {
   return [nestedIn, parsed];
 };
 
-const layerReducer = (stash, layer) => {
+const layerReducer = (acc, layer) => {
   const current = new Set(layer.map((g) => JSON.stringify(g.target)));
-  const missing = Object.keys(stash)
+  const missing = Object.keys(acc)
     .filter((k) => !current.has(k))
     .map((str) => ({ target: JSON.parse(str) }));
   const groups = [...missing, ...layer].map((group) =>
-    buildGroup(group, stash)
+    buildGroup(group, acc)
   );
   return groups.reduce(
     (acc, scope) => ({
