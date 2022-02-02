@@ -11,8 +11,6 @@ module.exports = createConfig({
         'import/no-default-export': 'off', // default exports are common in React
         'unicorn/prefer-object-from-entries': 'off',
         'unicorn/new-for-builtins': 'off',
-        'array-callback-return': 'off',
-        'array-callback-return': 'off',
       },
     },
   ],
