@@ -14,17 +14,22 @@ const decode = (query) => JSON.parse(decodeURIComponent(query));
 function DocumentList() {
   const loadOnScroll = useAppStore((state) => state.loadOnScroll);
   const QUERY_CONFIG = {
-    include: [
-      ['datasets'],
-      ['parameters'],
-      ['members', 'person'],
-      ['members', 'affiliation'],
-    ],
-    type: 'config',
+    include: [['members', 'person']],
+    label: 'config',
     limit: 25,
   };
+  const test = [
+    {
+      label: 'yala',
+    },
+    {
+      label: 'lala',
+      value: 'fds',
+      group: 'yala',
+    },
+  ];
   const state = useFilters();
-  const query = translate(initialFilters, [...state, QUERY_CONFIG]);
+  const query = translate(initialFilters, [...state, ...test, QUERY_CONFIG]);
   console.log('query');
   console.log(decode(query));
   const { data, size, setSize, error } = useSWRInfinite((page, previous) => {

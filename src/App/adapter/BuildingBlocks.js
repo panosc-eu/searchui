@@ -1,55 +1,116 @@
+import MAP from './nesting-map.json';
+import OPERATORS from './operators.json';
+
+const resolvePath = (label, endpoint = '') => {
+  const exists = MAP[label];
+  return exists?.endpoint
+    ? [...exists.endpoint, label]
+    : exists?.def
+    ? [...exists.def, label]
+    : exists
+    ? [label]
+    : undefined;
+};
+const resolveOperator = (label) => OPERATORS[label] || 'and';
+
+const ENDPOINT = 'document';
+
+const createGroup = (obj) => {
+  const {
+    label,
+    value,
+    operator = value || resolveOperator(label),
+    target = resolvePath(label, ENDPOINT),
+  } = obj;
+  return { label, target, operator };
+};
+
 export const parseState = (state) => {
-  const filters = state.filter((item) => item.type === 'filter');
-  const groups = state.filter((item) => item.type === 'filterGroup');
-  const config = state.find((item) => item.type === 'config');
-  const { type: _, label: __, name: ___, value: ____, include, ...queryBase } = enhancePagination(config);
-  const groupedFilters = groups
+  const currentTargets = state
+    .filter((obj) => obj.group)
+    .map((obj) => obj.group);
+
+  const targets = currentTargets.reduce(
+    (acc, scope) => (acc.includes(scope) ? acc : [...acc, scope]),
+    ['root']
+  );
+
+  const reserved = ['config', ...targets];
+
+  const groups = targets.map((label) =>
+    createGroup(state.find((obj) => obj.label === label) || { label })
+  );
+
+  const filters = state
+    .filter((obj) => !reserved.includes(obj.label) && !obj.target)
+    .map((filter) => (filter.group ? filter : { ...filter, group: 'root' }));
+
+  const grouped = groups
     .map((group) => ({
       ...group,
       filters: filters.filter((item) => item.group === group.label),
     }))
     .filter((g) => g.filters.length > 0);
-  const mandatory = groupedFilters
+
+  const config = state.find(({ label }) => label === 'config');
+  const {
+    label: _,
+    name: __,
+    value: ___,
+    include: mandatoryIncludes,
+    ...base
+  } = enhancePagination(config);
+
+  const includes = grouped
     .reduce(
       (acc, scope) => acc.filter((i) => i !== JSON.stringify(scope.target)),
-      include?.map(JSON.stringify) || []
+      mandatoryIncludes?.map(JSON.stringify) || []
     )
     .map((trgt) => ({ target: JSON.parse(trgt) }));
-  return [[...groupedFilters, ...mandatory], queryBase];
+
+  const all = [...grouped, ...includes];
+
+  const include = all.filter((group) => group.target);
+  const where = all.find((group) => group.label === 'root');
+
+  return [include, where, base];
 };
 
 const enhancePagination = (config) => {
-  const { skip, limit, page, pageSize } = config;
-  const enhanced =
+  const { page, pageSize } = config;
+  const obj =
     pageSize && page
       ? {
           ...config,
           limit: pageSize,
-          skip: skip || pageSize * (page - 1),
+          skip: pageSize * (page - 1),
         }
       : config;
-  const { page: _, pageSize: __, ...rest } = enhanced;
-  return rest;
+  const { page: _, pageSize: __, ...res } = obj;
+  return res;
 };
-const squash = list => {
-  const pairs = list.flatMap(obj => Object.entries(obj))
-  return pairs.reduce((acc, scope) => ({...acc, [scope[0]]: scope[1]}), {})
-}
 
-const groupByLabel = list => list.reduce((acc, scope) => ({
-  ...acc,
-  [scope.label]: [...(acc[scope.label] || []), scope]
-}), {})
+const squash = (list) => {
+  const pairs = list.flatMap((obj) => Object.entries(obj));
+  return pairs.reduce((acc, scope) => ({ ...acc, [scope[0]]: scope[1] }), {});
+};
 
+const groupByLabel = (list) =>
+  list.reduce(
+    (acc, scope) => ({
+      ...acc,
+      [scope.label]: [...(acc[scope.label] || []), scope],
+    }),
+    {}
+  );
 
 export const mergeState = (inits, diffs) => {
-  const filteredInits = inits.filter((obj) =>
-    obj.type === 'config'
-    || obj.type === 'filterGroup'
-    || diffs.map(o => o.label).includes(obj.label)
-  )
-  const byLabel = groupByLabel([...filteredInits, ...diffs])
-  return Object.entries(byLabel).flatMap(([, a]) => squash(a))
+  const filteredInits = inits.filter(
+    (obj) =>
+      obj.label === 'config' || diffs.map((o) => o.label).includes(obj.label)
+  );
+  const byLabel = groupByLabel([...filteredInits, ...diffs]);
+  return Object.entries(byLabel).flatMap(([, a]) => squash(a));
 };
 
 const buildParameter = (item) => {
@@ -62,15 +123,19 @@ const buildSimple = (item) => {
   const { name, value, operator } = item;
   return { [name || 'name']: operator ? { [operator]: value } : value };
 };
+
 const byTargetLength = (arr) => {
   const groups = arr.filter((i) => i.target);
+  
   const [deepestTarget = []] = groups
     .map((g) => g.target)
     .sort((a, b) => a.length - b.length)
     .reverse();
+
   return deepestTarget.reduce((acc, _, idx, list) => {
     const len = list.length - idx;
     const layer = groups.filter(({ target }) => target.length === len);
+
     return [...acc, layer];
   }, []);
 };
@@ -79,12 +144,15 @@ export const stripEmptyKeys = (obj) =>
 
 const isEmpty = (obj) => JSON.stringify(obj) === '{}';
 
+const addOperator = (operator, list) =>
+  list.length > 1 ? { [operator]: list } : list.length > 0 ? list[0] : {};
+
 const buildGroup = (group, acc) => {
   const { filters, operator, target } = group;
+
   const relation = target.at(-1);
 
-  const nestedPath = JSON.stringify([...target].slice(0, -1));
-  const nestedIn = nestedPath === '[]' ? 'include' : nestedPath;
+  const nestedIn = JSON.stringify([...target].slice(0, -1));
 
   const isParameters = relation === 'parameters';
   const isParameterException =
@@ -93,9 +161,8 @@ const buildGroup = (group, acc) => {
   const content =
     filters?.map(isParameters ? buildParameter : buildSimple) || [];
 
-  const where = (content.length > 0 || isParameterException) && {
-    [operator || 'and']: content,
-  };
+  const where = !isParameterException && addOperator(operator, content);
+
   const include = acc[JSON.stringify(target)];
   const scope = stripEmptyKeys({ include, where });
 
@@ -111,13 +178,14 @@ const buildGroup = (group, acc) => {
 };
 
 const layerReducer = (acc, layer) => {
-  const current = new Set(layer.map((g) => JSON.stringify(g.target)))
+  const current = layer.map((g) => JSON.stringify(g.target));
+
   const missing = Object.keys(acc)
-    .filter((k) => !current.has(k))
+    .filter((k) => !current.includes(k))
     .map((str) => ({ target: JSON.parse(str) }));
-  const groups = [...missing, ...layer].map((group) =>
-    buildGroup(group, acc)
-  );
+
+  const groups = [...missing, ...layer].map((group) => buildGroup(group, acc));
+
   return groups.reduce(
     (acc, scope) => ({
       ...acc,
@@ -128,14 +196,10 @@ const layerReducer = (acc, layer) => {
 };
 
 export const buildIncludeKey = (groups) =>
-  byTargetLength(groups).reduce(layerReducer, {}).include;
+  byTargetLength(groups).reduce(layerReducer, {})['[]'];
 
-export const buildWhereKey = (groups) => {
-  const { operator, filters } = groups.find((g) => !g.target) || {};
-  if (filters?.length > 0) {
-    return {
-      [operator || 'and']: filters.map(buildSimple),
-    };
-  }
-  return {};
+export const buildWhereKey = (group = {}) => {
+  const { operator, filters = [] } = group;
+  const res = filters.map(buildSimple);
+  return addOperator(operator, res);
 };

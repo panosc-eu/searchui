@@ -1,0 +1,12 @@
+{
+  "parameters": {
+    "def": ["datasets"]
+  },
+  "members": {},
+  "affiliation": {
+    "def": ["members"]
+  },
+  "person": {
+    "def": ["members"]
+  }
+}

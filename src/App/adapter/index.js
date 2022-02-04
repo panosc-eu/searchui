@@ -5,15 +5,16 @@ import {
   buildWhereKey,
   stripEmptyKeys,
 } from './BuildingBlocks';
-const main = (initialState, diffState = []) => {
+
+const main = (initialState = [], diffState = []) => {
   const state = mergeState(initialState, diffState);
-  const [groups, config] = parseState(state);
-  const include = buildIncludeKey(groups);
-  const where = buildWhereKey(groups);
+  const [toInclude, toWhere, base] = parseState(state);
+  const include = buildIncludeKey(toInclude);
+  const where = buildWhereKey(toWhere);
   const query = stripEmptyKeys({
     include,
     where,
-    ...config,
+    ...base,
   });
   return encodeURIComponent(JSON.stringify(query));
 };

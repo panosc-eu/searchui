@@ -1,29 +1,5 @@
 [
   {
-    "label": "datasets",
-    "operator": "and",
-    "type": "filterGroup",
-    "target": ["datasets"]
-  },
-  {
-    "label": "person",
-    "operator": "and",
-    "type": "filterGroup",
-    "target": ["members", "person"]
-  },
-  {
-    "label": "members",
-    "operator": "and",
-    "type": "filterGroup",
-    "target": ["members"]
-  },
-  {
-    "label": "affiliation",
-    "operator": "and",
-    "type": "filterGroup",
-    "target": ["members", "affiliation"]
-  },
-  {
     "label": "name",
     "name": "name",
     "type": "filter",
@@ -49,15 +25,9 @@
     "group": "person"
   },
   {
-    "label": "root",
-    "operator": "and",
-    "type": "filterGroup"
-  },
-  {
     "label": "type",
     "name": "type",
     "type": "filter",
-    "group": "root",
     "displayName": "Type",
     "options": ["Proposal", "Publication"]
   },
@@ -65,14 +35,7 @@
     "label": "title",
     "name": "title",
     "operator": "ilike",
-    "type": "filter",
-    "group": "root"
-  },
-  {
-    "label": "parameters",
-    "operator": "and",
-    "type": "filterGroup",
-    "target": ["parameters"]
+    "type": "filter"
   },
   {
     "label": "wavelength",
