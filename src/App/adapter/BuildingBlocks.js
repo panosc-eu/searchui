@@ -52,21 +52,27 @@ const enhancePagination = (config) => {
   const { page: _, pageSize: __, ...rest } = enhanced;
   return rest;
 };
+const squash = list => {
+  const pairs = list.flatMap(obj => Object.entries(obj))
+  return pairs.reduce((acc, scope) => ({...acc, [scope[0]]: scope[1]}), {})
+}
 
-export const mergeState = (base, state) => {
-  return state.reduce((acc, scope) => {
-    const baseIdx = acc.findIndex((obj) => obj.label === scope.label);
-    const statePairs = Object.entries(scope);
-    const basePairs = baseIdx > -1 ? Object.entries(acc[baseIdx]) : [];
-    const pairs = [
-      ...basePairs.filter(([k]) => statePairs.find((s) => s[0] !== k)),
-      ...statePairs,
-    ];
-    const mergedObject = Object.fromEntries(pairs);
-    const list = acc.filter((item, idx) => idx !== baseIdx);
-    return baseIdx > -1 ? [...list, mergedObject] : [...acc, scope];
-  }, base);
+const groupByLabel = list => list.reduce((acc, scope) => ({
+  ...acc,
+  [scope.label]: [...(acc[scope.label] || []), scope]
+}), {})
+
+
+export const mergeState = (inits, diffs) => {
+  const filteredInits = inits.filter((obj) =>
+    obj.type === 'config'
+    || obj.type === 'filterGroup'
+    || diffs.map(o => o.label).includes(obj.label)
+  )
+  const byLabel = groupByLabel([...filteredInits, ...diffs])
+  return Object.entries(byLabel).flatMap(([, a]) => squash(a))
 };
+
 const buildParameter = (item) => {
   const { name, operator, value, unit } = item;
   const arr = [{ name }, { value: operator ? { [operator]: value } : value }];
@@ -79,7 +85,7 @@ const buildSimple = (item) => {
 };
 const byTargetLength = (arr) => {
   const groups = arr.filter((i) => i.target);
-  const [deepestTarget] = groups
+  const [deepestTarget = []] = groups
     .map((g) => g.target)
     .sort((a, b) => a.length - b.length)
     .reverse();
