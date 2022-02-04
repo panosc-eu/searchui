@@ -1,29 +1,8 @@
-const configsReducer = (acc, scope) => {
-  const [k, v] = scope;
-  const existing = [
-    ...acc.reverse().map(([j]) => j),
-    'type',
-    'label',
-    'name',
-    'value',
-  ];
-  return v && !existing.includes(k) ? [...acc, scope] : acc;
-};
-const buildConfig = (list) => {
-  const reduced = Object.fromEntries(
-    list
-      .filter((xs) => xs.type === 'config')
-      .flatMap((obj) => Object.entries(obj).reduce(configsReducer, []))
-  );
-  return enhancePagination(reduced);
-};
 export const parseState = (state) => {
-  const filters = state.filter(
-    (item) => item.type === 'filter' && item.isActive
-  );
+  const filters = state.filter((item) => item.type === 'filter');
   const groups = state.filter((item) => item.type === 'filterGroup');
-  const configs = state.filter((item) => item.type === 'config');
-  const { include, ...config } = buildConfig(configs);
+  const config = state.find((item) => item.type === 'config');
+  const { type: _, label: __, name: ___, value: ____, include, ...queryBase } = enhancePagination(config);
   const groupedFilters = groups
     .map((group) => ({
       ...group,
@@ -36,7 +15,7 @@ export const parseState = (state) => {
       include?.map(JSON.stringify) || []
     )
     .map((trgt) => ({ target: JSON.parse(trgt) }));
-  return [[...groupedFilters, ...mandatory], config];
+  return [[...groupedFilters, ...mandatory], queryBase];
 };
 
 const enhancePagination = (config) => {
