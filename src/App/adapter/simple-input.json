@@ -1,0 +1,32 @@
+{
+  "affiliation": [
+    {"name": "name"}
+  ],
+
+  "person": [
+    {"name": "fullName"},
+    {"name": "role"},
+    {"name": "orcid"}
+  ],
+
+  "parameters": [
+    {
+      "name": "wavelength",
+      "range": [200, 1100],
+      "unit": "nm"
+    },
+    {
+      "name": "photon_energy",
+      "range": [0, 1000],
+      "unit": "eV"
+    },
+    {
+      "name": "chemical_formula",
+      "options": ["Cu"]
+    },
+    {
+      "name": "sample_state",
+      "options": ["solid", "liquid", "gas"]
+    }
+  ]
+}

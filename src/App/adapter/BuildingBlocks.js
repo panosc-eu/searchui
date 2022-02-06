@@ -1,5 +1,11 @@
 import MAP from './nesting-map.json';
 import OPERATORS from './operators.json';
+import {customAlphabet as nanoid} from 'nanoid'
+
+export const init = (filterables) =>
+  Object.entries(filterables).flatMap(([k, v]) =>
+    v.flatMap((i) => ({ ...i, label: nanoid(i.name, i.name.length)(), group: k }))
+  );
 
 const resolveOperator = (label) => OPERATORS[label] || 'and';
 
@@ -66,10 +72,11 @@ export const parseState = (state, endpoint = 'documents') => {
   const includes = grouped
     .reduce(
       (acc, scope) =>
-        acc.filter((i) =>
-          ![JSON.stringify(scope.target), scope.label].includes(
-            JSON.stringify(i)
-          )
+        acc.filter(
+          (i) =>
+            ![JSON.stringify(scope.target), scope.label].includes(
+              JSON.stringify(i)
+            )
         ),
       mandatoryIncludes?.map((incl) =>
         Array.isArray(incl) ? incl : resolvePath(incl, endpoint)
