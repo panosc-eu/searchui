@@ -8,7 +8,9 @@ import {
 
 const main = (initialState = [], diffState = []) => {
   const state = mergeState(initialState, diffState);
+
   const [toInclude, toWhere, base] = parseState(state);
+
   const include = buildIncludeKey(toInclude);
   const where = buildWhereKey(toWhere);
   const query = stripEmptyKeys({
@@ -16,6 +18,7 @@ const main = (initialState = [], diffState = []) => {
     where,
     ...base,
   });
+
   return encodeURIComponent(JSON.stringify(query));
 };
 

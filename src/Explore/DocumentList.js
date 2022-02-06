@@ -14,7 +14,7 @@ const decode = (query) => JSON.parse(decodeURIComponent(query));
 function DocumentList() {
   const loadOnScroll = useAppStore((state) => state.loadOnScroll);
   const QUERY_CONFIG = {
-    include: [['members', 'person']],
+    include: ['affiliation', 'parameters', 'person'],
     label: 'config',
     limit: 25,
   };

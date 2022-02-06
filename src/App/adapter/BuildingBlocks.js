@@ -1,6 +1,8 @@
 import MAP from './nesting-map.json';
 import OPERATORS from './operators.json';
 
+const resolveOperator = (label) => OPERATORS[label] || 'and';
+
 const resolvePath = (label, endpoint = '') => {
   const exists = MAP[label];
   return exists?.endpoint
@@ -11,21 +13,21 @@ const resolvePath = (label, endpoint = '') => {
     ? [label]
     : undefined;
 };
-const resolveOperator = (label) => OPERATORS[label] || 'and';
 
-const ENDPOINT = 'document';
+const addOperator = (operator, list) =>
+  list.length > 1 ? { [operator]: list } : list.length > 0 ? list[0] : {};
 
-const createGroup = (obj) => {
-  const {
-    label,
-    value,
-    operator = value || resolveOperator(label),
-    target = resolvePath(label, ENDPOINT),
-  } = obj;
-  return { label, target, operator };
-};
+export const parseState = (state, endpoint = 'documents') => {
+  const createGroup = (obj) => {
+    const {
+      label,
+      value,
+      operator = value || resolveOperator(label),
+      target = resolvePath(label, endpoint),
+    } = obj;
+    return { label, target, operator };
+  };
 
-export const parseState = (state) => {
   const currentTargets = state
     .filter((obj) => obj.group)
     .map((obj) => obj.group);
@@ -63,10 +65,17 @@ export const parseState = (state) => {
 
   const includes = grouped
     .reduce(
-      (acc, scope) => acc.filter((i) => i !== JSON.stringify(scope.target)),
-      mandatoryIncludes?.map(JSON.stringify) || []
+      (acc, scope) =>
+        acc.filter((i) =>
+          ![JSON.stringify(scope.target), scope.label].includes(
+            JSON.stringify(i)
+          )
+        ),
+      mandatoryIncludes?.map((incl) =>
+        Array.isArray(incl) ? incl : resolvePath(incl, endpoint)
+      ) || []
     )
-    .map((trgt) => ({ target: JSON.parse(trgt) }));
+    .map((target) => ({ target }));
 
   const all = [...grouped, ...includes];
 
@@ -126,7 +135,7 @@ const buildSimple = (item) => {
 
 const byTargetLength = (arr) => {
   const groups = arr.filter((i) => i.target);
-  
+
   const [deepestTarget = []] = groups
     .map((g) => g.target)
     .sort((a, b) => a.length - b.length)
@@ -139,13 +148,11 @@ const byTargetLength = (arr) => {
     return [...acc, layer];
   }, []);
 };
-export const stripEmptyKeys = (obj) =>
-  Object.fromEntries(Object.entries(obj).filter(([, v]) => v && !isEmpty(v)));
 
 const isEmpty = (obj) => JSON.stringify(obj) === '{}';
 
-const addOperator = (operator, list) =>
-  list.length > 1 ? { [operator]: list } : list.length > 0 ? list[0] : {};
+export const stripEmptyKeys = (obj) =>
+  Object.fromEntries(Object.entries(obj).filter(([, v]) => v && !isEmpty(v)));
 
 const buildGroup = (group, acc) => {
   const { filters, operator, target } = group;
