@@ -23,7 +23,10 @@ const resolveOperator = (label) => OPERATORS[label] || 'and';
 
 const resolvePath = (label, endpoint = '') => {
   const exists = MAP[label];
-  return exists?.endpoint
+  //here
+  return exists === endpoint 
+    ? ['root']
+    : exists?.endpoint
     ? [...exists.endpoint, label]
     : exists?.def
     ? [...exists.def, label]
