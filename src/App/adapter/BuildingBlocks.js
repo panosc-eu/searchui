@@ -1,11 +1,23 @@
 import MAP from './nesting-map.json';
 import OPERATORS from './operators.json';
-import {customAlphabet as nanoid} from 'nanoid'
 
-export const init = (filterables) =>
-  Object.entries(filterables).flatMap(([k, v]) =>
-    v.flatMap((i) => ({ ...i, label: nanoid(i.name, i.name.length)(), group: k }))
-  );
+const ADD_CHAR = "."
+
+const addChar = str => [...str, ADD_CHAR].join('')
+const uniqueNameReducer = (acc, scope) => {
+  return acc.find(str => str === scope) 
+    ? [addChar(scope)].reduce(uniqueNameReducer, acc) 
+    : [...acc, scope]
+}
+
+export const init = (filterables) => {
+  const list = Object.entries(filterables).flatMap(([k, v]) =>
+    v.flatMap((i) => ({ ...i, group: k }))
+  )
+  const names = list.map(({name}) => name)
+  const uniqueLabels = names.reduce(uniqueNameReducer, [])
+  return list.map((obj, idx) => ({...obj, label: uniqueLabels[idx]}))
+}
 
 const resolveOperator = (label) => OPERATORS[label] || 'and';
 

@@ -5,10 +5,13 @@
 
   "person": [
     {"name": "fullName"},
+    {"name": "name"},
     {"name": "role"},
     {"name": "orcid"}
   ],
-
+  "datasets": [
+    {"name": "name"}
+  ],
   "parameters": [
     {
       "name": "wavelength",

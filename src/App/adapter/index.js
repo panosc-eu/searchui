@@ -7,14 +7,10 @@ import {
   init,
 } from './BuildingBlocks';
 
-import test from './simple-input.json'
-
-console.log(init(test))
-
 const main = (initialState = [], diffState = []) => {
   const state = mergeState(initialState, diffState);
 
-  const [toInclude, toWhere, base] = parseState(state);
+  const [toInclude, toWhere, base] = parseState(state, 'documents');
 
   const include = buildIncludeKey(toInclude);
   const where = buildWhereKey(toWhere);
@@ -27,4 +23,5 @@ const main = (initialState = [], diffState = []) => {
   return encodeURIComponent(JSON.stringify(query));
 };
 
+export {init}
 export default main;

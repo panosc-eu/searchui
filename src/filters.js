@@ -1,7 +1,8 @@
 import { useQuery, JOIN_CHAR } from './router-utils';
-import newFilterables from './App/adapter/filterables.json';
+import filterables from './App/adapter/simple-input.json';
+import {init} from './App/adapter'
 
-const base = newFilterables.map((obj) =>
+const base = init(filterables).map((obj) =>
   obj.range
     ? { ...obj, operator: 'between', value: obj.range }
     : obj.type === 'filter'
