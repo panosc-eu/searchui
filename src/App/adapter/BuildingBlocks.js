@@ -1,33 +1,42 @@
 import MAP from './nesting-map.json';
 import OPERATORS from './operators.json';
 
-const ADD_CHAR = "."
+const ADD_CHAR = '.';
 
-const addChar = str => [...str, ADD_CHAR].join('')
+const addChar = (str) => [...str, ADD_CHAR].join('');
 const uniqueNameReducer = (acc, scope) => {
-  return acc.find(str => str === scope) 
-    ? [addChar(scope)].reduce(uniqueNameReducer, acc) 
-    : [...acc, scope]
-}
+  return acc.find((str) => str === scope)
+    ? [addChar(scope)].reduce(uniqueNameReducer, acc)
+    : [...acc, scope];
+};
 
 export const init = (filterables) => {
   const list = Object.entries(filterables).flatMap(([k, v]) =>
     v.flatMap((i) => ({ ...i, group: k }))
-  )
-  const predefined = list.map(({name, label, value}) => label || name || value)
-  const uniqueLabels = predefined.reduce(uniqueNameReducer, [])
-  return list.map((obj, idx) => ({...obj, label: uniqueLabels[idx]}))
-}
+  );
+  const predefined = list.map(
+    ({ name, label, value }) => label || name || value
+  );
+  const uniqueLabels = predefined.reduce(uniqueNameReducer, []);
+  return list.map((obj, idx) => ({ ...obj, label: uniqueLabels[idx] }));
+};
 
 const resolveOperator = (label) => OPERATORS[label] || 'and';
 
 const resolvePath = (label, endpoint) => {
   const known = MAP[label];
-  const nested = known?.[endpoint]
-  const fallback = known?.fallback
-  
-  return label === endpoint ? null : nested ? [...nested, label] : fallback ? [...fallback, label] : known ? [label] : null
-  
+  const nested = known?.[endpoint];
+  const fallback = known?.fallback;
+
+  return label === endpoint
+    ? null
+    : nested
+    ? [...nested, label]
+    : fallback
+    ? [...fallback, label]
+    : known
+    ? [label]
+    : null;
 };
 
 const addOperator = (operator, list) =>
@@ -53,21 +62,26 @@ export const parseState = (state, endpoint) => {
     ...base
   } = enhancePagination(config);
 
-  const currentTargets = state.reduce(
-    (acc, scope) => acc.includes(scope.group) ? acc : [...acc, scope.group],
-    []).filter(x => x)
-  
-  const uniqueTargets = currentTargets.reduce(
-    (acc, scope) => acc.includes(scope) ? acc : [...acc, scope], 
-    includedTargets
-  )
+  const currentTargets = state
+    .reduce(
+      (acc, scope) => (acc.includes(scope.group) ? acc : [...acc, scope.group]),
+      []
+    )
+    .filter((x) => x);
 
-  const groups = uniqueTargets.map((label) =>
+  const uniqueTargets = currentTargets.reduce(
+    (acc, scope) => (acc.includes(scope) ? acc : [...acc, scope]),
+    includedTargets
+  );
+
+  const groups = uniqueTargets
+    .map((label) =>
       createGroup(state.find((obj) => obj.label === label) || { label })
-    ).map(obj => ({
+    )
+    .map((obj) => ({
       ...obj,
-      filters: state.filter(({group}) => group === obj.label)
-    }))
+      filters: state.filter(({ group }) => group === obj.label),
+    }));
 
   const include = groups.filter((group) => group.target);
   const where = groups.find((group) => group.label === endpoint);
@@ -145,7 +159,7 @@ export const stripEmptyKeys = (obj) =>
   Object.fromEntries(Object.entries(obj).filter(([, v]) => v && !isEmpty(v)));
 
 const buildGroup = (group, acc) => {
-  const { filters, operator, target } = group;
+  const { filters, operator, value, target } = group;
 
   const relation = target.at(-1);
 
@@ -158,7 +172,7 @@ const buildGroup = (group, acc) => {
   const content =
     filters?.map(isParameters ? buildParameter : buildSimple) || [];
 
-  const where = !isParameterException && addOperator(operator, content);
+  const where = !isParameterException && addOperator(value || operator, content);
 
   const include = acc[JSON.stringify(target)];
   const scope = stripEmptyKeys({ include, where });
@@ -196,7 +210,7 @@ export const buildIncludeKey = (groups) =>
   byTargetLength(groups).reduce(layerReducer, {})['[]'];
 
 export const buildWhereKey = (group = {}) => {
-  const { operator, filters = [] } = group;
+  const { operator, filters = [], value } = group;
   const res = filters.map(buildSimple);
-  return addOperator(operator, res);
+  return addOperator(value || operator, res);
 };
