@@ -1,20 +1,14 @@
 {
-  "affiliation": [
-    {"name": "name"}
-  ],
+  "affiliation": [{ "name": "name" }],
 
   "person": [
-    {"name": "fullName"},
-    {"name": "name"},
-    {"name": "role"},
-    {"name": "orcid"}
+    { "name": "fullName" },
+    { "name": "name" },
+    { "name": "role" },
+    { "name": "orcid" }
   ],
-  "documents": [
-    {"name": "title"}
-  ],
-  "datasets": [
-    {"name": "title"}
-  ],
+  "documents": [{ "name": "title" }],
+  "datasets": [{ "name": "title" }],
   "parameters": [
     {
       "name": "wavelength",

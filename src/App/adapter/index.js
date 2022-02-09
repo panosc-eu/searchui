@@ -7,22 +7,24 @@ import {
   init,
 } from './BuildingBlocks';
 
-const main = (endpoint, initialState = []) => (diffState) => {
-  const state = mergeState(initialState, diffState);
-  console.log(initialState)
+const main =
+  (endpoint, initialState = []) =>
+  (diffState) => {
+    const state = mergeState(initialState, diffState);
+    console.log(initialState);
 
-  const [toInclude, toWhere, base] = parseState(state, 'documents');
+    const [toInclude, toWhere, base] = parseState(state, 'documents');
 
-  const include = buildIncludeKey(toInclude);
-  const where = buildWhereKey(toWhere);
-  const query = stripEmptyKeys({
-    include,
-    where,
-    ...base,
-  });
+    const include = buildIncludeKey(toInclude);
+    const where = buildWhereKey(toWhere);
+    const query = stripEmptyKeys({
+      include,
+      where,
+      ...base,
+    });
 
-  return encodeURIComponent(JSON.stringify(query));
-};
+    return encodeURIComponent(JSON.stringify(query));
+  };
 
-export {init}
+export { init };
 export default main;

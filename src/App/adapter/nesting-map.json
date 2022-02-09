@@ -2,8 +2,7 @@
   "parameters": {
     "documents": ["datasets"]
   },
-  "datasets": {
-  },
+  "datasets": {},
   "members": {},
   "affiliation": {
     "fallback": ["members"]

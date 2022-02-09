@@ -1,6 +1,6 @@
 import { useQuery, JOIN_CHAR } from './router-utils';
 import filterables from './App/adapter/simple-input.json';
-import {init} from './App/adapter'
+import { init } from './App/adapter';
 
 const base = init(filterables).map((obj) =>
   obj.range
