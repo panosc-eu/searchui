@@ -28,7 +28,6 @@
     "label": "type",
     "name": "type",
     "type": "filter",
-    "displayName": "Type",
     "options": ["Proposal", "Publication"]
   },
   {

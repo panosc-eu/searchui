@@ -9,8 +9,11 @@
     {"name": "role"},
     {"name": "orcid"}
   ],
+  "documents": [
+    {"name": "title"}
+  ],
   "datasets": [
-    {"name": "name"}
+    {"name": "title"}
   ],
   "parameters": [
     {

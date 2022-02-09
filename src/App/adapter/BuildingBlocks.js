@@ -14,31 +14,26 @@ export const init = (filterables) => {
   const list = Object.entries(filterables).flatMap(([k, v]) =>
     v.flatMap((i) => ({ ...i, group: k }))
   )
-  const names = list.map(({name}) => name)
-  const uniqueLabels = names.reduce(uniqueNameReducer, [])
+  const predefined = list.map(({name, label, value}) => label || name || value)
+  const uniqueLabels = predefined.reduce(uniqueNameReducer, [])
   return list.map((obj, idx) => ({...obj, label: uniqueLabels[idx]}))
 }
 
 const resolveOperator = (label) => OPERATORS[label] || 'and';
 
-const resolvePath = (label, endpoint = '') => {
-  const exists = MAP[label];
-  //here
-  return exists === endpoint 
-    ? ['root']
-    : exists?.endpoint
-    ? [...exists.endpoint, label]
-    : exists?.def
-    ? [...exists.def, label]
-    : exists
-    ? [label]
-    : undefined;
+const resolvePath = (label, endpoint) => {
+  const known = MAP[label];
+  const nested = known?.[endpoint]
+  const fallback = known?.fallback
+  
+  return label === endpoint ? null : nested ? [...nested, label] : fallback ? [...fallback, label] : known ? [label] : null
+  
 };
 
 const addOperator = (operator, list) =>
   list.length > 1 ? { [operator]: list } : list.length > 0 ? list[0] : {};
 
-export const parseState = (state, endpoint = 'documents') => {
+export const parseState = (state, endpoint) => {
   const createGroup = (obj) => {
     const {
       label,
@@ -49,60 +44,33 @@ export const parseState = (state, endpoint = 'documents') => {
     return { label, target, operator };
   };
 
-  const currentTargets = state
-    .filter((obj) => obj.group)
-    .map((obj) => obj.group);
-
-  const targets = currentTargets.reduce(
-    (acc, scope) => (acc.includes(scope) ? acc : [...acc, scope]),
-    ['root']
-  );
-
-  const reserved = ['config', ...targets];
-
-  const groups = targets.map((label) =>
-    createGroup(state.find((obj) => obj.label === label) || { label })
-  );
-
-  const filters = state
-    .filter((obj) => !reserved.includes(obj.label) && !obj.target)
-    .map((filter) => (filter.group ? filter : { ...filter, group: 'root' }));
-
-  const grouped = groups
-    .map((group) => ({
-      ...group,
-      filters: filters.filter((item) => item.group === group.label),
-    }))
-    .filter((g) => g.filters.length > 0);
-
   const config = state.find(({ label }) => label === 'config');
   const {
     label: _,
     name: __,
     value: ___,
-    include: mandatoryIncludes,
+    include: includedTargets,
     ...base
   } = enhancePagination(config);
 
-  const includes = grouped
-    .reduce(
-      (acc, scope) =>
-        acc.filter(
-          (i) =>
-            ![JSON.stringify(scope.target), scope.label].includes(
-              JSON.stringify(i)
-            )
-        ),
-      mandatoryIncludes?.map((incl) =>
-        Array.isArray(incl) ? incl : resolvePath(incl, endpoint)
-      ) || []
-    )
-    .map((target) => ({ target }));
+  const currentTargets = state.reduce(
+    (acc, scope) => acc.includes(scope.group) ? acc : [...acc, scope.group],
+    []).filter(x => x)
+  
+  const uniqueTargets = currentTargets.reduce(
+    (acc, scope) => acc.includes(scope) ? acc : [...acc, scope], 
+    includedTargets
+  )
 
-  const all = [...grouped, ...includes];
+  const groups = uniqueTargets.map((label) =>
+      createGroup(state.find((obj) => obj.label === label) || { label })
+    ).map(obj => ({
+      ...obj,
+      filters: state.filter(({group}) => group === obj.label)
+    }))
 
-  const include = all.filter((group) => group.target);
-  const where = all.find((group) => group.label === 'root');
+  const include = groups.filter((group) => group.target);
+  const where = groups.find((group) => group.label === endpoint);
 
   return [include, where, base];
 };

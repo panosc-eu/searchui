@@ -7,8 +7,9 @@ import {
   init,
 } from './BuildingBlocks';
 
-const main = (initialState = [], diffState = []) => {
+const main = (endpoint, initialState = []) => (diffState) => {
   const state = mergeState(initialState, diffState);
+  console.log(initialState)
 
   const [toInclude, toWhere, base] = parseState(state, 'documents');
 

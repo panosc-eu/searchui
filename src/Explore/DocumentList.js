@@ -20,16 +20,12 @@ function DocumentList() {
   };
   const test = [
     {
-      label: 'yala',
-    },
-    {
-      label: 'lala',
-      value: 'fds',
-      group: 'yala',
+      label: 'config',
+      skip: 5
     },
   ];
   const state = useFilters();
-  const query = translate(initialFilters, [...state, ...test, QUERY_CONFIG]);
+  const query = translate('documents', initialFilters)([...state, ...test, QUERY_CONFIG]);
   console.log('query');
   console.log(decode(query));
   const { data, size, setSize, error } = useSWRInfinite((page, previous) => {

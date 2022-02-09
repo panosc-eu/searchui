@@ -1,15 +1,14 @@
 {
   "parameters": {
-    "def": ["datasets"]
+    "documents": ["datasets"]
   },
   "datasets": {
-    "documents": {}
   },
   "members": {},
   "affiliation": {
-    "def": ["members"]
+    "fallback": ["members"]
   },
   "person": {
-    "def": ["members"]
+    "fallback": ["members"]
   }
 }

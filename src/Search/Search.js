@@ -16,7 +16,7 @@ function Search() {
   );
 
   const rootFilters = initialFilters.filter(
-    (obj) => obj.type === 'filter' && obj.group === 'root'
+    (obj) => obj.type === 'filter' && obj.group === 'documents'
   );
   const parameterFilters = initialFilters.filter(
     (obj) => obj.type === 'filter' && obj.group === 'parameters'

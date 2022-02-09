@@ -5,7 +5,7 @@ import {init} from './App/adapter'
 const base = init(filterables).map((obj) =>
   obj.range
     ? { ...obj, operator: 'between', value: obj.range }
-    : obj.type === 'filter'
+    : obj.group
     ? { ...obj, value: '' }
     : obj
 );
