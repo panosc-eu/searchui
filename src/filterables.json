@@ -1,13 +1,24 @@
 {
   "affiliation": [{ "name": "name" }],
-
+  "techniques": [
+    {
+      "label": "technique_a",
+      "name": "pid",
+      "override": "20.500.12269/panosc-tech1"
+    },
+    {
+      "label": "technique_b",
+      "name": "pid",
+      "override": "20.500.12269/panosc-tech2"
+    }
+  ],
   "person": [
     { "name": "fullName" },
     { "name": "name" },
     { "name": "role" },
     { "name": "orcid" }
   ],
-  "documents": [{ "name": "title" }],
+  "documents": [{ "name": "title" }, { "name": "title" }],
   "datasets": [{ "name": "title" }],
   "parameters": [
     {

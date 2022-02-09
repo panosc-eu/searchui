@@ -4,7 +4,7 @@ import { useSWRInfinite } from 'swr';
 
 import Boundary from '../App/Boundary';
 import Spinner from '../App/Spinner';
-import translate from '../App/adapter';
+import translate from '../App/adapter/translate';
 import { useAppStore } from '../App/stores';
 import { Flex, Card, Text, Heading, Button, Box } from '../Primitives';
 import { initialFilters, useFilters } from '../filters';
@@ -15,18 +15,18 @@ function DocumentList() {
   const loadOnScroll = useAppStore((state) => state.loadOnScroll);
   const QUERY_CONFIG = {
     include: ['affiliation', 'parameters', 'person'],
-    label: 'config',
+    label: 'c',
     limit: 25,
   };
   const test = [
     {
-      label: 'config',
+      label: 'c',
       skip: 5,
     },
   ];
   const state = useFilters();
   const query = translate(
-    'documents',
+    'datasets',
     initialFilters
   )([...state, ...test, QUERY_CONFIG]);
   console.log('query');
@@ -39,8 +39,6 @@ function DocumentList() {
   const { ref: infiniteScrollRef, inView } = useInView();
 
   const documents = data?.flat() || [];
-  console.log('documents retrieved');
-  console.log(documents);
 
   const isEmpty = documents.length === 0;
   const isLoadingMore = !data[size - 1];

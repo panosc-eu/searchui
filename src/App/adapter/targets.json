@@ -2,6 +2,9 @@
   "parameters": {
     "documents": ["datasets"]
   },
+  "techniques": {
+    "documents": ["datasets"]
+  },
   "datasets": {},
   "members": {},
   "affiliation": {

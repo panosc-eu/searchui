@@ -9,8 +9,7 @@ async function fetcher(endpoint) {
   if (response.ok) {
     return response.json();
   }
-  const error = { info: response.json, status: response.status };
-  throw error;
+  throw new Error(response.status);
 }
 
 function SWRProvider(props) {
