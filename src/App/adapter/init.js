@@ -11,7 +11,7 @@ const uniqueLabelReducer = (acc, scope) => {
     : [...acc, scope];
 };
 
-const parseLabelCandidates = (obj) => {
+const makeLabelCandidates = (obj) => {
   const { name, label: suggestedLabel, group } = obj;
   const label = encodeURIComponent(
     [...group.slice(0, 2), '-', ...(suggestedLabel || name)].join('')
@@ -23,7 +23,7 @@ function init(filterables) {
   const list = Object.entries(filterables).flatMap(([k, v]) =>
     v.flatMap((i) => ({ ...i, group: k }))
   );
-  return list.map(parseLabelCandidates).reduce(uniqueLabelReducer, []);
+  return list.map(makeLabelCandidates).reduce(uniqueLabelReducer, []);
 }
 
 export default init;
