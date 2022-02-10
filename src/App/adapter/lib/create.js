@@ -12,11 +12,11 @@ const buildSimple = (item) => {
   return { [name]: operator ? { [operator]: value } : value };
 };
 
-const byTargetLength = (arr) => {
-  const groups = arr.filter((i) => i.target);
+const byTargetLength = (list) => {
+  const groups = list.filter((i) => i.target);
 
   const [deepestTarget = []] = groups
-    .map((g) => g.target)
+    .map(({target}) => target)
     .sort((a, b) => a.length - b.length)
     .reverse();
 

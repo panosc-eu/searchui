@@ -26,9 +26,9 @@ function DocumentList() {
   ];
   const state = useFilters();
   const query = translate(
-    'datasets',
     initialFilters
-  )([...state, ...test, QUERY_CONFIG]);
+  )('documents',
+    [...state, ...test, QUERY_CONFIG]);
   console.log('query');
   console.log(decode(query));
   const { data, size, setSize, error } = useSWRInfinite((page, previous) => {
