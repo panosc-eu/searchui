@@ -16,7 +16,7 @@ const byTargetLength = (list) => {
   const groups = list.filter((i) => i.target);
 
   const [deepestTarget = []] = groups
-    .map(({target}) => target)
+    .map(({ target }) => target)
     .sort((a, b) => a.length - b.length)
     .reverse();
 

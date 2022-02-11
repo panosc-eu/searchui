@@ -25,10 +25,11 @@ function DocumentList() {
     },
   ];
   const state = useFilters();
-  const query = translate(
-    initialFilters
-  )('documents',
-    [...state, ...test, QUERY_CONFIG]);
+  const query = translate(initialFilters)('documents', [
+    ...state,
+    ...test,
+    QUERY_CONFIG,
+  ]);
   console.log('query');
   console.log(decode(query));
   const { data, size, setSize, error } = useSWRInfinite((page, previous) => {

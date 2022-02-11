@@ -1,8 +1,8 @@
 import OPERATORS from '../operators.json';
 import MAP from '../targets.json';
 
-const FALLBACK_GROUP_OPERATOR = 'and';
-const LABEL_FOR_CONFIG = 'c';
+export const FALLBACK_GROUP_OPERATOR = 'and';
+export const LABEL_FOR_CONFIG = 'c';
 
 const resolveOperator = (label) => OPERATORS[label] || FALLBACK_GROUP_OPERATOR;
 
@@ -98,7 +98,8 @@ export function mergeState(inits, diffs) {
   const filteredInits = inits.filter(
     (obj) =>
       obj.label === LABEL_FOR_CONFIG ||
-      diffs.map((o) => o.label).includes(obj.label)
+      diffs.map((o) => o.label).includes(obj.label) ||
+      diffs.map((o) => o.group).includes(obj.label)
   );
   const byLabel = groupByLabel([...filteredInits, ...diffs]);
   return Object.entries(byLabel).flatMap(([, a]) => squash(a));
