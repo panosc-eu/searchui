@@ -1,8 +1,8 @@
-import { Heading, Flex, Box } from '../Primitives';
-import ListPicker from './ListPicker';
-import OptionsPicker from './OptionsPicker';
-import Range from './Range';
-import TextInput from './TextInput';
+import { Heading, Flex, Box } from '../Primitives'
+import ListPicker from './ListPicker'
+import OptionsPicker from './OptionsPicker'
+import Range from './Range'
+import TextInput from './TextInput'
 
 const TEXT_OPERATORS = new Set([
   'ilike',
@@ -12,41 +12,41 @@ const TEXT_OPERATORS = new Set([
   'regexp',
   'eq',
   'neq',
-]);
+])
 
 function getFilterComponent(obj) {
   if (obj.operator === 'between') {
-    return Range;
+    return Range
   }
 
   if (obj.options) {
-    return OptionsPicker;
+    return OptionsPicker
   }
 
   if (obj.list) {
-    return ListPicker;
+    return ListPicker
   }
 
   if (TEXT_OPERATORS.has(obj.operator)) {
-    return TextInput;
+    return TextInput
   }
 
-  return null;
+  return null
 }
 
 function FilterGroup(props) {
-  const { name, filters } = props;
+  const { name, filters } = props
 
   return (
     <Box as="section">
       <Heading variant="filterGroup">{name}</Heading>
       <Flex column gap={3}>
         {filters.map((obj) => {
-          const Filter = getFilterComponent(obj);
-          return Filter && <Filter key={obj.name || obj.label} obj={obj} />;
+          const Filter = getFilterComponent(obj)
+          return Filter && <Filter key={obj.name || obj.label} obj={obj} />
         })}
       </Flex>
     </Box>
-  );
+  )
 }
-export default FilterGroup;
+export default FilterGroup

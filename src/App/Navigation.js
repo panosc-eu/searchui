@@ -1,14 +1,14 @@
-import { FiArrowLeft } from 'react-icons/fi';
-import { Route, useLocation, useHistory } from 'react-router-dom';
+import { FiArrowLeft } from 'react-icons/fi'
+import { Route, useLocation, useHistory } from 'react-router-dom'
 
-import { useAppStore } from '../App/stores';
-import { Image, Flex, Box, NavLink, Text } from '../Primitives';
+import { useAppStore } from '../App/stores'
+import { Image, Flex, Box, NavLink, Text } from '../Primitives'
 
 function Navigation() {
-  const isDark = useAppStore((state) => state.isDark);
+  const isDark = useAppStore((state) => state.isDark)
 
-  const history = useHistory();
-  const { state } = useLocation();
+  const history = useHistory()
+  const { state } = useLocation()
 
   return (
     <Flex
@@ -43,8 +43,8 @@ function Navigation() {
           ml="auto"
           onClick={(evt) => {
             if (state?.fromExplorePage) {
-              evt.preventDefault();
-              history.goBack();
+              evt.preventDefault()
+              history.goBack()
             }
           }}
         >
@@ -62,7 +62,7 @@ function Navigation() {
         />
       </Box> */}
     </Flex>
-  );
+  )
 }
 
-export default Navigation;
+export default Navigation

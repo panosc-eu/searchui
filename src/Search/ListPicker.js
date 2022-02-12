@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { capitalizeAndSpace } from '../App/helpers';
-import { Text, Flex } from '../Primitives';
-import { useListQueryParam } from '../router-utils';
-import FilterBox from './Filter';
+import { capitalizeAndSpace } from '../App/helpers'
+import { Text, Flex } from '../Primitives'
+import { useListQueryParam } from '../router-utils'
+import FilterBox from './Filter'
 
 function ListPicker(props) {
-  const { obj } = props;
-  const param = useListQueryParam(obj.label);
+  const { obj } = props
+  const param = useListQueryParam(obj.label)
 
   return (
     <FilterBox title={obj.label} isActive={param.isActive}>
       <Flex column gap={1}>
         {obj.list.map((word) => {
-          const isSelected = param.values.includes(word);
+          const isSelected = param.values.includes(word)
 
           return (
             <Flex
@@ -37,11 +37,11 @@ function ListPicker(props) {
                 {capitalizeAndSpace(word)}
               </Text>
             </Flex>
-          );
+          )
         })}
       </Flex>
     </FilterBox>
-  );
+  )
 }
 
-export default ListPicker;
+export default ListPicker

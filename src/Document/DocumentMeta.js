@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import { Box, Card, Heading, Link, Text } from '../Primitives';
-import MetaItem from './MetaItem';
+import { Box, Card, Heading, Link, Text } from '../Primitives'
+import MetaItem from './MetaItem'
 
 function DocumentMeta({ data }) {
   return (
@@ -22,7 +22,7 @@ function DocumentMeta({ data }) {
         <MetaItem label="Other">Stuff</MetaItem>
       </Box>
     </Box>
-  );
+  )
 }
 
-export default DocumentMeta;
+export default DocumentMeta

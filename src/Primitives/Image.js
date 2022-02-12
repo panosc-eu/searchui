@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image as RebassImage } from 'rebass/styled-components';
+import React from 'react'
+import { Image as RebassImage } from 'rebass/styled-components'
 
 function Image({ sx, ...props }) {
   return (
@@ -7,7 +7,7 @@ function Image({ sx, ...props }) {
       sx={{ display: 'block', objectFit: 'cover', ...sx }}
       {...props}
     />
-  );
+  )
 }
 
-export default Image;
+export default Image

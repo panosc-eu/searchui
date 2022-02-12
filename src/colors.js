@@ -13,7 +13,7 @@ export const light = {
   secondary: '#646eb1',
   ternary: '#bb4677',
   highlight: 'hsla(205, 100%, 40%, 0.125)',
-};
+}
 
 export const dark = {
   text: 'hsl(0, 0%, 80%)',
@@ -28,4 +28,4 @@ export const dark = {
   secondary: '#646eb1',
   ternary: '#bb4677',
   highlight: 'hsla(205, 100%, 40%, 0.125)',
-};
+}

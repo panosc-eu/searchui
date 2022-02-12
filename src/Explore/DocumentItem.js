@@ -1,15 +1,15 @@
-import React from 'react';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+import React from 'react'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 
-import { parseDate, documentSize } from '../App/helpers';
-import { Card, Box, Flex, Image, Heading, Link, Text } from '../Primitives';
+import { parseDate, documentSize } from '../App/helpers'
+import { Card, Box, Flex, Image, Heading, Link, Text } from '../Primitives'
 
 function DocumentItem(props) {
-  const { document } = props;
-  const { pid, img, title, keywords, summary, releseDate, datasets } = document;
+  const { document } = props
+  const { pid, img, title, keywords, summary, releseDate, datasets } = document
 
-  const history = useHistory();
-  const url = `/documents/${encodeURIComponent(pid)}`;
+  const history = useHistory()
+  const url = `/documents/${encodeURIComponent(pid)}`
 
   return (
     <Box
@@ -69,7 +69,7 @@ function DocumentItem(props) {
         <Image width="100%" src={img} minHeight="0" />
       </Box>
     </Box>
-  );
+  )
 }
 
-export default DocumentItem;
+export default DocumentItem

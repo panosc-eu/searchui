@@ -1,9 +1,9 @@
-import { useAppStore } from './App/stores';
-import { breakpoints } from './breakpoints';
-import { light, dark } from './colors';
+import { useAppStore } from './App/stores'
+import { breakpoints } from './breakpoints'
+import { light, dark } from './colors'
 
 export function useTheme() {
-  const isDark = useAppStore((state) => state.isDark);
+  const isDark = useAppStore((state) => state.isDark)
 
   return {
     colors: isDark ? dark : light,
@@ -137,5 +137,5 @@ export function useTheme() {
         },
       },
     },
-  };
+  }
 }

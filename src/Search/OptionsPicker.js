@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { Text, Flex } from '../Primitives';
-import { useQueryParam } from '../router-utils';
-import FilterBox from './Filter';
+import { Text, Flex } from '../Primitives'
+import { useQueryParam } from '../router-utils'
+import FilterBox from './Filter'
 
 function OptionsPicker(props) {
-  const { obj } = props;
-  const param = useQueryParam(obj.label);
+  const { obj } = props
+  const param = useQueryParam(obj.label)
 
   return (
     <FilterBox
@@ -15,7 +15,7 @@ function OptionsPicker(props) {
     >
       <Flex column gap={1}>
         {obj.options.map((option) => {
-          const isSelected = param.value === option;
+          const isSelected = param.value === option
 
           return (
             <Flex
@@ -43,11 +43,11 @@ function OptionsPicker(props) {
                 {option}
               </Text>
             </Flex>
-          );
+          )
         })}
       </Flex>
     </FilterBox>
-  );
+  )
 }
 
-export default OptionsPicker;
+export default OptionsPicker

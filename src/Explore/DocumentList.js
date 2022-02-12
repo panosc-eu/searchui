@@ -1,49 +1,49 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { useSWRInfinite } from 'swr';
+import React, { Suspense, useEffect, useState } from 'react'
+import { useInView } from 'react-intersection-observer'
+import { useSWRInfinite } from 'swr'
 
-import Boundary from '../App/Boundary';
-import Spinner from '../App/Spinner';
-import translate from '../App/adapter/translate';
-import { useAppStore } from '../App/stores';
-import { Flex, Card, Text, Heading, Button, Box } from '../Primitives';
-import { initialFilters, useFilters } from '../filters';
-import DocumentItem from './DocumentItem';
+import Boundary from '../App/Boundary'
+import Spinner from '../App/Spinner'
+import translate from '../App/adapter/translate'
+import { useAppStore } from '../App/stores'
+import { Flex, Card, Text, Heading, Button, Box } from '../Primitives'
+import { initialFilters, useFilters } from '../filters'
+import DocumentItem from './DocumentItem'
 
-const decode = (query) => JSON.parse(decodeURIComponent(query));
+const decode = (query) => JSON.parse(decodeURIComponent(query))
 function DocumentList() {
-  const loadOnScroll = useAppStore((state) => state.loadOnScroll);
+  const loadOnScroll = useAppStore((state) => state.loadOnScroll)
   const QUERY_CONFIG = {
     include: ['affiliation', 'parameters', 'person'],
     label: 'c',
     limit: 25,
-  };
+  }
   const test = [
     {
       label: 'c',
       skip: 5,
     },
-  ];
-  const state = useFilters();
+  ]
+  const state = useFilters()
   const query = translate(initialFilters)('documents', [
     ...state,
     ...test,
     QUERY_CONFIG,
-  ]);
-  console.log('query');
-  console.log(decode(query));
+  ])
+  console.log('query')
+  console.log(decode(query))
   const { data, size, setSize, error } = useSWRInfinite((page, previous) => {
-    return `/documents?filter=${query}`;
-  });
+    return `/documents?filter=${query}`
+  })
 
   // Infinite scroll
-  const { ref: infiniteScrollRef, inView } = useInView();
+  const { ref: infiniteScrollRef, inView } = useInView()
 
-  const documents = data?.flat() || [];
+  const documents = data?.flat() || []
 
-  const isEmpty = documents.length === 0;
-  const isLoadingMore = !data[size - 1];
-  const hasReachedEnd = data[data.length - 1].length < 25;
+  const isEmpty = documents.length === 0
+  const isLoadingMore = !data[size - 1]
+  const hasReachedEnd = data[data.length - 1].length < 25
 
   return (
     <Boundary>
@@ -73,6 +73,6 @@ function DocumentList() {
         </Flex>
       </Suspense>
     </Boundary>
-  );
+  )
 }
-export default DocumentList;
+export default DocumentList

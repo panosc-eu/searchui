@@ -1,10 +1,10 @@
-import { FiSlash } from 'react-icons/fi';
+import { FiSlash } from 'react-icons/fi'
 
-import { capitalizeAndSpace } from '../App/helpers';
-import { Heading, Box, Button } from '../Primitives';
+import { capitalizeAndSpace } from '../App/helpers'
+import { Heading, Box, Button } from '../Primitives'
 
 function FilterBox(props) {
-  const { title, isActive, onClear, children } = props;
+  const { title, isActive, onClear, children } = props
 
   return (
     <Box sx={{ position: 'relative', pr: onClear && 5 }}>
@@ -26,7 +26,7 @@ function FilterBox(props) {
         </Button>
       )}
     </Box>
-  );
+  )
 }
 
-export default FilterBox;
+export default FilterBox

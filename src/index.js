@@ -1,9 +1,9 @@
-import { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 
-import App from './App/App';
-import SWRProvider from './App/SWRProvider';
+import App from './App/App'
+import SWRProvider from './App/SWRProvider'
 
 ReactDOM.render(
   <StrictMode>
@@ -13,5 +13,5 @@ ReactDOM.render(
       </BrowserRouter>
     </SWRProvider>
   </StrictMode>,
-  document.querySelector('#root')
-);
+  document.querySelector('#root'),
+)

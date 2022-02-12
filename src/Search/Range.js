@@ -1,20 +1,20 @@
-import RCSlider from 'rc-slider';
-import { useState } from 'react';
-import { FiSlash } from 'react-icons/fi';
+import RCSlider from 'rc-slider'
+import { useState } from 'react'
+import { FiSlash } from 'react-icons/fi'
 
-import { Button, Flex } from '../Primitives';
-import { JOIN_CHAR, useQueryParam } from '../router-utils';
-import FilterBox from './Filter';
+import { Button, Flex } from '../Primitives'
+import { JOIN_CHAR, useQueryParam } from '../router-utils'
+import FilterBox from './Filter'
 
-const RangeSlider = RCSlider.createSliderWithTooltip(RCSlider.Range);
+const RangeSlider = RCSlider.createSliderWithTooltip(RCSlider.Range)
 
 function Range(props) {
-  const { obj } = props;
+  const { obj } = props
 
-  const param = useQueryParam(obj.label);
+  const param = useQueryParam(obj.label)
   const [value, setValue] = useState(
-    param.value ? param.value.split(JOIN_CHAR) : obj.range
-  );
+    param.value ? param.value.split(JOIN_CHAR) : obj.range,
+  )
 
   return (
     <FilterBox title={obj.label} isActive={param.isActive}>
@@ -25,9 +25,9 @@ function Range(props) {
           aria-label="Toggle range filter"
           onChange={() => {
             if (param.isActive) {
-              param.remove();
+              param.remove()
             } else {
-              param.setValue(value.join(JOIN_CHAR));
+              param.setValue(value.join(JOIN_CHAR))
             }
           }}
           style={{ cursor: 'inherit' }}
@@ -48,15 +48,15 @@ function Range(props) {
           disabled={!param.isActive}
           aria-label="Clear"
           onClick={() => {
-            setValue(obj.range);
-            param.remove();
+            setValue(obj.range)
+            param.remove()
           }}
         >
           <FiSlash />
         </Button>
       </Flex>
     </FilterBox>
-  );
+  )
 }
 
-export default Range;
+export default Range

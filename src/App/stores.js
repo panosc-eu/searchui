@@ -1,4 +1,4 @@
-import create from 'zustand';
+import create from 'zustand'
 
 // const preset =
 //   localStorage.getItem('isDark') === 'true' ||
@@ -16,15 +16,15 @@ export const useAppStore = create((set, get) => ({
 
   loadOnScroll: false,
   toggleLoadOnScroll: () => {
-    set(() => ({ loadOnScroll: !get().loadOnScroll }));
+    set(() => ({ loadOnScroll: !get().loadOnScroll }))
   },
-}));
+}))
 
 export const useSearchStore = create((set, get) => ({
   search: '',
   setSearch: (search) => {
     if (search !== get().search) {
-      set({ search });
+      set({ search })
     }
   },
-}));
+}))

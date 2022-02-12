@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link as RebassLink } from 'rebass/styled-components';
+import React from 'react'
+import { Link as RebassLink } from 'rebass/styled-components'
 
 function Link({ blank, noUnderline, sx, ...props }) {
   return (
@@ -11,7 +11,7 @@ function Link({ blank, noUnderline, sx, ...props }) {
       }}
       {...props}
     />
-  );
+  )
 }
 
-export default Link;
+export default Link

@@ -1,7 +1,7 @@
-import css from '@styled-system/css';
-import normalize from 'normalize.css';
-import rcSlider from 'rc-slider/assets/index.css';
-import { createGlobalStyle } from 'styled-components';
+import css from '@styled-system/css'
+import normalize from 'normalize.css'
+import rcSlider from 'rc-slider/assets/index.css'
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle(
   css({
@@ -27,7 +27,7 @@ const GlobalStyles = createGlobalStyle(
       {
         boxShadow: 'rangeHandle',
       },
-  })
-);
+  }),
+)
 
-export default GlobalStyles;
+export default GlobalStyles

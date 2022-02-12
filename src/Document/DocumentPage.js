@@ -1,12 +1,12 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import useSWR from 'swr';
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import useSWR from 'swr'
 
-import { Image, Box, Heading, Flex } from '../Primitives';
-import Dataset from './Dataset';
-import DocumentMeta from './DocumentMeta';
+import { Image, Box, Heading, Flex } from '../Primitives'
+import Dataset from './Dataset'
+import DocumentMeta from './DocumentMeta'
 
-const translate = (...rest) => true;
+const translate = (...rest) => true
 function DocumentPage() {
   const query = translate([], {
     include: [
@@ -14,10 +14,10 @@ function DocumentPage() {
       ['members', 'person'],
     ],
     limit: false,
-  });
+  })
 
-  const { documentId } = useParams();
-  const { data } = useSWR(`/documents/${documentId}?filter=${query}`);
+  const { documentId } = useParams()
+  const { data } = useSWR(`/documents/${documentId}?filter=${query}`)
 
   return (
     <Flex flexDirection={['column', 'column', 'row']} gap={[3, 3, 3, 4]}>
@@ -40,7 +40,7 @@ function DocumentPage() {
         <Image src={data.img} />
       </Box>
     </Flex>
-  );
+  )
 }
 
-export default DocumentPage;
+export default DocumentPage

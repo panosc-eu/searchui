@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { Link, Heading } from '../Primitives';
+import { Link, Heading } from '../Primitives'
 
 function HomePage() {
   return (
@@ -67,7 +67,7 @@ function HomePage() {
         management and data services.
       </p>
     </>
-  );
+  )
 }
 
-export default HomePage;
+export default HomePage

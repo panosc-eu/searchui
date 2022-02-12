@@ -1,11 +1,11 @@
-import React, { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import React, { Suspense } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
-import { Card } from '../Primitives';
-import Spinner from './Spinner';
+import { Card } from '../Primitives'
+import Spinner from './Spinner'
 
 function ErrorFallback(props) {
-  const { error, componentStack, resetErrorBoundary } = props;
+  const { error, componentStack, resetErrorBoundary } = props
 
   return (
     <Card role="alert">
@@ -16,11 +16,11 @@ function ErrorFallback(props) {
         Try again
       </button>
     </Card>
-  );
+  )
 }
 
 function Boundary(props) {
-  const { children } = props;
+  const { children } = props
 
   return (
     <ErrorBoundary
@@ -31,7 +31,7 @@ function Boundary(props) {
     >
       <Suspense fallback={<Spinner />}>{children}</Suspense>
     </ErrorBoundary>
-  );
+  )
 }
 
-export default Boundary;
+export default Boundary

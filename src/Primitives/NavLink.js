@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { Flex } from 'rebass/styled-components';
+import React from 'react'
+import { Link, useRouteMatch } from 'react-router-dom'
+import { Flex } from 'rebass/styled-components'
 
-import { useSearchStore } from '../App/stores';
+import { useSearchStore } from '../App/stores'
 
 function NavLink({ to, exact, sx, ...props }) {
-  const match = useRouteMatch({ path: to, exact });
-  const search = useSearchStore((state) => state.search);
+  const match = useRouteMatch({ path: to, exact })
+  const search = useSearchStore((state) => state.search)
 
   return (
     <Flex
@@ -26,7 +26,7 @@ function NavLink({ to, exact, sx, ...props }) {
       }}
       {...props}
     />
-  );
+  )
 }
 
-export default NavLink;
+export default NavLink

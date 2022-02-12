@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import { Flex, Text } from '../Primitives';
+import { Flex, Text } from '../Primitives'
 
 function MetaItem(props) {
-  const { label, children } = props;
+  const { label, children } = props
 
   return (
     <Flex
@@ -34,7 +34,7 @@ function MetaItem(props) {
         {children}
       </Text>
     </Flex>
-  );
+  )
 }
 
-export default MetaItem;
+export default MetaItem

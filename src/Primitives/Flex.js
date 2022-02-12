@@ -1,8 +1,8 @@
-import { forwardRef } from 'react';
-import { Flex as RebassFlex } from 'rebass/styled-components';
+import { forwardRef } from 'react'
+import { Flex as RebassFlex } from 'rebass/styled-components'
 
 const Flex = forwardRef((props, ref) => {
-  const { column, flexDirection, gap, sx, ...otherProps } = props;
+  const { column, flexDirection, gap, sx, ...otherProps } = props
 
   return (
     <RebassFlex
@@ -14,7 +14,7 @@ const Flex = forwardRef((props, ref) => {
       }}
       {...otherProps}
     />
-  );
-});
+  )
+})
 
-export default Flex;
+export default Flex

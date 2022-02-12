@@ -1,7 +1,7 @@
-import { Card, Heading, Text } from '../Primitives';
+import { Card, Heading, Text } from '../Primitives'
 
 function Dataset(props) {
-  const { title, instrument } = props;
+  const { title, instrument } = props
 
   return (
     <Card as="article" p={[2, 2, 3]}>
@@ -10,7 +10,7 @@ function Dataset(props) {
         {instrument.name} @ {instrument.facility}
       </Text>
     </Card>
-  );
+  )
 }
 
-export default Dataset;
+export default Dataset
