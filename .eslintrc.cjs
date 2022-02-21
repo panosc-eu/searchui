@@ -11,7 +11,8 @@ module.exports = createConfig({
         'import/no-default-export': 'off', // default exports are common in React
         'unicorn/prefer-object-from-entries': 'off',
         'unicorn/new-for-builtins': 'off',
-        'unicorn/prefer-set-has': 'off'
+        'unicorn/prefer-set-has': 'off',
+        'sonarjs/no-duplicate-string': 'off'
       },
     },
   ],

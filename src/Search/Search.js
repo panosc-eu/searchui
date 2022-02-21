@@ -15,12 +15,11 @@ function Search() {
     shallow,
   )
 
-  const rootFilters = initialFilters.filter(
-    (obj) => obj.type === 'filter' && obj.group === 'documents',
-  )
+  const rootFilters = initialFilters.filter((obj) => obj.group === 'documents')
   const parameterFilters = initialFilters.filter(
-    (obj) => obj.type === 'filter' && obj.group === 'parameters',
+    (obj) => obj.group === 'parameters',
   )
+  const techniques = initialFilters.filter((obj) => obj.group === 'techniques')
 
   return (
     <Flex column gap={[3, 3, 3, 4]}>
@@ -28,6 +27,7 @@ function Search() {
         <Flex column gap={[3, 2, 3, 4]}>
           <FilterGroup name="Search" filters={rootFilters} />
           <FilterGroup name="Parameter" filters={parameterFilters} />
+          <FilterGroup name="Technique" filters={techniques} />
         </Flex>
       </Card>
     </Flex>

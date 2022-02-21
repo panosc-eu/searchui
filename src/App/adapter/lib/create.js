@@ -81,6 +81,6 @@ export const createInclude = (groups) =>
 
 export const createWhere = (group = {}) => {
   const { operator, filters } = group
-  const res = filters.map(buildSimple)
+  const res = filters?.map(buildSimple)
   return addOperator(operator, res)
 }

@@ -51,7 +51,6 @@ export function useTheme() {
       },
       filter: {
         fontSize: 1,
-        textTransform: 'capitalize',
         mb: 2,
         '&[data-active]': { color: 'textVivid', fontWeight: 'semibold' },
       },

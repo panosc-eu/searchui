@@ -31,16 +31,6 @@ function DocumentItem(props) {
 
       <Card width={[1, 2 / 3, 3 / 4]}>
         <Heading>{title}</Heading>
-        {keywords && (
-          <Flex>
-            {keywords.map((keyword) => (
-              <Text key={keyword} variant="keyword" mr={[1, 2]}>
-                {keyword.toLowerCase()}
-              </Text>
-            ))}
-          </Flex>
-        )}
-
         <Box
           as="p"
           sx={{
@@ -57,7 +47,6 @@ function DocumentItem(props) {
 
         <Flex as="footer" gap={2} mt={2} fontStyle="italic" fontSize="small">
           <Text>Created: {parseDate(releseDate)}</Text>
-          <Text>Size: {documentSize(datasets)}</Text>
         </Flex>
       </Card>
 

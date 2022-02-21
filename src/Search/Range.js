@@ -17,21 +17,8 @@ function Range(props) {
   )
 
   return (
-    <FilterBox title={obj.label} isActive={param.isActive}>
+    <FilterBox title={obj.display || obj.label} isActive={param.isActive}>
       <Flex mt={-2} mb={-2}>
-        <input
-          type="checkbox"
-          checked={param.isActive}
-          aria-label="Toggle range filter"
-          onChange={() => {
-            if (param.isActive) {
-              param.remove()
-            } else {
-              param.setValue(value.join(JOIN_CHAR))
-            }
-          }}
-          style={{ cursor: 'inherit' }}
-        />
         <Flex flex="1 1 0%" alignItems="center" mr={2} ml={3}>
           <RangeSlider
             value={value}

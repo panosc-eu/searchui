@@ -1,20 +1,22 @@
 import init from './App/adapter/init'
+import prepare from './App/adapter/translate'
 import filterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
 
 const base = init(filterables).map((obj) =>
   obj.range
     ? { ...obj, operator: 'between', value: obj.range }
-    : obj.group
-    ? { ...obj, value: '' }
+    : ['title', 'sample_chemical_formula'].includes(obj.name)
+    ? { ...obj, value: '', operator: 'like' }
     : obj,
 )
 
 export const initialFilters = base
+export const translate = prepare(base)
 
 const zip = (pair) => {
   const [k, v] = pair
-  const base = { label: k[0], isActive: true }
+  const base = { label: k[0] }
   const processedValue = v.length === 1 ? v[0] : v
 
   return k.length === 2

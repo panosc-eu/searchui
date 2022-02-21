@@ -3,6 +3,7 @@ import ListPicker from './ListPicker'
 import OptionsPicker from './OptionsPicker'
 import Range from './Range'
 import TextInput from './TextInput'
+import Technique from './Technique'
 
 const TEXT_OPERATORS = new Set([
   'ilike',
@@ -27,8 +28,12 @@ function getFilterComponent(obj) {
     return ListPicker
   }
 
-  if (TEXT_OPERATORS.has(obj.operator)) {
+  if (obj.name === 'text' || TEXT_OPERATORS.has(obj.operator)) {
     return TextInput
+  }
+
+  if (obj.group === 'techniques') {
+    return Technique
   }
 
   return null
@@ -43,7 +48,7 @@ function FilterGroup(props) {
       <Flex column gap={3}>
         {filters.map((obj) => {
           const Filter = getFilterComponent(obj)
-          return Filter && <Filter key={obj.name || obj.label} obj={obj} />
+          return Filter && <Filter key={obj.label} obj={obj} />
         })}
       </Flex>
     </Box>

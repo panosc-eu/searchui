@@ -20,7 +20,7 @@ function TextInput(props) {
   )
 
   return (
-    <FilterBox title={obj.name} isActive={param.isActive}>
+    <FilterBox title={obj.display || obj.label} isActive={param.isActive}>
       <Flex>
         <Input
           px={2}

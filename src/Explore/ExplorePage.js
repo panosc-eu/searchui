@@ -2,15 +2,17 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import Boundary from '../App/Boundary'
-import { useSearchStore } from '../App/stores'
+import { useSearchStore, useAppStore } from '../App/stores'
 import { Flex, Box } from '../Primitives'
 import Search from '../Search/Search'
 import DocumentList from './DocumentList'
+import Debug from './QueryDebug'
 
 function ExplorePage(props) {
   const { isDesktop } = props
   const { search } = useLocation()
   const setSearch = useSearchStore((state) => state.setSearch)
+  const query = useAppStore((state) => state.query)
 
   useEffect(() => {
     setSearch(search)
@@ -41,6 +43,7 @@ function ExplorePage(props) {
         </Box>
       )}
       <Box width={[1, 1, 3 / 4]}>
+        <Debug query={query} />
         <Boundary>
           <DocumentList name="Data" />
         </Boundary>

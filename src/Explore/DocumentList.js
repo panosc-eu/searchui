@@ -1,55 +1,61 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { translate } from '../filters'
 import { useSWRInfinite } from 'swr'
 
 import Boundary from '../App/Boundary'
 import Spinner from '../App/Spinner'
-import translate from '../App/adapter/translate'
 import { useAppStore } from '../App/stores'
 import { Flex, Card, Text, Heading, Button, Box } from '../Primitives'
-import { initialFilters, useFilters } from '../filters'
+import { useFilters } from '../filters'
 import DocumentItem from './DocumentItem'
+import Debug from './QueryDebug'
 
-const decode = (query) => JSON.parse(decodeURIComponent(query))
+const PAGE_SIZE = 5
+const QUERY_CONFIG = {
+  include: ['datasets', 'affiliation', 'person'],
+  pageSize: PAGE_SIZE,
+  label: 'c',
+}
+
 function DocumentList() {
   const loadOnScroll = useAppStore((state) => state.loadOnScroll)
-  const QUERY_CONFIG = {
-    include: ['affiliation', 'parameters', 'person'],
-    label: 'c',
-    limit: 25,
-  }
-  const test = [
-    {
-      label: 'c',
-      skip: 5,
-    },
-  ]
-  const state = useFilters()
-  const query = translate(initialFilters)('documents', [
-    ...state,
-    ...test,
-    QUERY_CONFIG,
+  const [query, setQuery] = useAppStore((state) => [
+    state.query,
+    state.setQuery,
   ])
-  console.log('query')
-  console.log(decode(query))
-  const { data, size, setSize, error } = useSWRInfinite((page, previous) => {
-    return `/documents?filter=${query}`
+  const filters = useFilters()
+
+  const { data, size, setSize, error } = useSWRInfinite((page) => {
+    const filter = translate('documents', [
+      ...filters,
+      { ...QUERY_CONFIG, page: page + 1 },
+    ])
+    if (filter !== query) {
+      setQuery(filter)
+    }
+    return `/documents?filter=${filter}`
   })
 
   // Infinite scroll
   const { ref: infiniteScrollRef, inView } = useInView()
+  useEffect(() => {
+    loadOnScroll && inView && setSize((val) => val + 1)
+  }, [loadOnScroll, inView, setSize])
+  if (error) {
+    return <>Opps</>
+  }
 
-  const documents = data?.flat() || []
-
-  const isEmpty = documents.length === 0
+  const documents = data && data.flat()
+  const isEmpty = documents?.length === 0 || !documents
   const isLoadingMore = !data[size - 1]
-  const hasReachedEnd = data[data.length - 1].length < 25
+  const hasReachedEnd = data[data.length - 1].length < PAGE_SIZE
 
   return (
     <Boundary>
       <Suspense fallback={<Spinner />}>
         <Flex column gap={[3, 3, 3, 4]}>
-          {isEmpty || error ? (
+          {isEmpty ? (
             <Card p={[3, 4]}>
               <Heading>No results</Heading>
               <Text as="p">Please adjust the search filters.</Text>
@@ -66,7 +72,13 @@ function DocumentList() {
               ) : loadOnScroll ? (
                 <Box ref={infiniteScrollRef} />
               ) : (
-                <></>
+                <Button
+                  variant="primary"
+                  alignSelf="flex-start"
+                  onClick={() => setSize((val) => val + 1)}
+                >
+                  Load more results
+                </Button>
               )}
             </>
           )}

@@ -2,11 +2,13 @@
   "affiliation": [{ "name": "name" }],
   "techniques": [
     {
+      "display": "Some Technique",
       "label": "technique_a",
       "name": "pid",
       "override": "20.500.12269/panosc-tech1"
     },
     {
+      "display": "Other Technique",
       "label": "technique_b",
       "name": "pid",
       "override": "20.500.12269/panosc-tech2"
@@ -18,26 +20,50 @@
     { "name": "role" },
     { "name": "orcid" }
   ],
-  "documents": [{ "name": "title" }, { "name": "title" }],
+  "documents": [
+    {
+      "name": "title",
+      "display": "title"
+    },
+    {
+      "name": "text",
+      "display": "Text"
+    },
+    {
+      "name": "type",
+      "display": "Type",
+      "options": ["proposal", "experiment", "document"]
+    }
+  ],
   "datasets": [{ "name": "title" }],
   "parameters": [
     {
-      "name": "wavelength",
-      "range": [200, 1100],
+      "display": "Incident Wavelenght (nm)",
+      "name": "incident_wavelength",
+      "range": [0, 2000],
       "unit": "nm"
     },
     {
-      "name": "photon_energy",
+      "display": "Incident Photon Energy (eV)",
+      "name": "incident_photon_energy",
       "range": [0, 1000],
       "unit": "eV"
     },
     {
-      "name": "chemical_formula",
-      "options": ["Cu"]
+      "display": "Chemical Formula",
+      "name": "sample_chemical_formula"
     },
     {
-      "name": "sample_state",
-      "options": ["solid", "liquid", "gas"]
+      "display": "Temperature (K)",
+      "name": "sample_temperature",
+      "range": [0, 10000],
+      "unit": "K"
+    },
+    {
+      "display": "Pressure (Pa)",
+      "name": "sample_pressure",
+      "range": [0, 10000000],
+      "unit": "Pa"
     }
   ]
 }

@@ -1,16 +1,18 @@
 import { FiSlash } from 'react-icons/fi'
 
-import { capitalizeAndSpace } from '../App/helpers'
 import { Heading, Box, Button } from '../Primitives'
 
 function FilterBox(props) {
   const { title, isActive, onClear, children } = props
 
+  console.log(title)
   return (
     <Box sx={{ position: 'relative', pr: onClear && 5 }}>
-      <Heading as="h3" variant="filter" data-active={isActive || undefined}>
-        {capitalizeAndSpace(title)}
-      </Heading>
+      {title && (
+        <Heading as="h3" variant="filter" data-active={isActive || undefined}>
+          {title}
+        </Heading>
+      )}
 
       {children}
 

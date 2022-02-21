@@ -55,12 +55,12 @@ export const enhancePagination = (config) => {
 
 export function parseState(state, endpoint) {
   const createGroup = createGroupFor(endpoint)
-  const config = state.find(({ label }) => label === LABEL_FOR_CONFIG)
+  const config = state.find(({ label }) => label === LABEL_FOR_CONFIG) || {}
   const {
     label: _,
     name: __,
     value: ___,
-    include: included,
+    include: included = [],
     ...base
   } = enhancePagination(config)
 

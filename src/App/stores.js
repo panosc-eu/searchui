@@ -14,10 +14,12 @@ export const useAppStore = create((set, get) => ({
   //   set(() => ({ isDark: newTheme }));
   // },
 
-  loadOnScroll: false,
+  loadOnScroll: true,
   toggleLoadOnScroll: () => {
     set(() => ({ loadOnScroll: !get().loadOnScroll }))
   },
+  query: '{}',
+  setQuery: (str) => set(() => ({ query: str })),
 }))
 
 export const useSearchStore = create((set, get) => ({

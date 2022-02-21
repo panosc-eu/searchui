@@ -9,7 +9,7 @@ function OptionsPicker(props) {
 
   return (
     <FilterBox
-      title={obj.label}
+      title={obj.display || obj.label}
       isActive={param.isActive}
       onClear={() => param.remove()}
     >

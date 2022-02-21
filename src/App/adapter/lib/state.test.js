@@ -9,7 +9,6 @@ import {
   FALLBACK_GROUP_OPERATOR,
 } from './state'
 
-//bellow is also needed to test createGroupForUsing
 const map = {
   techniques: {
     datasets: [],
@@ -91,12 +90,31 @@ describe('createGroupFor(endpoint)(object)', () => {
   })
 })
 
+describe('enhancePagination(config)', () => {
+  const config = {
+    label: "config's label",
+    foo: 'bar',
+  }
+  it('strips out keys page & pageSize', () => {
+    const withPageOnly = { ...config, page: 3 }
+    const withPageSizeOnly = { ...config, pageSize: 66 }
+    expect(enhancePagination(withPageOnly)).toEqual(config)
+    expect(enhancePagination(withPageSizeOnly)).toEqual(config)
+  })
+  it('produces keys skip & limit based on pageSize and page if both are present', () => {
+    const withBoth = { ...config, page: 3, pageSize: 66 }
+    const expected = { ...config, skip: 132, limit: 66 }
+    expect(enhancePagination(withBoth)).toEqual(expected)
+  })
+})
+
 describe('mergeState(inits, diffs)', () => {
   it('Works on empty arrays', () => {
     const inits = []
     const diffs = []
     expect(mergeState(inits, diffs)).toHaveLength(0)
   })
+
   it('Merges objects with matching labels', () => {
     const inits = [
       {
@@ -132,6 +150,7 @@ describe('mergeState(inits, diffs)', () => {
     ]
     expect(mergeState(inits, diffs)).toEqual(expected)
   })
+
   it('Merges "right"', () => {
     const inits = [
       {
@@ -155,7 +174,8 @@ describe('mergeState(inits, diffs)', () => {
     ]
     expect(mergeState(inits, diffs)).toEqual(expected)
   })
-  it('Only filters found in diffs get through', () => {
+
+  it('doesnt keep inactive filters', () => {
     const inits = [
       {
         label: '1',
@@ -185,12 +205,14 @@ describe('mergeState(inits, diffs)', () => {
     ]
     expect(mergeState(inits, diffs)).toEqual(expected)
   })
-  it('Config is never filtered out', () => {
+
+  it('config is never filtered out', () => {
     const inits = [{ label: LABEL_FOR_CONFIG }]
     const diffs = []
     expect(mergeState(inits, diffs)).toEqual(inits)
   })
-  it('Objects whose labels match the group key of any object in diffs are not filtered out', () => {
+
+  it('groups targeted by active filters are not filtered out', () => {
     const inits = [{ label: 'group' }]
     const diffs = [
       {
@@ -203,4 +225,7 @@ describe('mergeState(inits, diffs)', () => {
   })
 })
 
-describe('parseState(state, endpoint)', () => {})
+describe('parseState(state, endpoint)', () => {
+  const state = []
+  const [include, where, base] = parseState(state, 'documents')
+})
