@@ -5,7 +5,6 @@ import { Heading, Box, Button } from '../Primitives'
 function FilterBox(props) {
   const { title, isActive, onClear, children } = props
 
-  console.log(title)
   return (
     <Box sx={{ position: 'relative', pr: onClear && 5 }}>
       {title && (

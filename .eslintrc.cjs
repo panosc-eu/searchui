@@ -1,7 +1,6 @@
-const { createConfig } = require('eslint-config-galex/src/createConfig');
-const {
-  files: reactFiles,
-} = require('eslint-config-galex/src/overrides/react');
+const { createConfig } = require('eslint-config-galex/src/createConfig')
+const { files: jestFiles } = require('eslint-config-galex/src/overrides/jest')
+const { files: reactFiles } = require('eslint-config-galex/src/overrides/react')
 
 module.exports = createConfig({
   overrides: [
@@ -12,8 +11,17 @@ module.exports = createConfig({
         'unicorn/prefer-object-from-entries': 'off',
         'unicorn/new-for-builtins': 'off',
         'unicorn/prefer-set-has': 'off',
-        'sonarjs/no-duplicate-string': 'off'
+        'sonarjs/no-duplicate-string': 'off',
+      },
+    },
+    {
+      files: jestFiles,
+      rules: {
+        'jest/no-focused-tests': 'warn', // warning instead of error
+        'jest/prefer-strict-equal': 'off', // `toEqual` is shorter and sufficient in most cases
+        'jest-formatting/padding-around-all': 'off', // allow writing concise two-line tests
+        'jest/require-top-level-describe': 'off', // filename should already be meaningful, extra nesting is unnecessary
       },
     },
   ],
-});
+})
