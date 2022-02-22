@@ -9,13 +9,12 @@ function prepare(initialState = []) {
 
     const include = createInclude(toInclude)
     const where = createWhere(toWhere)
-    const query = stripEmptyKeys({
+
+    return stripEmptyKeys({
       include,
       where,
       ...base,
     })
-
-    return encodeURIComponent(JSON.stringify(query))
   }
 }
 
