@@ -1,15 +1,13 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { translate } from '../filters'
 import { useSWRInfinite } from 'swr'
 
 import Boundary from '../App/Boundary'
 import Spinner from '../App/Spinner'
 import { useAppStore } from '../App/stores'
 import { Flex, Card, Text, Heading, Button, Box } from '../Primitives'
-import { useFilters } from '../filters'
+import { translate, useFilters } from '../filters'
 import DocumentItem from './DocumentItem'
-import Debug from './QueryDebug'
 
 const PAGE_SIZE = 5
 const QUERY_CONFIG = {
@@ -20,10 +18,9 @@ const QUERY_CONFIG = {
 
 function DocumentList() {
   const loadOnScroll = useAppStore((state) => state.loadOnScroll)
-  const [query, setQuery] = useAppStore((state) => [
-    state.query,
-    state.setQuery,
-  ])
+  const query = useAppStore((state) => state.query)
+  const setQuery = useAppStore((state) => state.setQuery)
+
   const filters = useFilters()
 
   const { data, size, setSize, error } = useSWRInfinite((page) => {
@@ -31,10 +28,13 @@ function DocumentList() {
       ...filters,
       { ...QUERY_CONFIG, page: page + 1 },
     ])
-    if (filter !== query) {
-      setQuery(filter)
+
+    const newQuery = encodeURIComponent(JSON.stringify(filter))
+    if (newQuery !== query) {
+      setQuery(newQuery)
     }
-    return `/documents?filter=${filter}`
+
+    return `/documents?filter=${newQuery}`
   })
 
   // Infinite scroll
