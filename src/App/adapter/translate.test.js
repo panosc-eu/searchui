@@ -1,21 +1,39 @@
-import translate from './translate'
 import { initialFilters } from '../../filters'
+import translate from './translate'
 
-test('documents query with root filter', () => {
+test('no filter and default config', () => {
+  const query = translate([], initialFilters)
+  expect(query).toEqual({ limit: 5 })
+})
+
+test('no pagination', () => {
+  const query = translate([], initialFilters, { pageSize: false })
+  expect(query).toEqual({})
+})
+
+test('custom pagination', () => {
+  const query = translate([], initialFilters, { pageSize: 10, page: 2 })
+  expect(query).toEqual({ limit: 10, skip: 10 })
+})
+
+test('custom ordering', () => {
+  const query = translate([], initialFilters, {
+    order: ['foo ASC', 'bar DESC'],
+  })
+
+  expect(query).toEqual({ order: ['foo ASC', 'bar DESC'], limit: 5 })
+})
+
+test('single root filter and custom include', () => {
   const query = translate(
     [
       {
         label: 'do-type',
         value: 'proposal',
       },
-      {
-        include: ['datasets', 'affiliation', 'person'],
-        pageSize: 5,
-        label: 'c',
-        page: 1,
-      },
     ],
     initialFilters,
+    { include: ['datasets', 'affiliation', 'person'] },
   )
 
   expect(query).toEqual({
@@ -33,7 +51,7 @@ test('documents query with root filter', () => {
   })
 })
 
-test('documents query with root and parameter filters', () => {
+test('multiple filters and custom include', () => {
   const query = translate(
     [
       {
@@ -44,14 +62,9 @@ test('documents query with root and parameter filters', () => {
         label: 'pa-sample_temperature',
         value: ['0', '7300'],
       },
-      {
-        include: ['datasets', 'affiliation', 'person'],
-        pageSize: 5,
-        label: 'c',
-        page: 1,
-      },
     ],
     initialFilters,
+    { include: ['datasets', 'affiliation', 'person'] },
   )
 
   expect(query).toEqual({

@@ -22,30 +22,19 @@ const resolvePath = (label, endpoint) => {
     : null
 }
 
-const enhancePagination = (config) => {
+export function createPagination(config) {
   const { page, pageSize } = config
-  const obj =
-    page && pageSize
-      ? {
-          ...config,
-          limit: pageSize,
-          skip: pageSize * (page - 1),
-        }
-      : config
-  const { page: _, pageSize: __, ...res } = obj
-  return res
+
+  return pageSize === false
+    ? {}
+    : {
+        limit: pageSize,
+        skip: pageSize * (page - 1),
+      }
 }
 
-export function parseState(state, endpoint) {
-  const config = state.find(({ label }) => label === LABEL_FOR_CONFIG) || {}
-
-  const {
-    label: _,
-    name: __,
-    value: ___,
-    include: included = [],
-    ...base
-  } = enhancePagination(config)
+export function parseState(state, config) {
+  const { endpoint, include: included } = config
 
   const createGroup = (label) => {
     const {
@@ -53,6 +42,7 @@ export function parseState(state, endpoint) {
       operator = resolveOperator(label),
       target = resolvePath(label, endpoint),
     } = state.find((obj) => obj.label === label) || {}
+
     return {
       label,
       target,
@@ -71,7 +61,7 @@ export function parseState(state, endpoint) {
   const include = groups.filter((obj) => obj.target)
   const where = groups.find((obj) => obj.label === endpoint)
 
-  return [include, where, base]
+  return [include, where]
 }
 
 const squash = (list) => {

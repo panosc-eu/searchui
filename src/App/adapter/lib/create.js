@@ -31,7 +31,7 @@ const byTargetLength = (list) => {
 const buildGroup = (group, acc) => {
   const { filters, operator, target } = group
 
-  const relation = target.at(-1)
+  const relation = target[target.length - 1]
 
   const nestedIn = JSON.stringify([...target].slice(0, -1))
 
