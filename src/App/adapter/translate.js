@@ -2,8 +2,7 @@ import { createInclude, createWhere } from './lib/create'
 import { stripEmptyKeys } from './lib/helpers'
 import { mergeState, parseState } from './lib/state'
 
-function prepare(initialState = []) {
-  return function translate(endpoint, diffState) {
+function translate(diffState, initialState = [], endpoint = 'documents') {
     const state = mergeState(initialState, diffState)
     const [toInclude, toWhere, base] = parseState(state, endpoint)
 
@@ -16,6 +15,5 @@ function prepare(initialState = []) {
       ...base,
     })
   }
-}
 
-export default prepare
+export default translate

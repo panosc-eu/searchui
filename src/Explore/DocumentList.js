@@ -6,7 +6,8 @@ import Boundary from '../App/Boundary'
 import Spinner from '../App/Spinner'
 import { useAppStore } from '../App/stores'
 import { Flex, Card, Text, Heading, Button, Box } from '../Primitives'
-import { translate, useFilters } from '../filters'
+import { useFilters, initialFilters } from '../filters'
+import translate from '../App/adapter/translate'
 import DocumentItem from './DocumentItem'
 
 const PAGE_SIZE = 5
@@ -24,10 +25,10 @@ function DocumentList() {
   const filters = useFilters()
 
   const { data, size, setSize, error } = useSWRInfinite((page) => {
-    const filter = translate('documents', [
+    const filter = translate([
       ...filters,
       { ...QUERY_CONFIG, page: page + 1 },
-    ])
+    ], initialFilters)
 
     const newQuery = encodeURIComponent(JSON.stringify(filter))
     if (newQuery !== query) {

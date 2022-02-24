@@ -1,5 +1,4 @@
 import init from './App/adapter/init'
-import prepare from './App/adapter/translate'
 import filterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
 
@@ -12,7 +11,6 @@ const base = init(filterables).map((obj) =>
 )
 
 export const initialFilters = base
-export const translate = prepare(base)
 
 const zip = (pair) => {
   const [k, v] = pair

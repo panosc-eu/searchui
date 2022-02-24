@@ -1,7 +1,8 @@
-import { translate } from '../../filters'
+import translate from './translate'
+import { initialFilters } from '../../filters'
 
 test('documents query with root filter', () => {
-  const query = translate('documents', [
+  const query = translate([
     {
       label: 'do-type',
       value: 'proposal',
@@ -12,7 +13,7 @@ test('documents query with root filter', () => {
       label: 'c',
       page: 1,
     },
-  ])
+  ], initialFilters)
 
   expect(query).toEqual({
     include: [
@@ -30,7 +31,7 @@ test('documents query with root filter', () => {
 })
 
 test('documents query with root and parameter filters', () => {
-  const query = translate('documents', [
+  const query = translate([
     {
       label: 'do-type',
       value: 'experiment',
@@ -45,7 +46,7 @@ test('documents query with root and parameter filters', () => {
       label: 'c',
       page: 1,
     },
-  ])
+  ], initialFilters)
 
   expect(query).toEqual({
     include: [
