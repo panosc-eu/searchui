@@ -19,11 +19,22 @@ const makeLabelCandidates = (obj) => {
   return { ...obj, label }
 }
 
-function init(filterables) {
-  const list = Object.entries(filterables).flatMap(([k, v]) =>
-    v.flatMap((i) => ({ ...i, group: k })),
-  )
-  return list.map(makeLabelCandidates).reduce(uniqueLabelReducer, [])
+function init(groupedFilterables) {
+  const filterablesArr = Object.entries(groupedFilterables)
+    .flatMap(([group, arr]) => arr.map((f) => ({ ...f, group }))) // flatten filterables, while keeping a reference to their groups
+    .map(makeLabelCandidates) // generate missing labels
+    .reduce(uniqueLabelReducer, []) // make sure labels are unique
+    // add specific operators
+    .map((obj) =>
+      obj.range
+        ? { ...obj, operator: 'between' }
+        : ['title', 'sample_chemical_formula'].includes(obj.name)
+        ? { ...obj, operator: 'like' }
+        : obj,
+    )
+
+  // Store filterables by label so as to find them easily in `translate`
+  return Object.fromEntries(filterablesArr.map((f) => [f.label, f]))
 }
 
 export default init

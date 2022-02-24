@@ -13,7 +13,6 @@ function DocumentPage() {
       ['datasets', 'instrument'],
       ['members', 'person'],
     ],
-    limit: false,
   })
 
   const { documentId } = useParams()

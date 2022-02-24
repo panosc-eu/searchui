@@ -1,26 +1,23 @@
-import { initialFilters } from '../../filters'
+import { filterables } from '../../filters'
 import translate from './translate'
 
 test('no filter and default config', () => {
-  const query = translate([], initialFilters)
+  const query = translate([])
   expect(query).toEqual({ limit: 5 })
 })
 
 test('no pagination', () => {
-  const query = translate([], initialFilters, { pageSize: false })
+  const query = translate([], { pageSize: false })
   expect(query).toEqual({})
 })
 
 test('custom pagination', () => {
-  const query = translate([], initialFilters, { pageSize: 10, page: 2 })
+  const query = translate([], { pageSize: 10, page: 2 })
   expect(query).toEqual({ limit: 10, skip: 10 })
 })
 
 test('custom ordering', () => {
-  const query = translate([], initialFilters, {
-    order: ['foo ASC', 'bar DESC'],
-  })
-
+  const query = translate([], { order: ['foo ASC', 'bar DESC'] })
   expect(query).toEqual({ order: ['foo ASC', 'bar DESC'], limit: 5 })
 })
 
@@ -32,8 +29,10 @@ test('single root filter and custom include', () => {
         value: 'proposal',
       },
     ],
-    initialFilters,
-    { include: ['datasets', 'affiliation', 'person'] },
+    {
+      filterables,
+      include: ['datasets', 'affiliation', 'person'],
+    },
   )
 
   expect(query).toEqual({
@@ -63,8 +62,10 @@ test('multiple filters and custom include', () => {
         value: ['0', '7300'],
       },
     ],
-    initialFilters,
-    { include: ['datasets', 'affiliation', 'person'] },
+    {
+      filterables,
+      include: ['datasets', 'affiliation', 'person'],
+    },
   )
 
   expect(query).toEqual({

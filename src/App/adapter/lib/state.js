@@ -2,7 +2,6 @@ import OPERATORS from '../operators.json'
 import MAP from '../targets.json'
 
 const FALLBACK_GROUP_OPERATOR = 'and'
-const LABEL_FOR_CONFIG = 'c'
 
 const resolveOperator = (label) => OPERATORS[label] || FALLBACK_GROUP_OPERATOR
 
@@ -62,28 +61,4 @@ export function parseState(state, config) {
   const where = groups.find((obj) => obj.label === endpoint)
 
   return [include, where]
-}
-
-const squash = (list) => {
-  const pairs = list.flatMap((obj) => Object.entries(obj))
-  return pairs.reduce((acc, scope) => ({ ...acc, [scope[0]]: scope[1] }), {})
-}
-
-const groupByLabel = (list) =>
-  list.reduce(
-    (acc, scope) => ({
-      ...acc,
-      [scope.label]: [...(acc[scope.label] || []), scope],
-    }),
-    {},
-  )
-
-export function mergeState(inits, diffs) {
-  const useful = diffs.reduce(
-    (acc, scope) => [...acc, scope.label, scope.group],
-    [LABEL_FOR_CONFIG],
-  )
-  const usefulInits = inits.filter(({ label }) => useful.includes(label))
-  const byLabel = groupByLabel([...usefulInits, ...diffs])
-  return Object.entries(byLabel).flatMap(([, a]) => squash(a))
 }
