@@ -1,14 +1,13 @@
 import OPERATORS from '../operators.json'
 import MAP from '../targets.json'
 
-export const FALLBACK_GROUP_OPERATOR = 'and'
-export const LABEL_FOR_CONFIG = 'c'
+const FALLBACK_GROUP_OPERATOR = 'and'
+const LABEL_FOR_CONFIG = 'c'
 
-export const resolveOperatorFrom = (operators) => (label) =>
-  operators[label] || FALLBACK_GROUP_OPERATOR
+const resolveOperator = (label) => OPERATORS[label] || FALLBACK_GROUP_OPERATOR
 
-export const resolvePathFrom = (map) => (label, endpoint) => {
-  const known = map[label]
+const resolvePath = (label, endpoint) => {
+  const known = MAP[label]
   const nested = known?.[endpoint]
   const fallback = known?.fallback
 
@@ -23,26 +22,10 @@ export const resolvePathFrom = (map) => (label, endpoint) => {
     : null
 }
 
-const resolvePath = resolvePathFrom(MAP)
-const resolveOperator = resolveOperatorFrom(OPERATORS)
-
-export const createGroupForUsing =
-  (resolveOperatorFn, resolveTargetFn) => (endpoint) => (obj) => {
-    const {
-      label,
-      value,
-      operator = resolveOperatorFn(label),
-      target = resolveTargetFn(label, endpoint),
-    } = obj
-    return { label, target, operator: value || operator }
-  }
-
-const createGroupFor = createGroupForUsing(resolveOperator, resolvePath)
-
-export const enhancePagination = (config) => {
+const enhancePagination = (config) => {
   const { page, pageSize } = config
   const obj =
-    pageSize && page
+    page && pageSize
       ? {
           ...config,
           limit: pageSize,
@@ -54,8 +37,8 @@ export const enhancePagination = (config) => {
 }
 
 export function parseState(state, endpoint) {
-  const createGroup = createGroupFor(endpoint)
   const config = state.find(({ label }) => label === LABEL_FOR_CONFIG) || {}
+
   const {
     label: _,
     name: __,
@@ -64,25 +47,29 @@ export function parseState(state, endpoint) {
     ...base
   } = enhancePagination(config)
 
+  const createGroup = (label) => {
+    const {
+      value,
+      operator = resolveOperator(label),
+      target = resolvePath(label, endpoint),
+    } = state.find((obj) => obj.label === label) || {}
+    return {
+      label,
+      target,
+      operator: value || operator,
+      filters: state.filter(({ group }) => group === label),
+    }
+  }
+
   const uniqueTargets = state.reduce((acc, scope) => {
     const { group } = scope
-    if (acc.includes(group) || !group) {
-      return acc
-    }
-    return [...acc, group]
+    return acc.includes(group) || !group ? acc : [...acc, group]
   }, included)
 
-  const groups = uniqueTargets
-    .map((label) =>
-      createGroup(state.find((obj) => obj.label === label) || { label }),
-    )
-    .map((obj) => ({
-      ...obj,
-      filters: state.filter(({ group }) => group === obj.label),
-    }))
+  const groups = uniqueTargets.map(createGroup)
 
-  const include = groups.filter((group) => group.target)
-  const where = groups.find((group) => group.label === endpoint)
+  const include = groups.filter((obj) => obj.target)
+  const where = groups.find((obj) => obj.label === endpoint)
 
   return [include, where, base]
 }
@@ -102,12 +89,11 @@ const groupByLabel = (list) =>
   )
 
 export function mergeState(inits, diffs) {
-  const filteredInits = inits.filter(
-    (obj) =>
-      obj.label === LABEL_FOR_CONFIG ||
-      diffs.map((o) => o.label).includes(obj.label) ||
-      diffs.map((o) => o.group).includes(obj.label),
+  const useful = diffs.reduce(
+    (acc, scope) => [...acc, scope.label, scope.group],
+    [LABEL_FOR_CONFIG],
   )
-  const byLabel = groupByLabel([...filteredInits, ...diffs])
+  const usefulInits = inits.filter(({ label }) => useful.includes(label))
+  const byLabel = groupByLabel([...usefulInits, ...diffs])
   return Object.entries(byLabel).flatMap(([, a]) => squash(a))
 }

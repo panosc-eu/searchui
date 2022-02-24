@@ -1,18 +1,22 @@
-import { translate } from '../../filters'
+import translate from './translate'
+import { initialFilters } from '../../filters'
 
 test('documents query with root filter', () => {
-  const query = translate('documents', [
-    {
-      label: 'do-type',
-      value: 'proposal',
-    },
-    {
-      include: ['datasets', 'affiliation', 'person'],
-      pageSize: 5,
-      label: 'c',
-      page: 1,
-    },
-  ])
+  const query = translate(
+    [
+      {
+        label: 'do-type',
+        value: 'proposal',
+      },
+      {
+        include: ['datasets', 'affiliation', 'person'],
+        pageSize: 5,
+        label: 'c',
+        page: 1,
+      },
+    ],
+    initialFilters,
+  )
 
   expect(query).toEqual({
     include: [
@@ -30,22 +34,25 @@ test('documents query with root filter', () => {
 })
 
 test('documents query with root and parameter filters', () => {
-  const query = translate('documents', [
-    {
-      label: 'do-type',
-      value: 'experiment',
-    },
-    {
-      label: 'pa-sample_temperature',
-      value: ['0', '7300'],
-    },
-    {
-      include: ['datasets', 'affiliation', 'person'],
-      pageSize: 5,
-      label: 'c',
-      page: 1,
-    },
-  ])
+  const query = translate(
+    [
+      {
+        label: 'do-type',
+        value: 'experiment',
+      },
+      {
+        label: 'pa-sample_temperature',
+        value: ['0', '7300'],
+      },
+      {
+        include: ['datasets', 'affiliation', 'person'],
+        pageSize: 5,
+        label: 'c',
+        page: 1,
+      },
+    ],
+    initialFilters,
+  )
 
   expect(query).toEqual({
     include: [
