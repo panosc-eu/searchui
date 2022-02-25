@@ -1,16 +1,28 @@
 import init from './App/adapter/init'
+import applyTemplate from './App/adapter/translate'
 import filterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
 
-const base = init(filterables).map((obj) =>
-  obj.range
-    ? { ...obj, operator: 'between', value: obj.range }
-    : ['title', 'sample_chemical_formula'].includes(obj.name)
-    ? { ...obj, value: '', operator: 'like' }
-    : obj,
-)
+const base = init(filterables)
 
-export const initialFilters = base
+const assertReasonableDefaults = (list) =>
+  list.map((obj) => {
+    const { range, options } = obj
+
+    if (range) {
+      return { ...obj, operator: 'between' }
+    }
+
+    if (options) {
+      return obj
+    }
+
+    return { ...obj, operator: 'ilike' }
+  })
+
+export const template = assertReasonableDefaults(base)
+
+export const translate = applyTemplate(template)
 
 const zip = (pair) => {
   const [k, v] = pair

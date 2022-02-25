@@ -3,7 +3,7 @@ import shallow from 'zustand/shallow'
 
 import { useAppStore } from '../App/stores'
 import { Card, Flex, Text, Button } from '../Primitives'
-import { initialFilters } from '../filters'
+import { template } from '../filters'
 import FilterGroup from './FilterGroup'
 
 const ORDER = ['title', 'type', 'keywords']
@@ -15,11 +15,9 @@ function Search() {
     shallow,
   )
 
-  const rootFilters = initialFilters.filter((obj) => obj.group === 'documents')
-  const parameterFilters = initialFilters.filter(
-    (obj) => obj.group === 'parameters',
-  )
-  const techniques = initialFilters.filter((obj) => obj.group === 'techniques')
+  const rootFilters = template.filter((obj) => obj.group === 'documents')
+  const parameterFilters = template.filter((obj) => obj.group === 'parameters')
+  const techniques = template.filter((obj) => obj.group === 'techniques')
 
   return (
     <Flex column gap={[3, 3, 3, 4]}>
