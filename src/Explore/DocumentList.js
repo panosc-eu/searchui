@@ -4,17 +4,17 @@ import { useSWRInfinite } from 'swr'
 
 import Boundary from '../App/Boundary'
 import Spinner from '../App/Spinner'
+import translate from '../App/adapter/translate'
 import { useAppStore } from '../App/stores'
 import { Flex, Card, Text, Heading, Button, Box } from '../Primitives'
-import { useFilters, initialFilters } from '../filters'
-import translate from '../App/adapter/translate'
+import { useFilters, filterables } from '../filters'
 import DocumentItem from './DocumentItem'
 
 const PAGE_SIZE = 5
 const QUERY_CONFIG = {
+  filterables,
   include: ['datasets', 'affiliation', 'person'],
   pageSize: PAGE_SIZE,
-  label: 'c',
 }
 
 function DocumentList() {
@@ -25,10 +25,7 @@ function DocumentList() {
   const filters = useFilters()
 
   const { data, size, setSize, error } = useSWRInfinite((page) => {
-    const filter = translate(
-      [...filters, { ...QUERY_CONFIG, page: page + 1 }],
-      initialFilters,
-    )
+    const filter = translate(filters, { ...QUERY_CONFIG, page: page + 1 })
 
     const newQuery = encodeURIComponent(JSON.stringify(filter))
     if (newQuery !== query) {

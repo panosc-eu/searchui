@@ -1,16 +1,8 @@
 import init from './App/adapter/init'
-import filterables from './filterables.json'
+import groupedFilterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
 
-const base = init(filterables).map((obj) =>
-  obj.range
-    ? { ...obj, operator: 'between', value: obj.range }
-    : ['title', 'sample_chemical_formula'].includes(obj.name)
-    ? { ...obj, value: '', operator: 'like' }
-    : obj,
-)
-
-export const initialFilters = base
+export const filterables = init(groupedFilterables)
 
 const zip = (pair) => {
   const [k, v] = pair
