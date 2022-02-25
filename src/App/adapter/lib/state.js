@@ -2,7 +2,7 @@ import OPERATORS from '../operators.json'
 import MAP from '../targets.json'
 
 const FALLBACK_GROUP_OPERATOR = 'and'
-const LABEL_FOR_CONFIG = 'c'
+export const LABEL_FOR_CONFIG = 'c'
 
 const resolveOperator = (label) => OPERATORS[label] || FALLBACK_GROUP_OPERATOR
 
@@ -33,8 +33,9 @@ export function createPagination(config) {
       }
 }
 
-export function parseState(state, config) {
-  const { endpoint, include: included } = config
+export function parse(state, endpoint) {
+  const config = state.find(({ label }) => label === LABEL_FOR_CONFIG) || {}
+  const { include: included = [] } = config
 
   const createGroup = (label) => {
     const {
@@ -61,13 +62,10 @@ export function parseState(state, config) {
   const include = groups.filter((obj) => obj.target)
   const where = groups.find((obj) => obj.label === endpoint)
 
-  return [include, where]
+  return [include, where, config]
 }
 
-const squash = (list) => {
-  const pairs = list.flatMap((obj) => Object.entries(obj))
-  return pairs.reduce((acc, scope) => ({ ...acc, [scope[0]]: scope[1] }), {})
-}
+const squash = (list) => list.reduce((acc, scope) => ({ ...acc, ...scope }), {})
 
 const groupByLabel = (list) =>
   list.reduce(
@@ -78,12 +76,17 @@ const groupByLabel = (list) =>
     {},
   )
 
-export function mergeState(inits, diffs) {
-  const useful = diffs.reduce(
+export function merge(template, state) {
+  const labelsOfInterest = state.reduce(
     (acc, scope) => [...acc, scope.label, scope.group],
     [LABEL_FOR_CONFIG],
   )
-  const usefulInits = inits.filter(({ label }) => useful.includes(label))
-  const byLabel = groupByLabel([...usefulInits, ...diffs])
-  return Object.entries(byLabel).flatMap(([, a]) => squash(a))
+
+  const usefulTemplates = template.filter(({ label }) =>
+    labelsOfInterest.includes(label),
+  )
+
+  const byLabel = groupByLabel([...usefulTemplates, ...state])
+
+  return Object.values(byLabel).map(squash)
 }
