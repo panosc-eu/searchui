@@ -25,7 +25,7 @@ test('single root filter and custom include', () => {
   const query = translate(
     [
       {
-        label: 'do-type',
+        label: 'type',
         value: 'proposal',
       },
     ],
@@ -54,11 +54,11 @@ test('multiple filters and custom include', () => {
   const query = translate(
     [
       {
-        label: 'do-type',
+        label: 'type',
         value: 'experiment',
       },
       {
-        label: 'pa-sample_temperature',
+        label: 'sample_temperature',
         value: ['0', '7300'],
       },
     ],

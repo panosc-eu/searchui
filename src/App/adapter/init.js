@@ -12,10 +12,8 @@ const uniqueLabelReducer = (acc, scope) => {
 }
 
 const makeLabelCandidates = (obj) => {
-  const { name, label: suggestedLabel, group } = obj
-  const label = encodeURIComponent(
-    [...group.slice(0, 2), '-', ...(suggestedLabel || name)].join(''),
-  )
+  const { name, label: suggestedLabel } = obj
+  const label = encodeURIComponent(suggestedLabel || name)
   return { ...obj, label }
 }
 
