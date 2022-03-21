@@ -30,7 +30,6 @@
     "react-spinners": "^0.11.0",
     "react-switch-selector": "^2.0.0",
     "rebass": "^4.0.7",
-    "search-api-adapter": "https://github.com/panosc-portal/search-api-adapter.git",
     "styled-components": "^5.3.1",
     "swr": "^0.5.6",
     "zustand": "^3.5.10"
