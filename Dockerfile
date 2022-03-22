@@ -11,6 +11,6 @@ RUN yarn install
 COPY . ./
 RUN yarn build
 
-FROM nginx:mainline
-COPY --from=build /app/build /usr/share/nginx/html
+FROM socialengine/nginx-spa
+COPY --from=build /app/build /app
 EXPOSE 80
