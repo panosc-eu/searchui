@@ -18,6 +18,8 @@ export const useAppStore = create((set) => ({
 }))
 
 export const useSearchStore = create((set, get) => ({
+  count: 0,
+  setCount: (count) => set(() => ({ count })),
   search: '',
   setSearch: (search) => {
     if (search !== get().search) {
