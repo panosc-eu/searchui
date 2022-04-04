@@ -1,18 +1,4 @@
 {
-  "techniques": [
-    {
-      "display": "Some Technique",
-      "label": "technique_a",
-      "name": "pid",
-      "override": "20.500.12269/panosc-tech1"
-    },
-    {
-      "display": "Other Technique",
-      "label": "technique_b",
-      "name": "pid",
-      "override": "20.500.12269/panosc-tech2"
-    }
-  ],
   "documents": [
     {
       "label": "q",
@@ -23,6 +9,13 @@
       "name": "type",
       "display": "Type",
       "options": ["proposal", "publication"]
+    }
+  ],
+  "datasets": [
+    {
+      "name": "technique",
+      "display": "Technique",
+      "optionsUrl": "https://techniques.scicat.ess.eu/techniques?filter=%7B%22fields%22%3A%20%7B%22pid%22%3A%20true%2C%22name%22%3A%20true%7D%7D"
     }
   ],
   "parameters": [

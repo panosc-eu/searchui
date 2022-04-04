@@ -1,9 +1,9 @@
 import { Heading, Flex, Box } from '../Primitives'
+import Autocomplete from './Autocomplete'
 import ListPicker from './ListPicker'
 import OptionsPicker from './OptionsPicker'
 import Range from './Range'
 import TextInput from './TextInput'
-import Technique from './Technique'
 
 const TEXT_OPERATORS = new Set([
   'ilike',
@@ -24,16 +24,16 @@ function getFilterComponent(obj) {
     return OptionsPicker
   }
 
+  if (obj.optionsUrl) {
+    return Autocomplete
+  }
+
   if (obj.list) {
     return ListPicker
   }
 
   if (obj.name === 'text' || TEXT_OPERATORS.has(obj.operator)) {
     return TextInput
-  }
-
-  if (obj.group === 'techniques') {
-    return Technique
   }
 
   return null

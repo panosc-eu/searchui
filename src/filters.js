@@ -10,13 +10,13 @@ const base = init(filterables)
 
 const assertReasonableDefaults = (list) =>
   list.map((obj) => {
-    const { range, label, options, group } = obj
+    const { range, label, options, name } = obj
 
     if (range) {
       return { ...obj, operator: 'between' }
     }
 
-    if (options || label === 'q' || group === 'techniques') {
+    if (options || label === 'q' || name === 'technique') {
       return obj
     }
 
