@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import useSWR from 'swr'
 
 import Boundary from '../App/Boundary'
 import Spinner from '../App/Spinner'
-import { useAppStore } from '../App/stores'
+import { useSearchStore, useAppStore } from '../App/stores'
 import { Flex, Card, Text, Heading } from '../Primitives'
 import { useFilters, translate } from '../filters'
 import DocumentItem from './DocumentItem'
@@ -17,6 +17,7 @@ const QUERY_CONFIG = {
 function DocumentList() {
   const query = useAppStore((state) => state.query)
   const setQuery = useAppStore((state) => state.setQuery)
+  const setCount = useSearchStore((state) => state.setCount)
 
   const filters = useFilters()
 
@@ -30,6 +31,10 @@ function DocumentList() {
 
     return `/documents?filter=${newQuery}`
   })
+
+  useEffect(() => {
+    setCount(documents.length)
+  }, [documents, setCount])
 
   return (
     <Boundary>

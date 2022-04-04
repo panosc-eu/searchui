@@ -1,15 +1,13 @@
 import { Input } from '@rebass/forms/styled-components'
 import { FiSearch } from 'react-icons/fi'
-import { Redirect, Route, useHistory, useLocation } from 'react-router-dom'
+import { Redirect, Route, useLocation } from 'react-router-dom'
 
-import { useAppStore } from '../App/stores'
-import { Box, Button, Flex, Image, NavLink } from '../Primitives'
+import { useSearchStore } from '../App/stores'
+import { Box, Button, Text, Flex, Image, NavLink } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 
 function Navigation() {
-  const history = useHistory()
   const location = useLocation()
-  const isDark = useAppStore((state) => state.isDark)
   const { value: query, setValue: setQuery } = useQueryParam('q')
 
   function handleSubmit(evt) {
@@ -20,6 +18,8 @@ function Navigation() {
       setQuery(newQuery)
     }
   }
+
+  const count = useSearchStore((state) => state.count)
 
   return (
     <Flex
@@ -39,14 +39,14 @@ function Navigation() {
             height="100%"
             width="unset"
             alt="PaNOSC logo"
-            src={isDark ? '/PaNOSC_logo_white.svg' : '/PaNOSC_logo_black.svg'}
+            src="/PaNOSC_logo_white.svg"
           />
         </Box>
       </NavLink>
 
       <Route path="/search">
         {!query?.trim() && <Redirect to="/" />}
-        <Box as="form" sx={{ display: 'flex' }} onSubmit={handleSubmit}>
+        <Flex as="form" onSubmit={handleSubmit}>
           <Flex
             sx={{
               alignSelf: 'center',
@@ -60,7 +60,10 @@ function Navigation() {
               <FiSearch />
             </Button>
           </Flex>
-        </Box>
+          <Flex sx={{ alignSelf: 'center' }}>
+            {count === 50 ? '50+' : count} results
+          </Flex>
+        </Flex>
       </Route>
     </Flex>
   )
