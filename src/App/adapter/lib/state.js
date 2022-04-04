@@ -4,21 +4,22 @@ import MAP from '../targets.json'
 const FALLBACK_GROUP_OPERATOR = 'and'
 export const LABEL_FOR_CONFIG = 'c'
 
-const resolveOperator = (label) => OPERATORS[label] || FALLBACK_GROUP_OPERATOR
+const resolveOperator = (queryParam) =>
+  OPERATORS[queryParam] || FALLBACK_GROUP_OPERATOR
 
-const resolvePath = (label, endpoint) => {
-  const known = MAP[label]
+const resolvePath = (queryParam, endpoint) => {
+  const known = MAP[queryParam]
   const nested = known?.[endpoint]
   const fallback = known?.fallback
 
-  return label === endpoint
+  return queryParam === endpoint
     ? null
     : nested
-    ? [...nested, label]
+    ? [...nested, queryParam]
     : fallback
-    ? [...fallback, label]
+    ? [...fallback, queryParam]
     : known
-    ? [label]
+    ? [queryParam]
     : null
 }
 
@@ -34,21 +35,22 @@ export function createPagination(config) {
 }
 
 export function parse(state, endpoint) {
-  const config = state.find(({ label }) => label === LABEL_FOR_CONFIG) || {}
+  const config =
+    state.find(({ queryParam }) => queryParam === LABEL_FOR_CONFIG) || {}
   const { include: included = [] } = config
 
-  const createGroup = (label) => {
+  const createGroup = (queryParam) => {
     const {
       value,
-      operator = resolveOperator(label),
-      target = resolvePath(label, endpoint),
-    } = state.find((obj) => obj.label === label) || {}
+      operator = resolveOperator(queryParam),
+      target = resolvePath(queryParam, endpoint),
+    } = state.find((obj) => obj.queryParam === queryParam) || {}
 
     return {
-      label,
+      queryParam,
       target,
       operator: value || operator,
-      filters: state.filter(({ group }) => group === label),
+      filters: state.filter(({ group }) => group === queryParam),
     }
   }
 
@@ -60,7 +62,7 @@ export function parse(state, endpoint) {
   const groups = uniqueTargets.map(createGroup)
 
   const include = groups.filter((obj) => obj.target)
-  const where = groups.find((obj) => obj.label === endpoint)
+  const where = groups.find((obj) => obj.queryParam === endpoint)
 
   return [include, where, config]
 }
@@ -71,19 +73,19 @@ const groupByLabel = (list) =>
   list.reduce(
     (acc, scope) => ({
       ...acc,
-      [scope.label]: [...(acc[scope.label] || []), scope],
+      [scope.queryParam]: [...(acc[scope.queryParam] || []), scope],
     }),
     {},
   )
 
 export function merge(template, state) {
-  const labelsOfInterest = state.reduce(
-    (acc, scope) => [...acc, scope.label, scope.group],
+  const queryParamsOfInterest = state.reduce(
+    (acc, scope) => [...acc, scope.queryParam, scope.group],
     [LABEL_FOR_CONFIG],
   )
 
-  const usefulTemplates = template.filter(({ label }) =>
-    labelsOfInterest.includes(label),
+  const usefulTemplates = template.filter(({ queryParam }) =>
+    queryParamsOfInterest.includes(queryParam),
   )
 
   const byLabel = groupByLabel([...usefulTemplates, ...state])
