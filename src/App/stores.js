@@ -6,18 +6,13 @@ import create from 'zustand'
 //     ? true
 //     : false;
 
-export const useAppStore = create((set, get) => ({
+export const useAppStore = create((set) => ({
   isDark: true, // preset,
   // toggleTheme: () => {
   //   const newTheme = !get().isDark;
   //   localStorage.setItem('isDark', newTheme);
   //   set(() => ({ isDark: newTheme }));
   // },
-
-  loadOnScroll: true,
-  toggleLoadOnScroll: () => {
-    set(() => ({ loadOnScroll: !get().loadOnScroll }))
-  },
   query: '{}',
   setQuery: (str) => set(() => ({ query: str })),
 }))
