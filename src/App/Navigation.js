@@ -45,6 +45,7 @@ function Navigation() {
       </NavLink>
 
       <Route path="/search">
+        {!query?.trim() && <Redirect to="/" />}
         <Box as="form" sx={{ display: 'flex' }} onSubmit={handleSubmit}>
           <Flex
             sx={{
