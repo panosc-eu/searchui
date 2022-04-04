@@ -1,6 +1,6 @@
 import { Input } from '@rebass/forms/styled-components'
 import { FiSearch } from 'react-icons/fi'
-import { Route, useHistory } from 'react-router-dom'
+import { Redirect, Route, useHistory, useLocation } from 'react-router-dom'
 
 import { useAppStore } from '../App/stores'
 import { Box, Button, Flex, Image, NavLink } from '../Primitives'
@@ -8,6 +8,7 @@ import { useQueryParam } from '../router-utils'
 
 function Navigation() {
   const history = useHistory()
+  const location = useLocation()
   const isDark = useAppStore((state) => state.isDark)
   const { value: query } = useQueryParam('q')
 
@@ -55,7 +56,7 @@ function Navigation() {
               px: 3,
             }}
           >
-            <Input name="q" defaultValue={query} mr={2} />
+            <Input key={location.search} name="q" defaultValue={query} mr={2} />
             <Button>
               <FiSearch />
             </Button>
