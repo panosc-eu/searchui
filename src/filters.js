@@ -4,19 +4,19 @@ import applyTemplate from './App/adapter/translate'
 import filterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
 
-const SEPARATE_CHAR = '.'
+const SEPARATE_CHAR = "'"
 
 const base = init(filterables)
 
 const assertReasonableDefaults = (list) =>
   list.map((obj) => {
-    const { range, options, group } = obj
+    const { range, label, options, group } = obj
 
     if (range) {
       return { ...obj, operator: 'between' }
     }
 
-    if (options || group === 'techniques') {
+    if (options || label === 'q' || group === 'techniques') {
       return obj
     }
 
