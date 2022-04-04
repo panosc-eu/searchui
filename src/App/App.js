@@ -3,13 +3,11 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
-import DocumentPage from '../Document/DocumentPage'
 import ExplorePage from '../Explore/ExplorePage'
 import HomePage from '../Home/HomePage'
 import { Box } from '../Primitives'
 import { breakpoints } from '../breakpoints'
 import { useTheme } from '../theme'
-import Boundary from './Boundary'
 import GlobalStyles from './GlobalStyles'
 import Navigation from './Navigation'
 import ScrollToTop from './ScrollToTop'
@@ -30,14 +28,8 @@ function App() {
             <ScrollToTop />
             <HomePage />
           </Route>
-          <Route exact path="/documents">
+          <Route exact path="/search">
             <ExplorePage isDesktop={isDesktop} />
-          </Route>
-          <Route exact path="/documents/:documentId">
-            <Boundary>
-              <ScrollToTop />
-              <DocumentPage />
-            </Boundary>
           </Route>
         </Switch>
       </Box>

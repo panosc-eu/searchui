@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
-
 export const light = {
   text: 'hsl(0, 0%, 20%)',
   textVivid: 'hsl(0, 0%, 0%)',
