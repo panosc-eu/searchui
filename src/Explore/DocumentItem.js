@@ -1,15 +1,13 @@
 import React from 'react'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
 
-import { parseDate, documentSize } from '../App/helpers'
-import { Card, Box, Flex, Image, Heading, Link, Text } from '../Primitives'
+import { parseDate } from '../App/helpers'
+import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
 
 function DocumentItem(props) {
   const { document } = props
-  const { pid, title, keywords, summary, releseDate, datasets } = document
+  const { pid, title, score, doi, summary, releaseDate } = document
 
-  const history = useHistory()
-  const url = `/documents/${encodeURIComponent(pid)}`
+  const doiLink = `http://doi.org/${doi}`
 
   return (
     <Box
@@ -20,40 +18,43 @@ function DocumentItem(props) {
         overflow: 'hidden',
       }}
     >
-      <Card
-        width={1}
-        key={pid}
-        as={RouterLink}
-        to={url}
-        onClick={(evt) => {
-          evt.preventDefault()
-          history.push({
-            pathname: url,
-            state: { canGoBack: true },
-          })
-        }}
-        sx={{
-          color: 'inherit',
-          borderColor: 'middleground',
-          textDecoration: 'none',
-          '&:hover > h4': {
-            textDecoration: 'underline',
-          },
-        }}
-      >
-        <Heading>{title}</Heading>
+      <Card width={1} key={pid}>
+        <Flex sx={{ mb: 2, justifyContent: 'space-between' }}>
+          <Text
+            as={Link}
+            href={doiLink}
+            target="_blank"
+            sx={{ textDecoration: 'none', color: 'text', fontSize: 1 }}
+          >
+            {doi}
+          </Text>
+          <Box>Relevancy = {score.toFixed(3)}</Box>
+        </Flex>
+        <Heading
+          as={Link}
+          href={doiLink}
+          target="_blank"
+          sx={{
+            textDecoration: 'none',
+          }}
+        >
+          {title}
+        </Heading>
         <Box
           as="p"
           sx={{
             display: '-webkit-box',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            '-webkit-line-clamp': ['5', '5', '3', '4', '4'],
+            '-webkit-line-clamp': '2',
             '-webkit-box-orient': 'vertical',
-            mt: 3,
+            my: 3,
           }}
         >
           {summary}
+        </Box>
+        <Box>
+          <Text>Release Date: {parseDate(releaseDate)}</Text>
         </Box>
       </Card>
     </Box>
