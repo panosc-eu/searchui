@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
-export const JOIN_CHAR = '..'
+export const JOIN_CHAR = '~'
 
 export function useQuery() {
   return new URLSearchParams(useLocation().search)

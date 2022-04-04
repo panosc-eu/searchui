@@ -4,7 +4,7 @@ import applyTemplate from './App/adapter/translate'
 import filterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
 
-const SEPARATE_CHAR = '~'
+const SEPARATE_CHAR = '.'
 
 const base = init(filterables)
 
