@@ -1,13 +1,40 @@
+import { Input } from '@rebass/forms/styled-components'
 import React from 'react'
+import { FiSearch } from 'react-icons/fi'
+import { useHistory } from 'react-router-dom/index'
 
-import { Link, Heading } from '../Primitives'
+import { Link, Heading, Flex, Button } from '../Primitives'
 
 function HomePage() {
+  const history = useHistory()
+
+  function handleSubmit(evt) {
+    evt.preventDefault()
+    const param = new URLSearchParams(new FormData(evt.target))
+    history.push(`/search/?${param}`)
+  }
+
   return (
     <>
       <Heading as="h1" variant="display">
         The Photon and Neutron Open Science Cloud
       </Heading>
+      <form action="/search" onSubmit={handleSubmit}>
+        <Flex
+          sx={{
+            alignSelf: 'center',
+            flex: '1 1 0%',
+            maxWidth: '30rem',
+            my: 4,
+            fontSize: 3,
+          }}
+        >
+          <Input name="q" mr={2} />
+          <Button>
+            <FiSearch />
+          </Button>
+        </Flex>
+      </form>
       <p>
         The PaNOSC project brings together six strategic European research
         infrastructures and two e-infrastructures:
