@@ -10,16 +10,15 @@ function Navigation() {
   const history = useHistory()
   const location = useLocation()
   const isDark = useAppStore((state) => state.isDark)
-  const { value: query } = useQueryParam('q')
+  const { value: query, setValue: setQuery } = useQueryParam('q')
 
   function handleSubmit(evt) {
     evt.preventDefault()
     const param = new URLSearchParams(new FormData(evt.target))
-    if (param.get('q') === '') {
-      return
+    const newQuery = param.get('q').trim()
+    if (newQuery !== '') {
+      setQuery(newQuery)
     }
-
-    history.push(`?${param}`)
   }
 
   return (
