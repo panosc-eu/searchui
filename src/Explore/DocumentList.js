@@ -31,6 +31,7 @@ function DocumentList() {
 
     const newQuery = encodeURIComponent(JSON.stringify(filter))
     if (newQuery !== query) {
+      console.log(`${process.env.REACT_APP_API  }/documents?filter=${  newQuery}`)
       setQuery(newQuery)
     }
 
@@ -69,16 +70,8 @@ function DocumentList() {
                 <Text as="p">Loading more results...</Text>
               ) : hasReachedEnd ? (
                 <Text as="p">End of results</Text>
-              ) : loadOnScroll ? (
-                <Box ref={infiniteScrollRef} />
               ) : (
-                <Button
-                  variant="primary"
-                  alignSelf="flex-start"
-                  onClick={() => setSize((val) => val + 1)}
-                >
-                  Load more results
-                </Button>
+                <Box ref={infiniteScrollRef} />
               )}
             </>
           )}
