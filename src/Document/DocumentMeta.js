@@ -4,10 +4,7 @@ import { Box, Card, Heading, Link, Text } from '../Primitives'
 import MetaItem from './MetaItem'
 
 function DocumentMeta({ data }) {
-  const doiLink =
-    (process.env.REACT_APP_BEFORE_DOI || 'http://doi.org/') +
-    data.doi +
-    (process.env.REACT_APP_AFTER_DOI || '')
+  const doiLink = `http://doi.org/${data.doi}`
   return (
     <Box>
       <Card p={[3, 3, 3, 4]}>
