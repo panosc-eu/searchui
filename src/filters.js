@@ -1,7 +1,10 @@
 import init from './App/adapter/init'
+import { stripEmptyKeys } from './App/adapter/lib/helpers'
 import applyTemplate from './App/adapter/translate'
 import filterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
+
+const SEPARATE_CHAR = '~'
 
 const base = init(filterables)
 
@@ -24,20 +27,20 @@ export const template = assertReasonableDefaults(base)
 
 export const translate = applyTemplate(template)
 
-const zip = (pair) => {
-  const [k, v] = pair
-  const base = { label: k[0] }
-  const processedValue = v.length === 1 ? v[0] : v
-
-  return k.length === 2
-    ? { ...base, [k[1]]: processedValue }
-    : { ...base, value: processedValue }
+const parseValue = (raw) => {
+  const arr = raw.split(JOIN_CHAR)
+  return arr.length === 2 ? arr.map((s) => Number.parseInt(s)) : arr[0]
 }
 
-const splitPair = (pair) => pair.map((str) => str.split(JOIN_CHAR))
-const parseEntryPair = (pair) => zip(splitPair(pair))
+const parsePair = ([k, v]) => {
+  const label = k
+  const [rawValue, operator, unit] = v.split(SEPARATE_CHAR)
+  const value = parseValue(rawValue)
+  return stripEmptyKeys({ label, value, operator, unit })
+}
+
 const parseQuery = (query) => {
-  return [...query.entries()].map(parseEntryPair)
+  return [...query.entries()].map(parsePair)
 }
 
 export function useFilters() {

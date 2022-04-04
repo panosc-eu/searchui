@@ -5299,11 +5299,6 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-debounce@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.1.tgz#38881d8f4166a5c5848020c11827b834bcb3e0a5"
-  integrity sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==
-
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -6250,11 +6245,6 @@ eslint@^7.11.0, eslint@^7.32.0:
     table "^6.0.9"
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
-
-esm@3.2.22:
-  version "3.2.22"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.22.tgz#5062c2e22fee3ccfee4e8f20da768330da90d6e3"
-  integrity sha512-z8YG7U44L82j1XrdEJcqZOLUnjxco8pO453gKOlaMD1/md1n/5QrscAmYG+oKUspsmDLuBFZrpbxI6aQ67yRxA==
 
 espree@^7.3.0, espree@^7.3.1:
   version "7.3.1"
@@ -10854,11 +10844,6 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
-ramda@^0.27.1:
-  version "0.27.1"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.1.tgz#66fc2df3ef873874ffc2da6aa8984658abacf5c9"
-  integrity sha512-PgIdVpn5y5Yns8vqb8FzBUEYn98V3xcPgawAkkgj0YJ0qDsnHCiNmZYfOGMgOvoB0eWFLpYbhxUR3mxfDIMvpw==
-
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -11761,14 +11746,6 @@ schema-utils@^3.0.0:
     "@types/json-schema" "^7.0.6"
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
-
-"search-api-adapter@https://github.com/panosc-portal/search-api-adapter.git":
-  version "1.0.0"
-  resolved "https://github.com/panosc-portal/search-api-adapter.git#07af81021ed31ae22f5c2b7e928e68123744549b"
-  dependencies:
-    debounce "^1.2.1"
-    ramda "^0.27.1"
-    unitmath "^0.8.6"
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -12983,13 +12960,6 @@ unique-string@^1.0.0:
   integrity sha1-nhBXzKhRq7kzmPizOuGHuZyuwRo=
   dependencies:
     crypto-random-string "^1.0.0"
-
-unitmath@^0.8.6:
-  version "0.8.6"
-  resolved "https://registry.yarnpkg.com/unitmath/-/unitmath-0.8.6.tgz#47f56478834391c1a6bedfdbe3b621cac7af8591"
-  integrity sha512-sJ0O6t9XC7IBUSZQdESGXYraD0kmxT+wQUquecJf5OrHVaEOJwBcLCwWs1tUtFmS5IRYOwFaPO5ujdMGb758GQ==
-  dependencies:
-    esm "3.2.22"
 
 universalify@^0.1.0, universalify@^0.1.2:
   version "0.1.2"

@@ -2,9 +2,7 @@ import React from 'react'
 import { SWRConfig } from 'swr'
 
 async function fetcher(endpoint) {
-  const url = `${
-    process.env.REACT_APP_SEARCH || 'http://localhost:5000/api'
-  }${endpoint}`
+  const url = `${process.env.REACT_APP_API}${endpoint}`
   const response = await fetch(url)
   if (response.ok) {
     return response.json()
