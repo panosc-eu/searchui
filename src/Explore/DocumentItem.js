@@ -31,7 +31,6 @@ function DocumentItem(props) {
           target="_blank"
           sx={{
             textDecoration: 'none',
-            curosor: 'pointer',
           }}
         >
           {title}
