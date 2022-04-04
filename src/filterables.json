@@ -1,5 +1,4 @@
 {
-  "affiliation": [{ "name": "name" }],
   "techniques": [
     {
       "display": "Some Technique",
@@ -14,17 +13,7 @@
       "override": "20.500.12269/panosc-tech2"
     }
   ],
-  "person": [
-    { "name": "fullName" },
-    { "name": "name" },
-    { "name": "role" },
-    { "name": "orcid" }
-  ],
   "documents": [
-    {
-      "name": "title",
-      "display": "title"
-    },
     {
       "name": "text",
       "display": "Text"
@@ -32,13 +21,12 @@
     {
       "name": "type",
       "display": "Type",
-      "options": ["proposal", "experiment", "document"]
+      "options": ["proposal", "publication"]
     }
   ],
-  "datasets": [{ "name": "title" }],
   "parameters": [
     {
-      "display": "Incident Wavelenght (nm)",
+      "display": "Incident Wavelength (nm)",
       "name": "incident_wavelength",
       "range": [0, 2000],
       "unit": "nm"

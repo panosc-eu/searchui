@@ -1,5 +1,7 @@
 {
-  "parameters": {},
+  "parameters": {
+    "documents": ["datasets"]
+  },
   "techniques": {
     "documents": ["datasets"]
   },
