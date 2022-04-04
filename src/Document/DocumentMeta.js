@@ -4,6 +4,10 @@ import { Box, Card, Heading, Link, Text } from '../Primitives'
 import MetaItem from './MetaItem'
 
 function DocumentMeta({ data }) {
+  const doiLink =
+    (process.env.REACT_APP_BEFORE_DOI || 'http://doi.org/') +
+    data.doi +
+    (process.env.REACT_APP_AFTER_DOI || '')
   return (
     <Box>
       <Card p={[3, 3, 3, 4]}>
@@ -11,15 +15,13 @@ function DocumentMeta({ data }) {
         <Text as="p">{data.summary}</Text>
       </Card>
       <Box as="ul" bg="middleground" color="inherit" pl={0}>
-        <MetaItem label="Citation">
-          <Link display="block" href={`http://doi.org/${data.doi}`} blank>
-            {data.citation}
+        <MetaItem label="DOI">
+          <Link display="block" href={doiLink} blank>
+            {data.doi}
           </Link>
         </MetaItem>
-        <MetaItem label="Keywords">{data.keywords.join(', ')}</MetaItem>
         <MetaItem label="Type">{data.type}</MetaItem>
         <MetaItem label="Author">{data.members[0]?.person.fullName}</MetaItem>
-        <MetaItem label="Other">Stuff</MetaItem>
       </Box>
     </Box>
   )
