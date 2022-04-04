@@ -6,7 +6,7 @@ import { Card, Box, Flex, Image, Heading, Link, Text } from '../Primitives'
 
 function DocumentItem(props) {
   const { document } = props
-  const { pid, img, title, keywords, summary, releseDate, datasets } = document
+  const { pid, title, keywords, summary, releseDate, datasets } = document
 
   const history = useHistory()
   const url = `/documents/${encodeURIComponent(pid)}`
@@ -20,16 +20,27 @@ function DocumentItem(props) {
         overflow: 'hidden',
       }}
     >
-      <Box
-        display={['block', 'none']}
-        bg="middleground"
-        height="10rem"
-        overflow="hidden"
+      <Card
+        width={1}
+        key={pid}
+        as={RouterLink}
+        to={url}
+        onClick={(evt) => {
+          evt.preventDefault()
+          history.push({
+            pathname: url,
+            state: { canGoBack: true },
+          })
+        }}
+        sx={{
+          color: 'inherit',
+          borderColor: 'middleground',
+          textDecoration: 'none',
+          '&:hover > h4': {
+            textDecoration: 'underline',
+          },
+        }}
       >
-        <Image src={img} width="100%" height="100%" />
-      </Box>
-
-      <Card width={[1, 2 / 3, 3 / 4]}>
         <Heading>{title}</Heading>
         <Box
           as="p"
@@ -44,19 +55,7 @@ function DocumentItem(props) {
         >
           {summary}
         </Box>
-
-        <Flex as="footer" gap={2} mt={2} fontStyle="italic" fontSize="small">
-          <Text>Created: {parseDate(releseDate)}</Text>
-        </Flex>
       </Card>
-
-      <Box
-        display={['none', 'block']}
-        width={[1, 1 / 3, 1 / 4]}
-        bg="middleground"
-      >
-        <Image width="100%" src={img} minHeight="0" />
-      </Box>
     </Box>
   )
 }

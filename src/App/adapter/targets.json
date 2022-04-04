@@ -10,5 +10,8 @@
   },
   "person": {
     "fallback": ["members"]
+  },
+  "instrument": {
+    "documents": ["datasets"]
   }
 }
