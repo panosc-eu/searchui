@@ -19,11 +19,16 @@ function DocumentItem(props) {
       }}
     >
       <Card width={1} key={pid}>
-        <Flex sx={{ justifyContent: 'space-between' }}>
-          <Link href={doiLink} target="_blank">
+        <Flex sx={{ mb: 2, justifyContent: 'space-between' }}>
+          <Text
+            as={Link}
+            href={doiLink}
+            target="_blank"
+            sx={{ textDecoration: 'none', color: 'text', fontSize: 1 }}
+          >
             {doi}
-          </Link>
-          <Box>{score}</Box>
+          </Text>
+          <Box>Relevancy = {score.toFixed(3)}</Box>
         </Flex>
         <Heading
           as={Link}
