@@ -2,9 +2,9 @@ import { Input } from '@rebass/forms/styled-components'
 import { FiSearch } from 'react-icons/fi'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
-import { useSearchStore } from '../App/stores'
 import { Box, Button, Flex, Image, NavLink } from '../Primitives'
 import { useQueryParam } from '../router-utils'
+import ResultsCount from './ResultsCount'
 
 function Navigation() {
   const location = useLocation()
@@ -18,8 +18,6 @@ function Navigation() {
       setQuery(newQuery)
     }
   }
-
-  const count = useSearchStore((state) => state.count)
 
   return (
     <Flex
@@ -46,23 +44,20 @@ function Navigation() {
 
       <Route path="/search">
         {!query?.trim() && <Redirect to="/" />}
-        <Flex as="form" onSubmit={handleSubmit}>
-          <Flex
-            sx={{
-              alignSelf: 'center',
-              flex: '1 1 0%',
-              maxWidth: '30rem',
-              px: 3,
-            }}
-          >
+        <Flex
+          as="form"
+          sx={{ flex: '1 1 0%', alignItems: 'center', px: 3 }}
+          onSubmit={handleSubmit}
+        >
+          <Flex sx={{ flex: '1 1 0%', maxWidth: '30rem' }}>
             <Input key={location.search} name="q" defaultValue={query} mr={2} />
             <Button aria-label="Search" type="submit">
               <FiSearch />
             </Button>
           </Flex>
-          <Flex sx={{ alignSelf: 'center' }}>
-            {count === 50 ? '50+' : count} {`result${count === 1 ? '' : 's'}`}
-          </Flex>
+          <Box sx={{ display: ['none', 'none', 'inline'], pl: 3 }}>
+            <ResultsCount />
+          </Box>
         </Flex>
       </Route>
     </Flex>
