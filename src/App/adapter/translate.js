@@ -7,7 +7,6 @@ const DEFAULT_CONFIG = {
   include: [],
   pageSize: 5, // `false` to disable limit/pagination
   page: 1,
-  order: undefined, // e.g.`['foo ASC', 'bar DESC']`
 }
 
 const applyTemplateThenTranslate =
@@ -20,12 +19,13 @@ const applyTemplateThenTranslate =
     const include = createInclude(toInclude)
     const where = createWhere(toWhere)
     const pagination = createPagination(toRoot)
-    const { order } = toRoot
+    const { order, q: query } = toRoot
 
     return stripEmptyKeys({
       include,
       where,
       order,
+      query,
       ...pagination,
     })
   }
