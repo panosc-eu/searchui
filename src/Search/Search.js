@@ -6,7 +6,7 @@ function Search() {
   const rootFilters = template.filter(
     (obj) => obj.group === 'documents' && obj.queryParam !== 'q',
   )
-  const datasetFilters = template.filter((obj) => obj.group === 'datasets')
+  const techniqueFilters = template.filter((obj) => obj.group === 'techniques')
   const parameterFilters = template.filter((obj) => obj.group === 'parameters')
 
   return (
@@ -14,7 +14,7 @@ function Search() {
       <Card>
         <Flex column gap={[3, 2, 3, 4]}>
           <FilterGroup name="Search" filters={rootFilters} />
-          <FilterGroup name="Dataset" filters={datasetFilters} />
+          <FilterGroup name="Dataset" filters={techniqueFilters} />
           <FilterGroup name="Parameter" filters={parameterFilters} />
         </Flex>
       </Card>

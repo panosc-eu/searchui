@@ -11,9 +11,9 @@
       "options": ["proposal", "publication"]
     }
   ],
-  "datasets": [
+  "techniques": [
     {
-      "id": "technique",
+      "id": "name",
       "display": "Technique",
       "optionsUrl": "https://techniques.scicat.ess.eu/techniques?filter=%7B%22fields%22%3A%20%7B%22pid%22%3A%20true%2C%22name%22%3A%20true%7D%7D"
     }
