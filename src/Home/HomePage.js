@@ -30,7 +30,7 @@ function HomePage() {
           }}
         >
           <Input name="q" mr={2} />
-          <Button>
+          <Button aria-label="Search" type="submit">
             <FiSearch />
           </Button>
         </Flex>

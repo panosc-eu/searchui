@@ -56,7 +56,7 @@ function Navigation() {
             }}
           >
             <Input key={location.search} name="q" defaultValue={query} mr={2} />
-            <Button>
+            <Button aria-label="Search" type="submit">
               <FiSearch />
             </Button>
           </Flex>

@@ -13,8 +13,6 @@ export const useAppStore = create((set) => ({
   //   localStorage.setItem('isDark', newTheme);
   //   set(() => ({ isDark: newTheme }));
   // },
-  query: '{}',
-  setQuery: (str) => set(() => ({ query: str })),
 }))
 
 export const useSearchStore = create((set, get) => ({
