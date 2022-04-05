@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/control-has-associated-queryParam */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import { Text, Flex } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 import FilterBox from './Filter'
@@ -20,7 +20,7 @@ function OptionsPicker(props) {
           return (
             <Flex
               key={option}
-              as="queryParam"
+              as="label"
               sx={{
                 alignItems: 'center',
                 color: isSelected && 'textVivid',
@@ -31,7 +31,7 @@ function OptionsPicker(props) {
               }}
             >
               <input
-                name={obj.name}
+                name={obj.queryParam}
                 value={option}
                 type="radio"
                 checked={isSelected}
@@ -39,7 +39,7 @@ function OptionsPicker(props) {
                 style={{ cursor: 'inherit' }}
               />
 
-              <Text flex="1 1 0%" ml={2}>
+              <Text as="span" flex="1 1 0%" ml={2}>
                 {option}
               </Text>
             </Flex>
