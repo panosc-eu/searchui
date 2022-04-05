@@ -11,7 +11,7 @@
       "options": ["proposal", "publication"]
     }
   ],
-  "datasets": [
+  "techniques": [
     {
       "id": "technique",
       "display": "Technique",
