@@ -4,7 +4,7 @@ import applyTemplate from './translate'
 
 const translate = applyTemplate(template)
 
-const label = LABEL_FOR_CONFIG
+const queryParam = LABEL_FOR_CONFIG
 
 test('no filter and default config', () => {
   const query = translate([])
@@ -12,12 +12,12 @@ test('no filter and default config', () => {
 })
 
 test('no pagination', () => {
-  const query = translate([{ label, pageSize: false }])
+  const query = translate([{ queryParam, pageSize: false }])
   expect(query).toEqual({})
 })
 
 test('custom pagination', () => {
-  const query = translate([{ label, pageSize: 10, page: 2 }])
+  const query = translate([{ queryParam, pageSize: 10, page: 2 }])
   expect(query).toEqual({ limit: 10, skip: 10 })
 })
 
@@ -25,7 +25,7 @@ test('custom ordering', () => {
   const query = translate(
     [
       {
-        label,
+        queryParam,
         order: ['foo ASC', 'bar DESC'],
       },
     ],
@@ -37,9 +37,9 @@ test('custom ordering', () => {
 
 test('single root filter and custom include', () => {
   const query = translate([
-    { label, include: ['datasets', 'affiliation', 'person'] },
+    { queryParam, include: ['datasets', 'affiliation', 'person'] },
     {
-      label: 'type',
+      queryParam: 'type',
       value: 'proposal',
     },
   ])
@@ -61,13 +61,13 @@ test('single root filter and custom include', () => {
 
 test('multiple filters and custom include', () => {
   const query = translate([
-    { label, include: ['datasets', 'affiliation', 'person'] },
+    { queryParam, include: ['datasets', 'affiliation', 'person'] },
     {
-      label: 'type',
+      queryParam: 'type',
       value: 'experiment',
     },
     {
-      label: 'sample_temperature',
+      queryParam: 'sample_temperature',
       value: ['0', '7300'],
     },
   ])
@@ -80,17 +80,23 @@ test('multiple filters and custom include', () => {
           include: [{ relation: 'affiliation' }, { relation: 'person' }],
         },
       },
-      { relation: 'datasets' },
       {
-        relation: 'parameters',
+        relation: 'datasets',
         scope: {
-          where: {
-            and: [
-              { name: 'sample_temperature' },
-              { value: { between: ['0', '7300'] } },
-              { unit: 'K' },
-            ],
-          },
+          include: [
+            {
+              relation: 'parameters',
+              scope: {
+                where: {
+                  and: [
+                    { name: 'sample_temperature' },
+                    { value: { between: ['0', '7300'] } },
+                    { unit: 'K' },
+                  ],
+                },
+              },
+            },
+          ],
         },
       },
     ],

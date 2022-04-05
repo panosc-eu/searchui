@@ -1,12 +1,12 @@
 {
   "documents": [
     {
-      "label": "q",
-      "name": "text",
+      "queryParam": "q",
+      "id": "text",
       "display": "Text"
     },
     {
-      "name": "type",
+      "id": "type",
       "display": "Type",
       "options": ["proposal", "publication"]
     }
@@ -21,29 +21,29 @@
   "parameters": [
     {
       "display": "Incident Wavelength (nm)",
-      "name": "incident_wavelength",
+      "id": "incident_wavelength",
       "range": [0, 2000],
       "unit": "nm"
     },
     {
       "display": "Incident Photon Energy (eV)",
-      "name": "incident_photon_energy",
+      "id": "incident_photon_energy",
       "range": [0, 1000],
       "unit": "eV"
     },
     {
       "display": "Chemical Formula",
-      "name": "sample_chemical_formula"
+      "id": "sample_chemical_formula"
     },
     {
       "display": "Temperature (K)",
-      "name": "sample_temperature",
+      "id": "sample_temperature",
       "range": [0, 10000],
       "unit": "K"
     },
     {
       "display": "Pressure (Pa)",
-      "name": "sample_pressure",
+      "id": "sample_pressure",
       "range": [0, 10000000],
       "unit": "Pa"
     }

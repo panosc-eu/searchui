@@ -10,7 +10,7 @@ import DocumentItem from './DocumentItem'
 
 const PAGE_SIZE = 50
 const QUERY_CONFIG = {
-  label: 'c',
+  queryParam: 'c',
   pageSize: PAGE_SIZE,
 }
 

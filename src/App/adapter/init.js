@@ -3,8 +3,8 @@ const CHAR_TO_STACK_ON_LABEL = '_'
 const addChar = (str) => [...str, CHAR_TO_STACK_ON_LABEL].join('')
 
 const uniqueLabelReducer = (acc, scope) => {
-  return acc.some(({ label }) => label === scope.label)
-    ? [{ ...scope, label: addChar(scope.label) }].reduce(
+  return acc.some(({ queryParam }) => queryParam === scope.queryParam)
+    ? [{ ...scope, queryParam: addChar(scope.queryParam) }].reduce(
         uniqueLabelReducer,
         acc,
       )
@@ -12,9 +12,9 @@ const uniqueLabelReducer = (acc, scope) => {
 }
 
 const makeLabelCandidates = (obj) => {
-  const { name, label: suggestedLabel } = obj
-  const label = encodeURIComponent(suggestedLabel || name)
-  return { ...obj, label }
+  const { id, queryParam: suggestedLabel } = obj
+  const queryParam = encodeURIComponent(suggestedLabel || id)
+  return { ...obj, queryParam }
 }
 
 function init(filterables) {

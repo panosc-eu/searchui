@@ -10,13 +10,13 @@ const base = init(filterables)
 
 const assertReasonableDefaults = (list) =>
   list.map((obj) => {
-    const { range, label, options, name } = obj
+    const { range, queryParam, options, id } = obj
 
     if (range) {
       return { ...obj, operator: 'between' }
     }
 
-    if (options || label === 'q' || name === 'technique') {
+    if (options || queryParam === 'q' || id === 'technique') {
       return obj
     }
 
@@ -33,10 +33,10 @@ const parseValue = (raw) => {
 }
 
 const parsePair = ([k, v]) => {
-  const label = k
+  const queryParam = k
   const [rawValue, operator, unit] = v.split(SEPARATE_CHAR)
   const value = parseValue(rawValue)
-  return stripEmptyKeys({ label, value, operator, unit })
+  return stripEmptyKeys({ queryParam, value, operator, unit })
 }
 
 const parseQuery = (query) => {
