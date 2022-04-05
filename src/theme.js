@@ -133,6 +133,7 @@ export function useTheme() {
         borderColor: 'secondary',
         textOverflow: 'ellipsis',
         overflow: 'hidden',
+        fontSize: 0,
         pr: '24px',
         option: {
           color: 'black',

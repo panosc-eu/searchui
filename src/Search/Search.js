@@ -13,9 +13,10 @@ function Search() {
     <Flex column gap={[3, 3, 3, 4]}>
       <Card>
         <Flex column gap={[3, 2, 3, 4]}>
-          <FilterGroup name="Search" filters={rootFilters} />
-          <FilterGroup name="Dataset" filters={techniqueFilters} />
-          <FilterGroup name="Parameter" filters={parameterFilters} />
+          <FilterGroup
+            name="Filter"
+            filters={[...rootFilters, ...techniqueFilters, ...parameterFilters]}
+          />
         </Flex>
       </Card>
     </Flex>

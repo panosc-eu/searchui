@@ -24,6 +24,7 @@ function TextInput(props) {
       <Flex>
         <Input
           px={2}
+          fontSize={0}
           value={inputValue}
           onChange={(evt) => {
             const { value } = evt.target
