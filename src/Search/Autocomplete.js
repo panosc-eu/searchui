@@ -9,10 +9,10 @@ import FilterBox from './Filter'
 
 function Autocomplete(props) {
   const { obj } = props
-  const param = useQueryParam(obj.label)
+  const param = useQueryParam(obj.queryParam)
 
   return (
-    <FilterBox title={obj.display || obj.label} isActive={param.isActive}>
+    <FilterBox title={obj.display || obj.queryParam} isActive={param.isActive}>
       <Flex sx={{ '& > div:first-child': { flex: '1 1 0%' } }}>
         <Suspense
           fallback={
@@ -22,9 +22,9 @@ function Autocomplete(props) {
           }
         >
           <AsynAutocomplete
-            queryParam={obj.label}
+            queryParam={obj.queryParam}
             url={obj.optionsUrl}
-            emptyOption={`Select a ${obj.label}...`}
+            emptyOption={`Select a ${obj.queryParam}...`}
           />
         </Suspense>
         <Button

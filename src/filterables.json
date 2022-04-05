@@ -1,8 +1,8 @@
 {
   "documents": [
     {
-      "queryParam": "q",
       "id": "text",
+      "queryParam": "q",
       "display": "Text"
     },
     {
@@ -13,37 +13,37 @@
   ],
   "datasets": [
     {
-      "name": "technique",
+      "id": "technique",
       "display": "Technique",
       "optionsUrl": "https://techniques.scicat.ess.eu/techniques?filter=%7B%22fields%22%3A%20%7B%22pid%22%3A%20true%2C%22name%22%3A%20true%7D%7D"
     }
   ],
   "parameters": [
     {
-      "display": "Incident Wavelength (nm)",
       "id": "incident_wavelength",
+      "display": "Incident Wavelength (nm)",
       "range": [0, 2000],
       "unit": "nm"
     },
     {
-      "display": "Incident Photon Energy (eV)",
       "id": "incident_photon_energy",
+      "display": "Incident Photon Energy (eV)",
       "range": [0, 1000],
       "unit": "eV"
     },
     {
-      "display": "Chemical Formula",
-      "id": "sample_chemical_formula"
+      "id": "sample_chemical_formula",
+      "display": "Chemical Formula"
     },
     {
-      "display": "Temperature (K)",
       "id": "sample_temperature",
+      "display": "Temperature (K)",
       "range": [0, 10000],
       "unit": "K"
     },
     {
-      "display": "Pressure (Pa)",
       "id": "sample_pressure",
+      "display": "Pressure (Pa)",
       "range": [0, 10000000],
       "unit": "Pa"
     }
