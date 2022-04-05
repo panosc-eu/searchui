@@ -4,7 +4,7 @@ import FilterGroup from './FilterGroup'
 
 function Search() {
   const rootFilters = template.filter(
-    (obj) => obj.group === 'documents' && obj.label !== 'q',
+    (obj) => obj.group === 'documents' && obj.queryParam !== 'q',
   )
   const datasetFilters = template.filter((obj) => obj.group === 'datasets')
   const parameterFilters = template.filter((obj) => obj.group === 'parameters')
