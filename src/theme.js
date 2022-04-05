@@ -120,6 +120,18 @@ export function useTheme() {
         borderRadius: 4,
         borderColor: 'secondary',
       },
+      select: {
+        width: '100%',
+        bg: 'highlight',
+        borderRadius: 4,
+        borderColor: 'secondary',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        pr: '24px',
+        option: {
+          color: 'black',
+        },
+      },
       switch: {
         p: '2px',
         bg: 'bgInverted',
