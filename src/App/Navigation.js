@@ -3,7 +3,7 @@ import { FiSearch } from 'react-icons/fi'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
 import { useSearchStore } from '../App/stores'
-import { Box, Button, Text, Flex, Image, NavLink } from '../Primitives'
+import { Box, Button, Flex, Image, NavLink } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 
 function Navigation() {
@@ -61,7 +61,7 @@ function Navigation() {
             </Button>
           </Flex>
           <Flex sx={{ alignSelf: 'center' }}>
-            {count === 50 ? '50+' : count} results
+            {count === 50 ? '50+' : count} {`result${count === 1 ? '' : 's'}`}
           </Flex>
         </Flex>
       </Route>
