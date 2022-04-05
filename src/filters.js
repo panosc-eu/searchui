@@ -1,29 +1,13 @@
 import init from './App/adapter/init'
 import { stripEmptyKeys } from './App/adapter/lib/helpers'
+import { LABEL_FOR_CONFIG } from './App/adapter/lib/state'
 import applyTemplate from './App/adapter/translate'
 import filterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
 
 const SEPARATE_CHAR = "'"
 
-const base = init(filterables)
-
-const assertReasonableDefaults = (list) =>
-  list.map((obj) => {
-    const { range, queryParam, options, id } = obj
-
-    if (range) {
-      return { ...obj, operator: 'between' }
-    }
-
-    if (options || queryParam === 'q' || id === 'technique') {
-      return obj
-    }
-
-    return { ...obj, operator: 'ilike' }
-  })
-
-export const template = assertReasonableDefaults(base)
+export const template = init(filterables)
 
 export const translate = applyTemplate(template)
 
@@ -33,6 +17,10 @@ const parseValue = (raw) => {
 }
 
 const parsePair = ([k, v]) => {
+  if (k === 'q') {
+    return { queryParam: LABEL_FOR_CONFIG, [k]: v }
+  }
+
   const queryParam = k
   const [rawValue, operator, unit] = v.split(SEPARATE_CHAR)
   const value = parseValue(rawValue)
