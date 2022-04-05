@@ -35,6 +35,10 @@ function DocumentItem(props) {
           href={doiLink}
           target="_blank"
           sx={{
+            display: 'block',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
             textDecoration: 'none',
           }}
         >
@@ -54,7 +58,9 @@ function DocumentItem(props) {
           {summary}
         </Box>
         <Box>
-          <Text>Release Date: {parseDate(releaseDate)}</Text>
+          <Text sx={{ fontStyle: 'italic' }}>
+            Released: {parseDate(releaseDate)}
+          </Text>
         </Box>
       </Card>
     </Box>
