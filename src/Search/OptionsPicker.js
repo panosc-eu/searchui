@@ -5,11 +5,11 @@ import FilterBox from './Filter'
 
 function OptionsPicker(props) {
   const { obj } = props
-  const param = useQueryParam(obj.queryParam)
+  const param = useQueryParam(obj.id)
 
   return (
     <FilterBox
-      title={obj.display || obj.queryParam}
+      title={obj.display || obj.id}
       isActive={param.isActive}
       onClear={() => param.remove()}
     >
@@ -31,7 +31,7 @@ function OptionsPicker(props) {
               }}
             >
               <input
-                name={obj.queryParam}
+                name={obj.id}
                 value={option}
                 type="radio"
                 checked={isSelected}

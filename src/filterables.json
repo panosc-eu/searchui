@@ -1,48 +1,43 @@
 {
   "documents": [
     {
-      "id": "text",
-      "queryParam": "q",
-      "display": "Text"
-    },
-    {
-      "id": "type",
+      "field": "type",
       "display": "Type",
       "options": ["proposal", "publication"]
     }
   ],
   "techniques": [
     {
-      "id": "name",
+      "field": "name",
       "display": "Technique",
       "optionsUrl": "https://techniques.scicat.ess.eu/techniques?filter=%7B%22fields%22%3A%20%7B%22pid%22%3A%20true%2C%22name%22%3A%20true%7D%7D"
     }
   ],
   "parameters": [
     {
-      "id": "incident_wavelength",
+      "field": "incident_wavelength",
       "display": "Incident Wavelength (nm)",
       "range": [0, 2000],
       "unit": "nm"
     },
     {
-      "id": "incident_photon_energy",
+      "field": "incident_photon_energy",
       "display": "Incident Photon Energy (eV)",
       "range": [0, 1000],
       "unit": "eV"
     },
     {
-      "id": "sample_chemical_formula",
+      "field": "sample_chemical_formula",
       "display": "Chemical Formula"
     },
     {
-      "id": "sample_temperature",
+      "field": "sample_temperature",
       "display": "Temperature (K)",
       "range": [0, 10000],
       "unit": "K"
     },
     {
-      "id": "sample_pressure",
+      "field": "sample_pressure",
       "display": "Pressure (Pa)",
       "range": [0, 10000000],
       "unit": "Pa"

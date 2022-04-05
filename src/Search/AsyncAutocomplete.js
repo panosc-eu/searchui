@@ -4,8 +4,8 @@ import useSWR from 'swr'
 import { useQueryParam } from '../router-utils'
 
 function AsynAutocomplete(props) {
-  const { emptyOption, url, queryParam } = props
-  const param = useQueryParam(queryParam)
+  const { emptyOption, url, id } = props
+  const param = useQueryParam(id)
 
   const { data: options } = useSWR(url)
 

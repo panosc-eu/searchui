@@ -1,18 +1,18 @@
 import { addOperator, stripEmptyKeys } from './helpers'
 
 const buildParameter = (item) => {
-  const { id, operator, value, unit } = item
+  const { field, operator, value, unit } = item
   const arr = [
-    { name: id },
+    { name: field },
     { value: operator ? { [operator]: value } : value },
   ]
   return { and: unit ? [...arr, { unit }] : arr }
 }
 
 const buildSimple = (item) => {
-  const { id, value: val, override, operator } = item
+  const { field, value: val, override, operator } = item
   const value = override || val
-  return { [id]: operator ? { [operator]: value } : value }
+  return { [field]: operator ? { [operator]: value } : value }
 }
 
 const byTargetLength = (list) => {
