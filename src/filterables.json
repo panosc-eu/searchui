@@ -3,11 +3,13 @@
     {
       "field": "type",
       "display": "Type",
-      "options": ["proposal", "publication"]
+      "options": ["proposal", "publication"],
+      "type": "options"
     }
   ],
   "techniques": [
     {
+      "id": "technique",
       "field": "name",
       "display": "Technique",
       "optionsUrl": "https://techniques.scicat.ess.eu/techniques?filter=%7B%22where%22%3A%7B%22and%22%3A%5B%7B%22pid%22%3A%7B%22nlike%22%3A%22%3Adataset%22%7D%7D%2C%7B%22name%22%3A%7B%22nlike%22%3A%20%22CHMO%22%7D%7D%5D%7D%2C%22fields%22%3A%7B%22pid%22%3Atrue%2C%22name%22%3Atrue%7D%7D"
@@ -16,31 +18,32 @@
   "parameters": [
     {
       "field": "incident_wavelength",
-      "display": "Incident Wavelength (nm)",
-      "range": [0, 2000],
-      "unit": "nm"
+      "display": "Incident Wavelength",
+      "type": "numeric",
+      "units": ["nm"]
     },
     {
       "field": "incident_photon_energy",
-      "display": "Incident Photon Energy (eV)",
-      "range": [0, 1000],
-      "unit": "eV"
+      "display": "Incident Photon Energy",
+      "type": "numeric",
+      "units": ["eV", "J"]
     },
     {
       "field": "sample_chemical_formula",
-      "display": "Chemical Formula"
+      "display": "Chemical Formula",
+      "operator": "like"
     },
     {
       "field": "sample_temperature",
-      "display": "Temperature (K)",
-      "range": [0, 10000],
-      "unit": "K"
+      "display": "Temperature",
+      "type": "numeric",
+      "units": ["K", "C", "F"]
     },
     {
       "field": "sample_pressure",
-      "display": "Pressure (Pa)",
-      "range": [0, 10000000],
-      "unit": "Pa"
+      "display": "Pressure",
+      "type": "numeric",
+      "units": ["Pa"]
     }
   ]
 }

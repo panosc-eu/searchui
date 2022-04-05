@@ -121,7 +121,6 @@ export function useTheme() {
     },
     forms: {
       input: {
-        p: 1,
         bg: 'highlight',
         borderRadius: 4,
         borderColor: 'secondary',
