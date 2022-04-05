@@ -12,10 +12,9 @@ import { translate, useFilters } from '../filters'
 import DocumentList from './DocumentList'
 import Debug from './QueryDebug'
 
-const PAGE_SIZE = 50
 const QUERY_CONFIG = {
   id: 'c',
-  pageSize: PAGE_SIZE,
+  pageSize: process.env.REACT_APP_LIMIT,
 }
 
 function ExplorePage(props) {
