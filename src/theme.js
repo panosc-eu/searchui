@@ -99,6 +99,12 @@ export function useTheme() {
         fontWeight: 'bold',
         ':hover': { bg: 'bgInverted', color: 'textInverted' },
       },
+      secondary: {
+        variant: 'buttons.primary',
+        fontSize: [0, 0, 1],
+        fontWeight: 600,
+        py: 1,
+      },
       action: {
         variant: 'buttons.base',
         flex: 'none',

@@ -9,6 +9,10 @@ function AsynAutocomplete(props) {
 
   const { data: options } = useSWR(url)
 
+  const sortedOptions = [...options].sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { numeric: true }),
+  )
+
   function handleChange(evt) {
     const newVal = evt.target.value
     if (newVal === '') {
@@ -17,6 +21,7 @@ function AsynAutocomplete(props) {
       param.setValue(newVal)
     }
   }
+
   return (
     <Select
       value={param.value || ''}
@@ -24,7 +29,7 @@ function AsynAutocomplete(props) {
       sx={{ flex: '1 1 0%' }}
     >
       <option value="">{emptyOption}</option>
-      {options.map((opt) => (
+      {sortedOptions.map((opt) => (
         <option key={opt.pid}>{opt.name}</option>
       ))}
     </Select>
