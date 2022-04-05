@@ -4,7 +4,7 @@ import applyTemplate from './translate'
 
 const translate = applyTemplate(template)
 
-const queryParam = LABEL_FOR_CONFIG
+const id = LABEL_FOR_CONFIG
 
 test('no filter and default config', () => {
   const query = translate([])
@@ -12,12 +12,12 @@ test('no filter and default config', () => {
 })
 
 test('no pagination', () => {
-  const query = translate([{ queryParam, pageSize: false }])
+  const query = translate([{ id, pageSize: false }])
   expect(query).toEqual({})
 })
 
 test('custom pagination', () => {
-  const query = translate([{ queryParam, pageSize: 10, page: 2 }])
+  const query = translate([{ id, pageSize: 10, page: 2 }])
   expect(query).toEqual({ limit: 10, skip: 10 })
 })
 
@@ -25,7 +25,7 @@ test('custom ordering', () => {
   const query = translate(
     [
       {
-        queryParam,
+        id,
         order: ['foo ASC', 'bar DESC'],
       },
     ],
@@ -37,9 +37,9 @@ test('custom ordering', () => {
 
 test('single root filter and custom include', () => {
   const query = translate([
-    { queryParam, include: ['datasets', 'affiliation', 'person'] },
+    { id, include: ['datasets', 'affiliation', 'person'] },
     {
-      queryParam: 'type',
+      id: 'type',
       value: 'proposal',
     },
   ])
@@ -61,14 +61,15 @@ test('single root filter and custom include', () => {
 
 test('multiple filters and custom include', () => {
   const query = translate([
-    { queryParam, include: ['datasets', 'affiliation', 'person'] },
+    { id, include: ['datasets', 'affiliation', 'person'] },
     {
-      queryParam: 'type',
+      id: 'type',
       value: 'experiment',
     },
     {
-      queryParam: 'sample_temperature',
+      id: 'sample_temperature',
       value: ['0', '7300'],
+      operator: 'between',
     },
   ])
 

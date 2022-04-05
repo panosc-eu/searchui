@@ -3,7 +3,7 @@ import { stripEmptyKeys } from './lib/helpers'
 import { LABEL_FOR_CONFIG, createPagination, merge, parse } from './lib/state'
 
 const DEFAULT_CONFIG = {
-  queryParam: LABEL_FOR_CONFIG,
+  id: LABEL_FOR_CONFIG,
   include: [],
   pageSize: 5, // `false` to disable limit/pagination
   page: 1,

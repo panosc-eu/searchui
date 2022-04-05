@@ -18,13 +18,13 @@ const parseValue = (raw) => {
 
 const parsePair = ([k, v]) => {
   if (k === 'q') {
-    return { queryParam: LABEL_FOR_CONFIG, [k]: v }
+    return { id: LABEL_FOR_CONFIG, [k]: v }
   }
 
-  const queryParam = k
+  const id = k
   const [rawValue, operator, unit] = v.split(SEPARATE_CHAR)
   const value = parseValue(rawValue)
-  return stripEmptyKeys({ queryParam, value, operator, unit })
+  return stripEmptyKeys({ id, value, operator, unit })
 }
 
 const parseQuery = (query) => {

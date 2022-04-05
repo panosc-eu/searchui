@@ -3,18 +3,15 @@ const CHAR_TO_STACK_ON_LABEL = '_'
 const addChar = (str) => [...str, CHAR_TO_STACK_ON_LABEL].join('')
 
 const uniqueLabelReducer = (acc, scope) => {
-  return acc.some(({ queryParam }) => queryParam === scope.queryParam)
-    ? [{ ...scope, queryParam: addChar(scope.queryParam) }].reduce(
-        uniqueLabelReducer,
-        acc,
-      )
+  return acc.some(({ id }) => id === scope.id)
+    ? [{ ...scope, id: addChar(scope.id) }].reduce(uniqueLabelReducer, acc)
     : [...acc, scope]
 }
 
 const makeLabelCandidates = (obj) => {
-  const { id, queryParam: suggestedLabel } = obj
-  const queryParam = encodeURIComponent(suggestedLabel || id)
-  return { ...obj, queryParam }
+  const { field, id: suggestedLabel } = obj
+  const id = encodeURIComponent(suggestedLabel || field)
+  return { ...obj, id }
 }
 
 function init(filterables) {
