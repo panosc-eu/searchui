@@ -27,7 +27,7 @@ function Autocomplete(props) {
             <AsynAutocomplete
               id={obj.id}
               url={obj.optionsUrl}
-              emptyOption={`Select a ${obj.id}...`}
+              emptyOption={`Select a ${obj.display.toLowerCase()}...`}
             />
           </Suspense>
           <Button
