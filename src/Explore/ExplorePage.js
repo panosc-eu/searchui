@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { useSWRConfig } from 'swr'
 
 import ErrorFallback from '../App/ErrorFallback'
+import ResultsCount from '../App/ResultsCount'
 import Spinner from '../App/Spinner'
 import { useSearchStore } from '../App/stores'
 import { Flex, Box } from '../Primitives'
@@ -46,18 +47,26 @@ function ExplorePage(props) {
           {isDesktop && <Search />}
         </Box>
       ) : (
-        <Box
-          as="details"
-          display={['block', 'block', 'none']}
-          width={[1, 1, 1 / 4]}
-        >
-          <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>
-            Filters
+        <Flex alignItems="center">
+          <Box
+            as="details"
+            sx={{
+              flex: '1 1 0%',
+              display: ['block', 'block', 'none'],
+              width: [1, 1, 1 / 4],
+            }}
+          >
+            <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>
+              Filters
+            </Box>
+            <Box mt={2}>
+              <Search />
+            </Box>
           </Box>
-          <Box mt={2}>
-            <Search />
+          <Box sx={{ fontSize: 2 }}>
+            <ResultsCount />
           </Box>
-        </Box>
+        </Flex>
       )}
       <Box width={[1, 1, 3 / 4]}>
         <Debug query={query} />
