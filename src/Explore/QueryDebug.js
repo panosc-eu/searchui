@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import JSONView from 'react-json-view'
 
-import { Box, Button, Card, Flex } from '../Primitives'
+import { Box, Button, Flex } from '../Primitives'
 
 const decode = (query) => JSON.parse(decodeURIComponent(query))
 

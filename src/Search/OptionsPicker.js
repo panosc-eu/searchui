@@ -5,11 +5,11 @@ import FilterBox from './Filter'
 
 function OptionsPicker(props) {
   const { obj } = props
-  const param = useQueryParam(obj.label)
+  const param = useQueryParam(obj.id)
 
   return (
     <FilterBox
-      title={obj.display || obj.label}
+      title={obj.display || obj.id}
       isActive={param.isActive}
       onClear={() => param.remove()}
     >
@@ -31,7 +31,7 @@ function OptionsPicker(props) {
               }}
             >
               <input
-                name={obj.name}
+                name={obj.id}
                 value={option}
                 type="radio"
                 checked={isSelected}
@@ -39,7 +39,7 @@ function OptionsPicker(props) {
                 style={{ cursor: 'inherit' }}
               />
 
-              <Text flex="1 1 0%" ml={2}>
+              <Text as="span" flex="1 1 0%" ml={2}>
                 {option}
               </Text>
             </Flex>

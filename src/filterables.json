@@ -1,55 +1,44 @@
 {
-  "techniques": [
-    {
-      "display": "Some Technique",
-      "label": "technique_a",
-      "name": "pid",
-      "override": "20.500.12269/panosc-tech1"
-    },
-    {
-      "display": "Other Technique",
-      "label": "technique_b",
-      "name": "pid",
-      "override": "20.500.12269/panosc-tech2"
-    }
-  ],
   "documents": [
     {
-      "name": "text",
-      "display": "Text"
-    },
-    {
-      "name": "type",
+      "field": "type",
       "display": "Type",
       "options": ["proposal", "publication"]
     }
   ],
+  "techniques": [
+    {
+      "field": "name",
+      "display": "Technique",
+      "optionsUrl": "https://techniques.scicat.ess.eu/techniques?filter=%7B%22where%22%3A%7B%22and%22%3A%5B%7B%22pid%22%3A%7B%22nlike%22%3A%22%3Adataset%22%7D%7D%2C%7B%22name%22%3A%7B%22nlike%22%3A%20%22CHMO%22%7D%7D%5D%7D%2C%22fields%22%3A%7B%22pid%22%3Atrue%2C%22name%22%3Atrue%7D%7D"
+    }
+  ],
   "parameters": [
     {
+      "field": "incident_wavelength",
       "display": "Incident Wavelength (nm)",
-      "name": "incident_wavelength",
       "range": [0, 2000],
       "unit": "nm"
     },
     {
+      "field": "incident_photon_energy",
       "display": "Incident Photon Energy (eV)",
-      "name": "incident_photon_energy",
       "range": [0, 1000],
       "unit": "eV"
     },
     {
-      "display": "Chemical Formula",
-      "name": "sample_chemical_formula"
+      "field": "sample_chemical_formula",
+      "display": "Chemical Formula"
     },
     {
+      "field": "sample_temperature",
       "display": "Temperature (K)",
-      "name": "sample_temperature",
       "range": [0, 10000],
       "unit": "K"
     },
     {
+      "field": "sample_pressure",
       "display": "Pressure (Pa)",
-      "name": "sample_pressure",
       "range": [0, 10000000],
       "unit": "Pa"
     }

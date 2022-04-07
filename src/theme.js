@@ -99,6 +99,12 @@ export function useTheme() {
         fontWeight: 'bold',
         ':hover': { bg: 'bgInverted', color: 'textInverted' },
       },
+      secondary: {
+        variant: 'buttons.primary',
+        fontSize: [0, 0, 1],
+        fontWeight: 600,
+        py: 1,
+      },
       action: {
         variant: 'buttons.base',
         flex: 'none',
@@ -119,6 +125,19 @@ export function useTheme() {
         bg: 'highlight',
         borderRadius: 4,
         borderColor: 'secondary',
+      },
+      select: {
+        width: '100%',
+        bg: 'highlight',
+        borderRadius: 4,
+        borderColor: 'secondary',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        fontSize: 0,
+        pr: '24px',
+        option: {
+          color: 'black',
+        },
       },
       switch: {
         p: '2px',

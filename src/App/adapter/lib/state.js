@@ -4,21 +4,21 @@ import MAP from '../targets.json'
 const FALLBACK_GROUP_OPERATOR = 'and'
 export const LABEL_FOR_CONFIG = 'c'
 
-const resolveOperator = (label) => OPERATORS[label] || FALLBACK_GROUP_OPERATOR
+const resolveOperator = (id) => OPERATORS[id] || FALLBACK_GROUP_OPERATOR
 
-const resolvePath = (label, endpoint) => {
-  const known = MAP[label]
+const resolvePath = (id, endpoint) => {
+  const known = MAP[id]
   const nested = known?.[endpoint]
   const fallback = known?.fallback
 
-  return label === endpoint
+  return id === endpoint
     ? null
     : nested
-    ? [...nested, label]
+    ? [...nested, id]
     : fallback
-    ? [...fallback, label]
+    ? [...fallback, id]
     : known
-    ? [label]
+    ? [id]
     : null
 }
 
@@ -34,21 +34,21 @@ export function createPagination(config) {
 }
 
 export function parse(state, endpoint) {
-  const config = state.find(({ label }) => label === LABEL_FOR_CONFIG) || {}
+  const config = state.find(({ id }) => id === LABEL_FOR_CONFIG) || {}
   const { include: included = [] } = config
 
-  const createGroup = (label) => {
+  const createGroup = (id) => {
     const {
       value,
-      operator = resolveOperator(label),
-      target = resolvePath(label, endpoint),
-    } = state.find((obj) => obj.label === label) || {}
+      operator = resolveOperator(id),
+      target = resolvePath(id, endpoint),
+    } = state.find((obj) => obj.id === id) || {}
 
     return {
-      label,
+      id,
       target,
       operator: value || operator,
-      filters: state.filter(({ group }) => group === label),
+      filters: state.filter(({ group }) => group === id),
     }
   }
 
@@ -60,7 +60,7 @@ export function parse(state, endpoint) {
   const groups = uniqueTargets.map(createGroup)
 
   const include = groups.filter((obj) => obj.target)
-  const where = groups.find((obj) => obj.label === endpoint)
+  const where = groups.find((obj) => obj.id === endpoint)
 
   return [include, where, config]
 }
@@ -71,19 +71,19 @@ const groupByLabel = (list) =>
   list.reduce(
     (acc, scope) => ({
       ...acc,
-      [scope.label]: [...(acc[scope.label] || []), scope],
+      [scope.id]: [...(acc[scope.id] || []), scope],
     }),
     {},
   )
 
 export function merge(template, state) {
-  const labelsOfInterest = state.reduce(
-    (acc, scope) => [...acc, scope.label, scope.group],
+  const idsOfInterest = state.reduce(
+    (acc, scope) => [...acc, scope.id, scope.group],
     [LABEL_FOR_CONFIG],
   )
 
-  const usefulTemplates = template.filter(({ label }) =>
-    labelsOfInterest.includes(label),
+  const usefulTemplates = template.filter(({ id }) =>
+    idsOfInterest.includes(id),
   )
 
   const byLabel = groupByLabel([...usefulTemplates, ...state])

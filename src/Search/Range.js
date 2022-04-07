@@ -11,13 +11,13 @@ const RangeSlider = RCSlider.createSliderWithTooltip(RCSlider.Range)
 function Range(props) {
   const { obj } = props
 
-  const param = useQueryParam(obj.label)
+  const param = useQueryParam(obj.queryParam)
   const [value, setValue] = useState(
     param.value ? param.value.split(JOIN_CHAR) : obj.range,
   )
 
   return (
-    <FilterBox title={obj.display || obj.label} isActive={param.isActive}>
+    <FilterBox title={obj.display || obj.queryParam} isActive={param.isActive}>
       <Flex mt={-2} mb={-2}>
         <Flex flex="1 1 0%" alignItems="center" mr={2} ml={3}>
           <RangeSlider

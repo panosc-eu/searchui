@@ -1,18 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Suspense } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import { useLocation } from 'react-router-dom'
+import { useSWRConfig } from 'swr'
 
-import Boundary from '../App/Boundary'
-import { useSearchStore, useAppStore } from '../App/stores'
+import ErrorFallback from '../App/ErrorFallback'
+import ResultsCount from '../App/ResultsCount'
+import Spinner from '../App/Spinner'
+import { useSearchStore } from '../App/stores'
 import { Flex, Box } from '../Primitives'
 import Search from '../Search/Search'
+import { translate, useFilters } from '../filters'
 import DocumentList from './DocumentList'
 import Debug from './QueryDebug'
 
+const QUERY_CONFIG = {
+  id: 'c',
+  pageSize: process.env.REACT_APP_LIMIT,
+}
+
 function ExplorePage(props) {
   const { isDesktop } = props
+
+  const filters = useFilters()
+  const translatedFilters = translate([...filters, QUERY_CONFIG], 'documents')
+
+  const query = encodeURIComponent(JSON.stringify(translatedFilters))
+  const queryUrl = `/documents?filter=${query}`
+
+  const { cache } = useSWRConfig()
   const { search } = useLocation()
   const setSearch = useSearchStore((state) => state.setSearch)
-  const query = useAppStore((state) => state.query)
 
   useEffect(() => {
     setSearch(search)
@@ -29,24 +46,38 @@ function ExplorePage(props) {
           {isDesktop && <Search />}
         </Box>
       ) : (
-        <Box
-          as="details"
-          display={['block', 'block', 'none']}
-          width={[1, 1, 1 / 4]}
-        >
-          <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>
-            Filters
+        <Flex alignItems="center">
+          <Box
+            as="details"
+            sx={{
+              flex: '1 1 0%',
+              display: ['block', 'block', 'none'],
+              width: [1, 1, 1 / 4],
+            }}
+          >
+            <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>
+              Filters
+            </Box>
+            <Box mt={2}>
+              <Search />
+            </Box>
           </Box>
-          <Box mt={2}>
-            <Search />
+          <Box sx={{ fontSize: 2 }}>
+            <ResultsCount />
           </Box>
-        </Box>
+        </Flex>
       )}
       <Box width={[1, 1, 3 / 4]}>
         <Debug query={query} />
-        <Boundary>
-          <DocumentList name="Data" />
-        </Boundary>
+        <ErrorBoundary
+          FallbackComponent={ErrorFallback}
+          resetKeys={[search]}
+          onError={() => cache.delete(`$swr$${queryUrl}`)}
+        >
+          <Suspense fallback={<Spinner />}>
+            <DocumentList queryUrl={queryUrl} />
+          </Suspense>
+        </ErrorBoundary>
       </Box>
     </Flex>
   )

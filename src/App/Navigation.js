@@ -1,14 +1,23 @@
-import { FiArrowLeft } from 'react-icons/fi'
-import { Route, useLocation, useHistory } from 'react-router-dom'
+import { Input } from '@rebass/forms/styled-components'
+import { FiSearch } from 'react-icons/fi'
+import { Redirect, Route, useLocation } from 'react-router-dom'
 
-import { useAppStore } from '../App/stores'
-import { Image, Flex, Box, NavLink, Text } from '../Primitives'
+import { Box, Button, Flex, Image, NavLink } from '../Primitives'
+import { useQueryParam } from '../router-utils'
+import ResultsCount from './ResultsCount'
 
 function Navigation() {
-  const isDark = useAppStore((state) => state.isDark)
+  const location = useLocation()
+  const { value: query, setValue: setQuery } = useQueryParam('q')
 
-  const history = useHistory()
-  const { state } = useLocation()
+  function handleSubmit(evt) {
+    evt.preventDefault()
+    const param = new URLSearchParams(new FormData(evt.target))
+    const newQuery = param.get('q').trim()
+    if (newQuery !== '') {
+      setQuery(newQuery)
+    }
+  }
 
   return (
     <Flex
@@ -28,39 +37,29 @@ function Navigation() {
             height="100%"
             width="unset"
             alt="PaNOSC logo"
-            src={isDark ? '/PaNOSC_logo_white.svg' : '/PaNOSC_logo_black.svg'}
+            src="/PaNOSC_logo_white.svg"
           />
         </Box>
       </NavLink>
-      <NavLink to="/documents" exact>
-        Explore
-      </NavLink>
 
-      <Route exact path="/documents/:documentId">
-        <NavLink
-          to="/documents"
-          exact
-          ml="auto"
-          onClick={(evt) => {
-            if (state?.fromExplorePage) {
-              evt.preventDefault()
-              history.goBack()
-            }
-          }}
+      <Route path="/search">
+        {!query?.trim() && <Redirect to="/" />}
+        <Flex
+          as="form"
+          sx={{ flex: '1 1 0%', alignItems: 'center', px: 3 }}
+          onSubmit={handleSubmit}
         >
-          <FiArrowLeft style={{ fontSize: '1.5em', paddingTop: '1px' }} />
-          <Text ml={2}>Back to results</Text>
-        </NavLink>
+          <Flex sx={{ flex: '1 1 0%', maxWidth: '30rem' }}>
+            <Input key={location.search} name="q" defaultValue={query} mr={2} />
+            <Button aria-label="Search" type="submit">
+              <FiSearch />
+            </Button>
+          </Flex>
+          <Box sx={{ display: ['none', 'none', 'inline'], pl: 3 }}>
+            <ResultsCount />
+          </Box>
+        </Flex>
       </Route>
-
-      {/* <Box mx="auto" />
-      <Box width="80px" mx={2} height="30px" alignSelf="center">
-        <Switch
-          options={[{ label: 'Light' }, { label: 'Dark' }]}
-          forcedSelectedIndex={isDark ? 1 : 0}
-          onChange={() => toggleTheme()}
-        />
-      </Box> */}
     </Flex>
   )
 }

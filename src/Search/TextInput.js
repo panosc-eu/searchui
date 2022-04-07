@@ -10,7 +10,7 @@ import FilterBox from './Filter'
 function TextInput(props) {
   const { obj } = props
 
-  const param = useQueryParam(obj.label)
+  const param = useQueryParam(obj.queryParam)
   const [inputValue, setInputValue] = useState(param.value || '')
 
   const handleChange = useDebouncedCallback(
@@ -20,10 +20,11 @@ function TextInput(props) {
   )
 
   return (
-    <FilterBox title={obj.display || obj.label} isActive={param.isActive}>
+    <FilterBox title={obj.display || obj.queryParam} isActive={param.isActive}>
       <Flex>
         <Input
           px={2}
+          fontSize={0}
           value={inputValue}
           onChange={(evt) => {
             const { value } = evt.target

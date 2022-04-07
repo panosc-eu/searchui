@@ -3,11 +3,10 @@ import { stripEmptyKeys } from './lib/helpers'
 import { LABEL_FOR_CONFIG, createPagination, merge, parse } from './lib/state'
 
 const DEFAULT_CONFIG = {
-  label: LABEL_FOR_CONFIG,
+  id: LABEL_FOR_CONFIG,
   include: [],
   pageSize: 5, // `false` to disable limit/pagination
   page: 1,
-  order: undefined, // e.g.`['foo ASC', 'bar DESC']`
 }
 
 const applyTemplateThenTranslate =
@@ -20,12 +19,13 @@ const applyTemplateThenTranslate =
     const include = createInclude(toInclude)
     const where = createWhere(toWhere)
     const pagination = createPagination(toRoot)
-    const { order } = toRoot
+    const { order, q: query } = toRoot
 
     return stripEmptyKeys({
       include,
       where,
       order,
+      query,
       ...pagination,
     })
   }
