@@ -124,6 +124,7 @@ export function useTheme() {
         bg: 'highlight',
         borderRadius: 4,
         borderColor: 'secondary',
+        pb: '5px',
       },
       select: {
         width: '100%',
