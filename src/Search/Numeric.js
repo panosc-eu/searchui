@@ -17,14 +17,15 @@ const both = (min, max, unit) =>
   }`
 
 function Numeric({ obj }) {
-  const { id, display, units = [] } = obj
-  const [defaultUnit, ...otherUnits] = units
+  const { id, display, units = [], defUnit } = obj
+  const [firstUnit, ...otherUnits] = units
+  const defaultUnit = firstUnit || defUnit
 
   const {
     value,
     operator,
     unit = defaultUnit,
-  } = [...useFilters()].find((filter) => filter.id === id) || {}
+  } = useFilters().find((filter) => filter.id === id) || {}
 
   const [min = '', max = ''] = Array.isArray(value)
     ? value
@@ -90,9 +91,7 @@ function Numeric({ obj }) {
                 name="unit"
                 defaultValue={unit}
               >
-                <option key="none" value="">
-                  -
-                </option>
+                <option value="">-</option>
                 <option key={defaultUnit}>{defaultUnit}</option>
                 {otherUnits.map((str) => (
                   <option key={str}>{str}</option>
