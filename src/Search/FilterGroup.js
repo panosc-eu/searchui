@@ -1,42 +1,24 @@
 import { Heading, Flex, Box } from '../Primitives'
 import Autocomplete from './Autocomplete'
-import ListPicker from './ListPicker'
+import Numeric from './Numeric'
 import OptionsPicker from './OptionsPicker'
-import Range from './Range'
 import TextInput from './TextInput'
 
-const TEXT_OPERATORS = new Set([
-  'ilike',
-  'nilike',
-  'like',
-  'nlike',
-  'regexp',
-  'eq',
-  'neq',
-])
-
 function getFilterComponent(obj) {
-  if (obj.operator === 'between') {
-    return Range
+  const { type, id } = obj
+  if (type === 'numeric') {
+    return Numeric
   }
 
-  if (obj.options) {
+  if (type === 'options') {
     return OptionsPicker
   }
 
-  if (obj.optionsUrl) {
+  if (id === 'technique') {
     return Autocomplete
   }
 
-  if (obj.list) {
-    return ListPicker
-  }
-
-  if (obj.name === 'text' || TEXT_OPERATORS.has(obj.operator)) {
-    return TextInput
-  }
-
-  return null
+  return TextInput
 }
 
 function FilterGroup(props) {

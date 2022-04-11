@@ -5,15 +5,17 @@ import applyTemplate from './App/adapter/translate'
 import filterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
 
-const SEPARATE_CHAR = "'"
+export const SEPARATE_CHAR = "'"
 
 export const template = init(filterables)
 
 export const translate = applyTemplate(template)
 
-const parseValue = (raw) => {
-  const arr = raw.split(JOIN_CHAR)
-  return arr.length === 2 ? arr.map((s) => Number.parseInt(s)) : arr[0]
+const numericOperators = ['lt', 'lte', 'gt', 'gte', 'between']
+
+const parseNumericValue = (raw) => {
+  const arr = raw.split(JOIN_CHAR).map((i) => Number.parseInt(i))
+  return arr.length === 2 ? arr : arr[0]
 }
 
 const parsePair = ([k, v]) => {
@@ -23,7 +25,9 @@ const parsePair = ([k, v]) => {
 
   const id = k
   const [rawValue, operator, unit] = v.split(SEPARATE_CHAR)
-  const value = parseValue(rawValue)
+  const value = numericOperators.includes(operator)
+    ? parseNumericValue(rawValue)
+    : rawValue
   return stripEmptyKeys({ id, value, operator, unit })
 }
 

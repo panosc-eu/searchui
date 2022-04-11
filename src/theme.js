@@ -121,7 +121,6 @@ export function useTheme() {
     },
     forms: {
       input: {
-        p: 1,
         bg: 'highlight',
         borderRadius: 4,
         borderColor: 'secondary',
@@ -133,8 +132,6 @@ export function useTheme() {
         borderColor: 'secondary',
         textOverflow: 'ellipsis',
         overflow: 'hidden',
-        fontSize: 0,
-        pr: '24px',
         option: {
           color: 'black',
         },
