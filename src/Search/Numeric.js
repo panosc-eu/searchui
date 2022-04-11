@@ -2,7 +2,6 @@ import { useDebouncedCallback } from '@react-hookz/web'
 import { Input, Select } from '@rebass/forms/styled-components'
 import { FiSlash } from 'react-icons/fi'
 
-import { NO_UNIT_STRING } from '../App/adapter/lib/create'
 import { Flex, Box, Button } from '../Primitives'
 import { SEPARATE_CHAR, useFilters } from '../filters'
 import { JOIN_CHAR, useQueryParam } from '../router-utils'
@@ -35,11 +34,15 @@ function Numeric({ obj }) {
 
   const param = useQueryParam(id)
   const { setValue, remove, isActive } = param
+  const reset = () => {
+    remove()
+    return document.querySelector(`#form-${id}`).reset()
+  }
 
   const update = useDebouncedCallback(
     (min, max, unit) => {
       if (min === '' && max === '') {
-        return remove()
+        return reset()
       }
       if (min && max) {
         return setValue(both(min, max, unit))
@@ -49,7 +52,7 @@ function Numeric({ obj }) {
       }
       return setValue(onlyMin(min, unit))
     },
-    [setValue, remove, both, onlyMin, onlyMax],
+    [setValue, reset],
     500,
   )
 
@@ -57,7 +60,7 @@ function Numeric({ obj }) {
     <FilterBox title={display || id} isActive={isActive}>
       <Box id={`form-${id}`} as="form" onSubmit={(e) => e.preventDefault()}>
         <Flex>
-          <Box width={1 / 3}>
+          <Box>
             <Input
               type="number"
               id="min"
@@ -67,7 +70,7 @@ function Numeric({ obj }) {
               onChange={(e) => update(e.target.value, max, unit)}
             />
           </Box>
-          <Box width={1 / 3}>
+          <Box>
             <Input
               type="number"
               id="max"
@@ -78,7 +81,7 @@ function Numeric({ obj }) {
             />
           </Box>
           {units.length > 0 && (
-            <Box width={1 / 3}>
+            <Box width={1 / 2}>
               <Select
                 onChange={(e) => {
                   update(min, max, e.target.value)
@@ -87,7 +90,9 @@ function Numeric({ obj }) {
                 name="unit"
                 defaultValue={unit}
               >
-                <option key="none">{NO_UNIT_STRING}</option>
+                <option key="none" value="">
+                  -
+                </option>
                 <option key={defaultUnit}>{defaultUnit}</option>
                 {otherUnits.map((str) => (
                   <option key={str}>{str}</option>
@@ -99,10 +104,7 @@ function Numeric({ obj }) {
             variant="action"
             disabled={!(min || max)}
             aria-label="Clear"
-            onClick={() => {
-              remove()
-              document.querySelector(`#form-${id}`).reset()
-            }}
+            onClick={() => reset()}
           >
             <FiSlash />
           </Button>

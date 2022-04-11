@@ -124,7 +124,6 @@ export function useTheme() {
         bg: 'highlight',
         borderRadius: 4,
         borderColor: 'secondary',
-        pb: '5px',
       },
       select: {
         width: '100%',
@@ -133,8 +132,6 @@ export function useTheme() {
         borderColor: 'secondary',
         textOverflow: 'ellipsis',
         overflow: 'hidden',
-        fontSize: 0,
-        pr: '24px',
         option: {
           color: 'black',
         },

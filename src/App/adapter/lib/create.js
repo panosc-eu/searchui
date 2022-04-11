@@ -1,14 +1,12 @@
 import { addOperator, stripEmptyKeys } from './helpers'
 
-export const NO_UNIT_STRING = '-'
-
 const buildParameter = (item) => {
   const { field, operator, value, unit } = item
   const arr = [
     { name: field },
     { value: operator ? { [operator]: value } : value },
   ]
-  return { and: !unit || unit === NO_UNIT_STRING ? arr : [...arr, { unit }] }
+  return { and: unit ? [...arr, { unit }] : arr }
 }
 
 const buildSimple = (item) => {

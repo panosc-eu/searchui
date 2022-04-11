@@ -70,6 +70,7 @@ test('multiple filters and custom include', () => {
       id: 'sample_temperature',
       value: ['0', '7300'],
       operator: 'between',
+      unit: 'K',
     },
   ])
 
