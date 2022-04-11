@@ -24,7 +24,7 @@ function Numeric({ obj }) {
   const {
     value,
     operator,
-    unit = defaultUnit,
+    unit = value ? "" : defaultUnit,
   } = useFilters().find((filter) => filter.id === id) || {}
 
   const [min = '', max = ''] = Array.isArray(value)
