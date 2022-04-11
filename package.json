@@ -2,6 +2,7 @@
   "name": "panosc-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://panosc-eu.github.io/searchui"
   "type": "module",
   "engines": {
     "node": "16.x",
