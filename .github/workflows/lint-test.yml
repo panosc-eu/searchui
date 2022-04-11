@@ -1,0 +1,40 @@
+name: Lint & Test
+
+on: push
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🏷️
+        uses: actions/checkout@v3
+
+      - name: Use Node 16 🕹️
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install ⚙️
+        run: yarn install
+
+      - name: Lint 🤓
+        run: yarn lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🏷️
+        uses: actions/checkout@v3
+
+      - name: Use Node 16 🕹️
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install ⚙️
+        run: yarn install
+
+      - name: Test 👓
+        run: yarn test
