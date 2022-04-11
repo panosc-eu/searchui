@@ -17,7 +17,7 @@ const both = (min, max, unit) =>
   }`
 
 function Numeric({ obj }) {
-  const { id, display, units = [], defUnit } = obj
+  const { id, display, units = [], defaulUnit: defUnit } = obj
   const [firstUnit, ...otherUnits] = units
   const defaultUnit = defUnit || firstUnit
 
