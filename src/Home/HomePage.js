@@ -3,7 +3,7 @@ import React from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom/index'
 
-import { Link, Heading, Flex, Button } from '../Primitives'
+import { Link, Heading, Flex, Button, Box, Text } from '../Primitives'
 
 function HomePage() {
   const history = useHistory()
@@ -17,52 +17,47 @@ function HomePage() {
   return (
     <>
       <Heading as="h1" variant="display">
-        The Photon and Neutron Open Science Cloud
+        European Photon and Neutron Open Data Search Portal
       </Heading>
-      <form action="/search" onSubmit={handleSubmit}>
+      <Box as="form" action="/search" onSubmit={handleSubmit} sx={{ my: 4 }}>
+        <Text as="p" sx={{ mt: 0, mb: 2, fontStyle: 'italic' }}>
+          Type a query to search for open data from photon and neutron sources
+          &ndash; e.g. data
+        </Text>
         <Flex
           sx={{
             alignSelf: 'center',
             flex: '1 1 0%',
             maxWidth: '30rem',
-            my: 4,
             fontSize: 3,
           }}
         >
-          <Input name="q" mr={2} />
+          <Input name="q" mr={2} placeholder="diffraction" />
           <Button aria-label="Search" type="submit">
             <FiSearch />
           </Button>
         </Flex>
-      </form>
+      </Box>
       <p>
-        The PaNOSC project brings together six strategic European research
-        infrastructures and two e-infrastructures:
+        The European Photon and Neutron sources are working together in the{' '}
+        <Link href="https://www.panosc.eu/" blank>
+          PaNOSC
+        </Link>{' '}
+        and{' '}
+        <Link href="https://expands.eu/" blank>
+          ExPaNDS
+        </Link>{' '}
+        projects financed by the European Commission to build the{' '}
+        <strong>European Open Science Cloud</strong>. One of the main objectives
+        of the EOSC is to make <strong>Open Data</strong> from these facilities{' '}
+        <abbr title="Findable, Accessible, Interoperable, Reusable">FAIR</abbr>.
+        This portal implements the F(indable) part of FAIR via a{' '}
+        <strong>federated search engine</strong> from the following facilities:
       </p>
       <ul>
         <li>
-          <Link href="https://www.esrf.eu/" blank>
-            European Synchrotron Radiation Facility
-          </Link>
-        </li>
-        <li>
-          <Link href="https://www.ceric-eric.eu/" blank>
-            Central European Research Infrastructure Consortium
-          </Link>
-        </li>
-        <li>
-          <Link href="https://eli-laser.eu/" blank>
-            Extreme Light Infrastructure Delivery Consortium
-          </Link>
-        </li>
-        <li>
           <Link href="https://europeanspallationsource.se/" blank>
             European Spallation Source
-          </Link>
-        </li>
-        <li>
-          <Link href="https://www.xfel.eu/" blank>
-            European X-Ray Free-Electron Laser Facility
           </Link>
         </li>
         <li>
@@ -71,21 +66,25 @@ function HomePage() {
           </Link>
         </li>
         <li>
-          <Link href="https://www.egi.eu/" blank>
-            European Grid Infrastructure
-          </Link>
-        </li>
-        <li>
-          <Link href="https://www.geant.org/" blank>
-            GÉANT
+          <Link href="https://www.maxiv.lu.se/" blank>
+            MAX IV
           </Link>
         </li>
       </ul>
       <p>
-        The mission is to contribute to the realization of a data commons for
-        Neutron and Photon science, providing services and tools for data
-        storage, analysis and simulation, for the many scientists from existing
-        and future disciplines using data from photon and neutron sources. To
+        Additional facilities will be included in the federated search as their
+        search engines come online locally. The goal is to include all photon
+        and neutron facilites who provide open data by the end of the two
+        projects PaNOSC and ExPaNDS.
+      </p>
+      <p>
+        The mission of the PaN data search portal is to contribute to the
+        realization of a data commons for Neutron and Photon science. The search
+        results provide a link to the landing page of the data DOIs through
+        which the other data services provided by PaNOSC and ExPaNDS for data
+        downloading, analysis, notebooks and simulation can be accessed. The aim
+        of the portal is to facilitate using data from photon and neutron
+        sources for the many scientists from existing and future disciplines. To
         achieve this aim, the exchange of know-how and experiences is crucial to
         driving a change in culture by embracing Open Science among the targeted
         scientific communities. This is why the project works closely with the
