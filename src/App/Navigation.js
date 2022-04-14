@@ -2,8 +2,8 @@ import { Input } from '@rebass/forms/styled-components'
 import { FiSearch } from 'react-icons/fi'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
-import logoWhite from '../PaNOSC_logo_white.svg'
 import { Box, Button, Flex, Image, NavLink } from '../Primitives'
+import logo from '../logo.svg'
 import { useQueryParam } from '../router-utils'
 import ResultsCount from './ResultsCount'
 
@@ -34,12 +34,7 @@ function Navigation() {
     >
       <NavLink to="/" exact>
         <Box height="logoHeight" p={[1, 0]}>
-          <Image
-            height="100%"
-            width="unset"
-            alt="PaNOSC logo"
-            src={logoWhite}
-          />
+          <Image height="100%" width="unset" alt="PaNOSC logo" src={logo} />
         </Box>
       </NavLink>
 
