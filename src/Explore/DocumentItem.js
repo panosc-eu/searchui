@@ -1,10 +1,11 @@
-import React from 'react'
+import { useState } from 'react'
 
 import { parseDate } from '../App/helpers'
 import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
 
 function DocumentItem({ document }) {
   const { pid, title, score, doi, summary, releaseDate } = document
+  const [showFullDescription, setShowFullDescription] = useState(false)
 
   const doiLink = `http://doi.org/${doi}`
 
@@ -44,17 +45,28 @@ function DocumentItem({ document }) {
           {title}
         </Heading>
         <Box
-          as="p"
           sx={{
-            display: '-webkit-box',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            '-webkit-line-clamp': '2',
-            '-webkit-box-orient': 'vertical',
             my: 3,
+            cursor: 'pointer',
           }}
+          onClick={() => setShowFullDescription(!showFullDescription)}
         >
-          {summary}
+          {showFullDescription ? (
+            <Box>{summary}</Box>
+          ) : (
+            <Box
+              as="p"
+              sx={{
+                display: '-webkit-box',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                '-webkit-line-clamp': '2',
+                '-webkit-box-orient': 'vertical',
+              }}
+            >
+              {summary}
+            </Box>
+          )}
         </Box>
         <Box>
           <Text sx={{ fontStyle: 'italic' }}>
