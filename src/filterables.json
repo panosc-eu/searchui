@@ -4,11 +4,12 @@
       "field": "type",
       "display": "Type",
       "options": ["proposal", "publication"],
-      "type": "options"
+      "type": "list"
     }
   ],
   "techniques": [
     {
+      "type": "remote-list",
       "id": "technique",
       "field": "name",
       "display": "Technique",

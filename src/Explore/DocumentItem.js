@@ -3,8 +3,7 @@ import React from 'react'
 import { parseDate } from '../App/helpers'
 import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
 
-function DocumentItem(props) {
-  const { document } = props
+function DocumentItem({ document }) {
   const { pid, title, score, doi, summary, releaseDate } = document
 
   const doiLink = `http://doi.org/${doi}`
