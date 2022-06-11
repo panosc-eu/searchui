@@ -6,6 +6,8 @@ export const LABEL_FOR_CONFIG = 'c'
 
 const resolveOperator = (id) => OPERATORS[id] || FALLBACK_GROUP_OPERATOR
 
+const RESERVED_IDS = ['include', 'skip', 'limit', 'order', 'fields']
+
 const resolvePath = (id, endpoint) => {
   const known = MAP[id]
   const nested = known?.[endpoint]
@@ -22,20 +24,11 @@ const resolvePath = (id, endpoint) => {
     : null
 }
 
-export function createPagination(config) {
-  const { page, pageSize } = config
-
-  return pageSize === false
-    ? {}
-    : {
-        limit: pageSize,
-        skip: pageSize * (page - 1),
-      }
-}
-
 export function parse(state, endpoint) {
-  const config = state.find(({ id }) => id === LABEL_FOR_CONFIG) || {}
-  const { include: included = [] } = config
+  const preConfig = state.find(({ id }) => id === LABEL_FOR_CONFIG) || {}
+  const { include: included = [], fields: preFields = [] } = preConfig
+  const fields = Object.fromEntries(preFields.map((s) => [s, true]))
+  const config = { ...preConfig, fields }
 
   const createGroup = (id) => {
     const {
@@ -76,17 +69,24 @@ const groupByLabel = (list) =>
     {},
   )
 
+const parseShortConfig = (filter) =>
+  RESERVED_IDS.includes(filter.id)
+    ? { id: LABEL_FOR_CONFIG, [filter.id]: filter.value }
+    : filter
+
 export function merge(template, state) {
   const idsOfInterest = state.reduce(
     (acc, scope) => [...acc, scope.id, scope.group],
-    [LABEL_FOR_CONFIG],
+    [],
   )
 
   const usefulTemplates = template.filter(({ id }) =>
     idsOfInterest.includes(id),
   )
 
-  const byLabel = groupByLabel([...usefulTemplates, ...state])
+  const byLabel = groupByLabel(
+    [...usefulTemplates, ...state].map(parseShortConfig),
+  )
 
   return Object.values(byLabel).map(squash)
 }

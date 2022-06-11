@@ -1,6 +1,5 @@
 import init from './App/adapter/init'
 import { stripEmptyKeys } from './App/adapter/lib/helpers'
-import { LABEL_FOR_CONFIG } from './App/adapter/lib/state'
 import applyTemplate from './App/adapter/translate'
 import filterables from './filterables.json'
 import { useQuery, JOIN_CHAR } from './router-utils'
@@ -19,14 +18,12 @@ const parseNumericValue = (raw) => {
 }
 
 const parsePair = ([k, v]) => {
-  if (k === 'q') {
-    return { id: LABEL_FOR_CONFIG, [k]: v }
-  }
-
   const id = k
   const [rawValue, operator, unit] = v.split(SEPARATE_CHAR)
   const value = numericOperators.includes(operator)
     ? parseNumericValue(rawValue)
+    : rawValue.includes(JOIN_CHAR)
+    ? rawValue.split(JOIN_CHAR)
     : rawValue
   return stripEmptyKeys({ id, value, operator, unit })
 }
