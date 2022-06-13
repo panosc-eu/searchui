@@ -1,14 +1,7 @@
-import init from './App/adapter/init'
-import { stripEmptyKeys } from './App/adapter/lib/helpers'
-import applyTemplate from './App/adapter/translate'
-import filterables from './filterables.json'
-import { useQuery, JOIN_CHAR } from './router-utils'
+import { stripEmptyKeys } from '../App/helpers'
+import { useQuery, JOIN_CHAR } from '../router-utils'
 
 export const SEPARATE_CHAR = "'"
-
-export const template = init(filterables)
-
-export const translate = applyTemplate(template)
 
 const numericOperators = ['lt', 'lte', 'gt', 'gte', 'between']
 
@@ -32,9 +25,11 @@ const parseQuery = (query) => {
   return [...query.entries()].map(parsePair)
 }
 
-export function useFilters() {
+function useFilters() {
   // Update state of every filter based on query params
   const query = useQuery()
 
   return parseQuery(query)
 }
+
+export default useFilters

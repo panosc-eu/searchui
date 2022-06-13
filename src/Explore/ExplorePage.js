@@ -9,23 +9,10 @@ import Spinner from '../App/Spinner'
 import { useSearchStore } from '../App/stores'
 import { Flex, Box } from '../Primitives'
 import Search from '../Search/Search'
-import { translate, useFilters } from '../filters'
 import DocumentList from './DocumentList'
-import Debug from './QueryDebug'
-
-const QUERY_CONFIG = {
-  id: 'c',
-  pageSize: process.env.REACT_APP_LIMIT,
-}
 
 function ExplorePage(props) {
   const { isDesktop } = props
-
-  const filters = useFilters()
-  const translatedFilters = translate([...filters, QUERY_CONFIG], 'documents')
-
-  const query = encodeURIComponent(JSON.stringify(translatedFilters))
-  const queryUrl = `/documents?filter=${query}`
 
   const { cache } = useSWRConfig()
   const { search } = useLocation()
@@ -68,14 +55,16 @@ function ExplorePage(props) {
         </Flex>
       )}
       <Box width={[1, 1, 3 / 4]}>
-        <Debug query={query} />
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
           resetKeys={[search]}
-          onError={() => cache.delete(`$swr$${queryUrl}`)}
+          // onError={() => cache.delete(`$swr$${queryUrl}`)}
+          onError={() => {
+            console.log('missing implementation')
+          }}
         >
           <Suspense fallback={<Spinner />}>
-            <DocumentList queryUrl={queryUrl} />
+            <DocumentList />
           </Suspense>
         </ErrorBoundary>
       </Box>
