@@ -37,26 +37,28 @@ function ExplorePage(props) {
             {isDesktop && <Search />}
           </Box>
         ) : (
-          <Flex alignItems="center">
-            <Box
-              as="details"
-              sx={{
-                flex: '1 1 0%',
-                display: ['block', 'block', 'none'],
-                width: [1, 1, 1 / 4],
-              }}
-            >
-              <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>
-                Filters
+          <>
+            <Flex alignItems="center">
+              <Box
+                as="details"
+                sx={{
+                  flex: '1 1 0%',
+                  display: ['block', 'block', 'none'],
+                  width: [1, 1, 1 / 4],
+                }}
+              >
+                <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>
+                  Filters
+                </Box>
+                <Box mt={2}>
+                  <Search />
+                </Box>
               </Box>
-              <Box mt={2}>
-                <Search />
-              </Box>
-            </Box>
+            </Flex>
             <Box sx={{ fontSize: 2 }}>
               <ResultsCount />
             </Box>
-          </Flex>
+          </>
         )}
         <Box width={[1, 1, 3 / 4]}>
           <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[search]}>
