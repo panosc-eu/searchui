@@ -3,9 +3,13 @@ import { Suspense } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom/index'
 
+<<<<<<< HEAD
 import Spinner from '../App/Spinner'
 import { Link, Heading, Flex, Button, Box, Text } from '../Primitives'
 import SourceList from './List.js'
+=======
+import { Link, Heading, Flex, Button, Box, Text } from '../Primitives'
+>>>>>>> 508bc0f84b66b7d0f9bdda5c35891b6b06589e11
 
 function HomePage() {
   const history = useHistory()
