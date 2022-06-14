@@ -20,11 +20,10 @@ function DocumentItem({ document }) {
     return (
       <>
         <Box as="article">{summary}</Box>
-        <Box>
-          <Text sx={{ fontWeight: 'bold' }}>
-            Released: {parseDate(releaseDate)}
-          </Text>
-        </Box>
+        <br />
+        <Text sx={{ fontWeight: 'bold' }}>
+          Released: {parseDate(releaseDate)}
+        </Text>
         <Details
           columns={[
             ['Person', 'fullName'],
@@ -43,7 +42,6 @@ function DocumentItem({ document }) {
     return (
       <>
         <Box
-          as="p"
           sx={{
             display: '-webkit-box',
             overflow: 'hidden',
@@ -54,11 +52,10 @@ function DocumentItem({ document }) {
         >
           {summary}
         </Box>
-        <Box>
-          <Text sx={{ fontStyle: 'italic' }}>
-            Released: {parseDate(releaseDate)}
-          </Text>
-        </Box>
+        <br />
+        <Text sx={{ fontStyle: 'italic' }}>
+          Released: {parseDate(releaseDate)}
+        </Text>
       </>
     )
   }
