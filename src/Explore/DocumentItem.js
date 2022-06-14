@@ -1,13 +1,67 @@
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 
+import Spinner from '../App/Spinner'
 import { parseDate } from '../App/helpers'
 import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
+import Details from './Detail'
+
+const getMembers = (data) =>
+  data.members.map((member) => ({
+    ...member?.affiliation,
+    ...member?.person,
+  }))
 
 function DocumentItem({ document }) {
   const { pid, title, score, doi, summary, releaseDate } = document
-  const [showFullDescription, setShowFullDescription] = useState(false)
+  const [showDetail, setShowDetail] = useState(false)
 
   const doiLink = `http://doi.org/${doi}`
+  function Rich() {
+    return (
+      <>
+        <Box as="article">{summary}</Box>
+        <Box>
+          <Text sx={{ fontWeight: 'bold' }}>
+            Released: {parseDate(releaseDate)}
+          </Text>
+        </Box>
+        <Details
+          columns={[
+            ['Person', 'fullName'],
+            ['Affiliation', 'name'],
+          ]}
+          url={`/documents/${encodeURIComponent(pid)}`}
+          mergeFn={getMembers}
+          rowId="id"
+          title="Members"
+          config={{ include: ['person', 'affiliation'] }}
+        />
+      </>
+    )
+  }
+  function Poor() {
+    return (
+      <>
+        <Box
+          as="p"
+          sx={{
+            display: '-webkit-box',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            '-webkit-line-clamp': '2',
+            '-webkit-box-orient': 'vertical',
+          }}
+        >
+          {summary}
+        </Box>
+        <Box>
+          <Text sx={{ fontStyle: 'italic' }}>
+            Released: {parseDate(releaseDate)}
+          </Text>
+        </Box>
+      </>
+    )
+  }
 
   return (
     <Box
@@ -36,42 +90,32 @@ function DocumentItem({ document }) {
           target="_blank"
           sx={{
             display: 'block',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
+            whiteSpace: showDetail ? 'wrap' : 'nowrap',
+            overflow: showDetail ? 'visible' : 'hidden',
+            textOverflow: showDetail ? 'none' : 'ellipsis',
             textDecoration: 'none',
           }}
         >
           {title}
         </Heading>
+        <Box>{showDetail ? <Rich /> : <Poor />}</Box>
+        <br />
         <Box
+          onClick={() => setShowDetail(!showDetail)}
           sx={{
-            my: 3,
             cursor: 'pointer',
+            borderTop: '1px solid',
+            borderColor: 'foreground',
+            textAlign: 'center',
+            fontSize: 0,
+            mx: -3,
+            mb: -3,
+            ':hover': {
+              bg: 'foreground',
+            },
           }}
-          onClick={() => setShowFullDescription(!showFullDescription)}
         >
-          {showFullDescription ? (
-            <Box>{summary}</Box>
-          ) : (
-            <Box
-              as="p"
-              sx={{
-                display: '-webkit-box',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                '-webkit-line-clamp': '2',
-                '-webkit-box-orient': 'vertical',
-              }}
-            >
-              {summary}
-            </Box>
-          )}
-        </Box>
-        <Box>
-          <Text sx={{ fontStyle: 'italic' }}>
-            Released: {parseDate(releaseDate)}
-          </Text>
+          <strong>{showDetail ? '\u2227' : '\u2228'}</strong>
         </Box>
       </Card>
     </Box>
