@@ -17,17 +17,17 @@ function DocumentList() {
 
   return (
     <Flex column gap={[3, 3, 3, 4]}>
-        {data.length === 0 ? (
-          <Card p={[3, 4]}>
-            <Heading>No results</Heading>
-            <Text as="p">Please adjust the search filters.</Text>
-          </Card>
-        ) : (
-          data.map((document) => (
-            <DocumentItem document={document} key={document.pid} />
-          ))
-        )}
-      </Flex>
+      {data.length === 0 ? (
+        <Card p={[3, 4]}>
+          <Heading>No results</Heading>
+          <Text as="p">Please adjust the search filters.</Text>
+        </Card>
+      ) : (
+        data.map((document) => (
+          <DocumentItem document={document} key={document.pid} />
+        ))
+      )}
+    </Flex>
   )
 }
 export default DocumentList
