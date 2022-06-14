@@ -1,15 +1,7 @@
-import init from './App/adapter/init'
-import { stripEmptyKeys } from './App/adapter/lib/helpers'
-import { LABEL_FOR_CONFIG } from './App/adapter/lib/state'
-import applyTemplate from './App/adapter/translate'
-import filterables from './filterables.json'
-import { useQuery, JOIN_CHAR } from './router-utils'
+import { stripEmptyKeys } from '../App/helpers'
+import { useQuery, JOIN_CHAR } from '../router-utils'
 
 export const SEPARATE_CHAR = "'"
-
-export const template = init(filterables)
-
-export const translate = applyTemplate(template)
 
 const numericOperators = ['lt', 'lte', 'gt', 'gte', 'between']
 
@@ -19,14 +11,12 @@ const parseNumericValue = (raw) => {
 }
 
 const parsePair = ([k, v]) => {
-  if (k === 'q') {
-    return { id: LABEL_FOR_CONFIG, [k]: v }
-  }
-
   const id = k
   const [rawValue, operator, unit] = v.split(SEPARATE_CHAR)
   const value = numericOperators.includes(operator)
     ? parseNumericValue(rawValue)
+    : rawValue.includes(JOIN_CHAR)
+    ? rawValue.split(JOIN_CHAR)
     : rawValue
   return stripEmptyKeys({ id, value, operator, unit })
 }
@@ -35,9 +25,11 @@ const parseQuery = (query) => {
   return [...query.entries()].map(parsePair)
 }
 
-export function useFilters() {
+function useFilters() {
   // Update state of every filter based on query params
   const query = useQuery()
 
   return parseQuery(query)
 }
+
+export default useFilters
