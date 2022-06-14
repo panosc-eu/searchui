@@ -1,6 +1,5 @@
-import { useState, Suspense } from 'react'
+import { useState } from 'react'
 
-import Spinner from '../App/Spinner'
 import { parseDate } from '../App/helpers'
 import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
 import Details from './Detail'

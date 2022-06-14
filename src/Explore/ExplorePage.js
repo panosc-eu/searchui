@@ -1,7 +1,6 @@
 import React, { useEffect, Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useLocation } from 'react-router-dom'
-import { useSWRConfig } from 'swr'
 
 import ErrorFallback from '../App/ErrorFallback'
 import ResultsCount from '../App/ResultsCount'
@@ -14,7 +13,6 @@ import DocumentList from './DocumentList'
 function ExplorePage(props) {
   const { isDesktop } = props
 
-  const { cache } = useSWRConfig()
   const { search } = useLocation()
   const setSearch = useSearchStore((state) => state.setSearch)
 
