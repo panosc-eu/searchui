@@ -15,7 +15,7 @@ function DocumentItem({ document }) {
   const [showDetail, setShowDetail] = useState(false)
 
   const doiLink = `http://doi.org/${doi}`
-  function Rich() {
+  function Detailed() {
     return (
       <>
         <Box as="article">{summary}</Box>
@@ -37,7 +37,7 @@ function DocumentItem({ document }) {
       </>
     )
   }
-  function Poor() {
+  function Simple() {
     return (
       <>
         <Box
@@ -94,7 +94,7 @@ function DocumentItem({ document }) {
         >
           {title}
         </Heading>
-        <Box>{showDetail ? <Rich /> : <Poor />}</Box>
+        <Box>{showDetail ? <Detailed /> : <Simple />}</Box>
         <br />
         <Box
           onClick={() => setShowDetail(!showDetail)}
