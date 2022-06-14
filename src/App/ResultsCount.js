@@ -5,7 +5,7 @@ import { Flex, Box, Text } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 import { useSearchStore } from './stores'
 
-const COUNT_OPTIONS = [10, 25, 50, 100]
+const COUNT_OPTIONS = [25, 50, 100, 250]
 
 function ResultsCount() {
   const count = useSearchStore((state) => state.count)
