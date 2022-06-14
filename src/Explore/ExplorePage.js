@@ -53,14 +53,7 @@ function ExplorePage(props) {
         </Flex>
       )}
       <Box width={[1, 1, 3 / 4]}>
-        <ErrorBoundary
-          FallbackComponent={ErrorFallback}
-          resetKeys={[search]}
-          // onError={() => cache.delete(`$swr$${queryUrl}`)}
-          onError={() => {
-            console.log('missing implementation')
-          }}
-        >
+        <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[search]}>
           <Suspense fallback={<Spinner />}>
             <DocumentList />
           </Suspense>
