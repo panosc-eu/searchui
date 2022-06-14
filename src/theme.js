@@ -42,11 +42,9 @@ export function useTheme() {
         fontWeight: 'light',
         mb: 3,
       },
-      filterGroup: {
-        fontSize: 0,
+      subHeading: {
+        fontSize: [0, 1, 1, 2],
         fontWeight: 'bold',
-        textTransform: 'uppercase',
-        letterSpacing: '0.1em',
         mb: 2,
       },
       filter: {

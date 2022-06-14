@@ -1,13 +1,16 @@
-import moment from 'moment'
+import { format, isValid } from 'date-fns'
 
 export function parseDate(date) {
-  return moment(date).format('L')
+  const dateObj = new Date(date)
+  return isValid(dateObj) ? format(dateObj, 'dd. MM. yyyy') : 'not available'
 }
 
 export function capitalizeAndSpace(str) {
   return `${str[0].toUpperCase()}${str.slice(1).replaceAll('_', ' ')}`
 }
 
-export function documentSize(datasets) {
-  return `${true} MB`
-}
+const isEmpty = (obj) => JSON.stringify(obj) === '{}'
+export const stripEmptyKeys = (obj) =>
+  Object.fromEntries(
+    Object.entries(obj).filter(([, v]) => v !== undefined && !isEmpty(v)),
+  )
