@@ -1,28 +1,43 @@
-import translate from './translate'
+import { template } from '../../filters'
+import { LABEL_FOR_CONFIG } from './lib/state'
+import applyTemplate from './translate'
+
+const translate = applyTemplate(template)
+
+const id = LABEL_FOR_CONFIG
 
 test('no filter and default config', () => {
   const query = translate([])
-  expect(query).toEqual({ limit: 50 })
+  expect(query).toEqual({ limit: 5 })
 })
 
 test('no pagination', () => {
-  const query = translate([{ limit: 0 }])
-  expect(query).toEqual({ limit: 0 })
+  const query = translate([{ id, pageSize: false }])
+  expect(query).toEqual({})
+})
+
+test('custom pagination', () => {
+  const query = translate([{ id, pageSize: 10, page: 2 }])
+  expect(query).toEqual({ limit: 10, skip: 10 })
 })
 
 test('custom ordering', () => {
-  const query = translate([
-    {
-      order: ['foo ASC', 'bar DESC'],
-    },
-  ])
+  const query = translate(
+    [
+      {
+        id,
+        order: ['foo ASC', 'bar DESC'],
+      },
+    ],
+    template,
+  )
 
-  expect(query).toEqual({ order: ['foo ASC', 'bar DESC'], limit: 50 })
+  expect(query).toEqual({ order: ['foo ASC', 'bar DESC'], limit: 5 })
 })
 
 test('single root filter and custom include', () => {
   const query = translate([
-    { include: ['datasets', 'affiliation', 'person'] },
+    { id, include: ['datasets', 'affiliation', 'person'] },
     {
       id: 'type',
       value: 'proposal',
@@ -40,13 +55,13 @@ test('single root filter and custom include', () => {
       { relation: 'datasets' },
     ],
     where: { type: 'proposal' },
-    limit: 50,
+    limit: 5,
   })
 })
 
 test('multiple filters and custom include', () => {
   const query = translate([
-    { include: ['datasets', 'affiliation', 'person'] },
+    { id, include: ['datasets', 'affiliation', 'person'] },
     {
       id: 'type',
       value: 'experiment',
@@ -88,26 +103,6 @@ test('multiple filters and custom include', () => {
       },
     ],
     where: { type: 'experiment' },
-    limit: 50,
-  })
-})
-
-test('all loopback query keys recognized by id', () => {
-  const query = translate([
-    { id: 'skip', value: 20 },
-    { id: 'limit', value: 20 },
-    { id: 'include', value: ['parameters'] },
-    { id: 'order', value: ['foo ASC', 'bar DESC'] },
-  ])
-  expect(query).toEqual({
-    include: [
-      {
-        relation: 'datasets',
-        scope: { include: [{ relation: 'parameters' }] },
-      },
-    ],
-    order: ['foo ASC', 'bar DESC'],
-    skip: 20,
-    limit: 20,
+    limit: 5,
   })
 })

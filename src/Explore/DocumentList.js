@@ -1,31 +1,33 @@
 import React, { useEffect } from 'react'
+import useSWRImmutable from 'swr/immutable'
 
-import useApi from '../Api/useApi'
-import useFilters from '../Api/useFilters'
 import { useSearchStore } from '../App/stores'
 import { Flex, Card, Text, Heading } from '../Primitives'
 import DocumentItem from './DocumentItem'
 
-function DocumentList() {
+function DocumentList(props) {
+  const { queryUrl } = props
   const setCount = useSearchStore((state) => state.setCount)
-  const filters = useFilters()
-  const { data } = useApi('/documents', filters)
+
+  const { data: documents } = useSWRImmutable(queryUrl)
 
   useEffect(() => {
-    setCount(data.length)
-  }, [data, setCount])
+    setCount(documents.length)
+  }, [documents, setCount])
 
   return (
     <Flex column gap={[3, 3, 3, 4]}>
-      {data.length === 0 ? (
+      {documents.length === 0 ? (
         <Card p={[3, 4]}>
           <Heading>No results</Heading>
           <Text as="p">Please adjust the search filters.</Text>
         </Card>
       ) : (
-        data.map((document) => (
-          <DocumentItem document={document} key={document.pid} />
-        ))
+        <>
+          {documents.map((doc) => (
+            <DocumentItem document={doc} key={doc.pid} />
+          ))}
+        </>
       )}
     </Flex>
   )

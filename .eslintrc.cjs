@@ -1,14 +1,8 @@
-const { createConfig } = require('eslint-config-galex/dist/createConfig')
-const { files: jestFiles } = require('eslint-config-galex/dist/overrides/jest')
-const {
-  files: reactFiles,
-} = require('eslint-config-galex/dist/overrides/react')
+const { createConfig } = require('eslint-config-galex/src/createConfig')
+const { files: jestFiles } = require('eslint-config-galex/src/overrides/jest')
+const { files: reactFiles } = require('eslint-config-galex/src/overrides/react')
 
 module.exports = createConfig({
-  env: {
-    es6: true,
-    browser: true,
-  },
   overrides: [
     {
       files: reactFiles,
