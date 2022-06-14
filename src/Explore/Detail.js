@@ -1,4 +1,5 @@
-import { useState, Suspense } from 'react'
+import { useToggle } from '@react-hookz/web'
+import { Suspense } from 'react'
 
 import useApi from '../Api/useApi'
 import Spinner from '../App/Spinner'
@@ -48,17 +49,17 @@ function Title({ expand, onClick, text }) {
 }
 function Details(props) {
   const { open, title } = props
-  const [expand, setExpand] = useState(open)
+  const [expanded, toggle] = useToggle(open)
   return (
     <Box
       sx={{
         cursor: 'pointer',
       }}
-      onClick={() => setExpand(!expand)}
+      onClick={() => toggle()}
     >
-      <Title expand={expand} text={title} />
+      <Title expand={expanded} text={title} />
       <Suspense fallback={<Spinner />}>
-        {expand && <Table table={props} />}
+        {expanded && <Table table={props} />}
       </Suspense>
     </Box>
   )
