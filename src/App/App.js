@@ -1,5 +1,4 @@
 import { useMediaQuery } from '@react-hookz/web'
-import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
@@ -8,6 +7,7 @@ import HomePage from '../Home/HomePage'
 import { Box } from '../Primitives'
 import { breakpoints } from '../breakpoints'
 import { useTheme } from '../theme'
+import Footer from './Footer'
 import GlobalStyles from './GlobalStyles'
 import Navigation from './Navigation'
 import ScrollToTop from './ScrollToTop'
@@ -33,6 +33,7 @@ function App() {
           </Route>
         </Switch>
       </Box>
+      <Footer />
     </ThemeProvider>
   )
 }
