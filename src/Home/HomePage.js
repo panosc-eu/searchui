@@ -1,11 +1,9 @@
 import { Input } from '@rebass/forms/styled-components'
-import { Suspense } from 'react'
+import React from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom/index'
 
-import Spinner from '../App/Spinner'
 import { Link, Heading, Flex, Button, Box, Text } from '../Primitives'
-import SourceList from './List.js'
 
 function HomePage() {
   const history = useHistory()
@@ -56,9 +54,28 @@ function HomePage() {
         This portal implements the F(indable) part of FAIR via a{' '}
         <strong>federated search engine</strong> from the following facilities:
       </p>
-      <Suspense fallback={<Spinner />}>
-        <SourceList />
-      </Suspense>
+      <ul>
+        <li>
+          <Link href="https://www.esrf.eu/" blank>
+            European Synchrotron Radiation Facility
+          </Link>
+        </li>
+        <li>
+          <Link href="https://europeanspallationsource.se/" blank>
+            European Spallation Source
+          </Link>
+        </li>
+        <li>
+          <Link href="https://www.ill.eu/" blank>
+            Institut Laue Langevin
+          </Link>
+        </li>
+        <li>
+          <Link href="https://www.maxiv.lu.se/" blank>
+            MAX IV
+          </Link>
+        </li>
+      </ul>
       <p>
         Additional facilities will be included in the federated search as their
         search engines come online locally. The goal is to include all photon

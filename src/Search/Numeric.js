@@ -2,8 +2,8 @@ import { useDebouncedCallback } from '@react-hookz/web'
 import { Input, Select } from '@rebass/forms/styled-components'
 import { FiSlash } from 'react-icons/fi'
 
-import useFilters, { SEPARATE_CHAR } from '../Api/useFilters'
 import { Flex, Box, Button } from '../Primitives'
+import { SEPARATE_CHAR, useFilters } from '../filters'
 import { JOIN_CHAR, useQueryParam } from '../router-utils'
 import FilterBox from './Filter'
 
