@@ -1,9 +1,9 @@
 import { stripEmptyKeys } from '../App/helpers'
-import TEMPLATE from './filterables.json'
+import template from '../filters.json'
 import { merge, parse, createInclude, createWhere } from './translateFns'
 
 const translate = (state, endpoint = 'documents') => {
-  const filters = merge(TEMPLATE, state)
+  const filters = merge(template, state)
 
   const [toInclude, toWhere, toRoot] = parse(filters, endpoint)
 

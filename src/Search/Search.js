@@ -1,5 +1,5 @@
-import template from '../Api/filterables.json'
 import { Card, Flex } from '../Primitives'
+import template from '../filters.json'
 import Autocomplete from './Autocomplete'
 import List from './List'
 import Numeric from './Numeric'

@@ -1,6 +1,6 @@
 import { stripEmptyKeys } from '../App/helpers'
-import OPERATORS from './operators.json'
-import MAP from './targets.json'
+import OPERATORS from '../operators.json'
+import MAP from '../targets.json'
 
 const FALLBACK_GROUP_OPERATOR = 'and'
 
