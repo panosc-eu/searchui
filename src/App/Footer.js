@@ -4,9 +4,6 @@ function Footer() {
   return (
     <Flex
       sx={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
         width: '100%',
         bg: 'middleground',
         p: [1, 2, 2, 3],
