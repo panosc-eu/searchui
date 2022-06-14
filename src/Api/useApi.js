@@ -14,3 +14,9 @@ const useApi = (path, filters = [], config = {}) => {
 }
 
 export default useApi
+
+export const useQuery = (path, filters = [], config = {}) => {
+  const endpoint = path.startsWith('/documents') ? 'documents' : 'datasets'
+
+  return translate([...filters, config], endpoint)
+}
