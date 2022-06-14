@@ -3,7 +3,14 @@ import { Suspense } from 'react'
 
 import useApi from '../Api/useApi'
 import Spinner from '../App/Spinner'
+import { parseDate } from '../App/helpers'
 import { Text, Flex, Box } from '../Primitives'
+
+const getMembers = (data) =>
+  data.members.map((member) => ({
+    ...member?.affiliation,
+    ...member?.person,
+  }))
 
 function Table({ table }) {
   const { url, columns, mergeFn, rowId: id, config } = table
@@ -40,6 +47,7 @@ function Table({ table }) {
     </Flex>
   )
 }
+
 function Title({ expand, onClick, text }) {
   return (
     <Text onClick={onClick} fontWeight="bold">
@@ -47,22 +55,39 @@ function Title({ expand, onClick, text }) {
     </Text>
   )
 }
-function Details(props) {
-  const { open, title } = props
-  const [expanded, toggle] = useToggle(open)
+
+function Detailed(props) {
+  const { pid, summary, releaseDate } = props
+  const [expanded, toggle] = useToggle(false)
+
   return (
-    <Box
-      sx={{
-        cursor: 'pointer',
-      }}
-      onClick={() => toggle()}
-    >
-      <Title expand={expanded} text={title} />
-      <Suspense fallback={<Spinner />}>
-        {expanded && <Table table={props} />}
-      </Suspense>
-    </Box>
+    <>
+      <Box as="article">{summary}</Box>
+      <br />
+      <Text sx={{ fontWeight: 'bold' }}>
+        Released: {parseDate(releaseDate)}
+      </Text>
+      <Box sx={{ cursor: 'pointer' }} onClick={() => toggle()}>
+        <Title expand={expanded} text="Members" />
+        <Suspense fallback={<Spinner />}>
+          {expanded && (
+            <Table
+              table={{
+                columns: [
+                  ['Person', 'fullName'],
+                  ['Affiliation', 'name'],
+                ],
+                url: `/documents/${encodeURIComponent(pid)}`,
+                mergeFn: getMembers,
+                rowId: 'id',
+                config: { include: ['person', 'affiliation'] },
+              }}
+            />
+          )}
+        </Suspense>
+      </Box>
+    </>
   )
 }
 
-export default Details
+export default Detailed
