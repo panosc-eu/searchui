@@ -1,3 +1,4 @@
+import { useToggle } from '@react-hookz/web'
 import { Select } from '@rebass/forms/styled-components'
 import { useEffect, useState } from 'react'
 
@@ -10,6 +11,8 @@ const COUNT_OPTIONS = [25, 50, 100, 250]
 function ResultsCount() {
   const count = useSearchStore((state) => state.count)
   const { value, setValue } = useQueryParam('limit')
+
+  const [showSelect, toggleShowSelect] = useToggle()
 
   const [options, setOptions] = useState(COUNT_OPTIONS)
   useEffect(() => {
@@ -27,20 +30,33 @@ function ResultsCount() {
     <Flex alignItems="center">
       <Text as="span">Showing</Text>
       <Box px={2} minWidth="fit-content">
-        <Select
-          id="limit"
-          name="limit"
-          value={value || defaultValue}
-          onChange={(e) => setValue(e.target.value)}
-          sx={{
-            overflow: 'visible',
-            paddingRight: 4,
-          }}
-        >
-          {options.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </Select>
+        {showSelect ? (
+          <Select
+            id="limit"
+            name="limit"
+            value={value || defaultValue}
+            onChange={(e) => {
+              setValue(e.target.value)
+              toggleShowSelect()
+            }}
+            sx={{
+              overflow: 'visible',
+              paddingRight: 4,
+            }}
+          >
+            {options.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </Select>
+        ) : (
+          <Text
+            sx={{ cursor: 'pointer', fontWeight: 'bold' }}
+            onClick={() => toggleShowSelect()}
+            as="span"
+          >
+            {count === Number.parseInt(value) ? `${count}+` : count}
+          </Text>
+        )}
       </Box>
       <Text as="span">{`result${count === 1 ? '' : 's'}`}</Text>
     </Flex>
