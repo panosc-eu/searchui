@@ -26,7 +26,7 @@ function Navigation() {
       sx={{
         position: 'sticky',
         top: 0,
-        zIndex: 1,
+        zIndex: 1000,
         height: 'navHeight',
         mb: [3, 4],
         bg: 'bgNav',
