@@ -3,6 +3,7 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
 import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
 import Detailed from './Detailed'
+import ScoringIndicator from './ScoreIndicator'
 import Simple from './Simple'
 
 function DocumentItem(props) {
@@ -23,7 +24,9 @@ function DocumentItem(props) {
       }}
     >
       <Card width={1} key={pid}>
-        <Flex sx={{ mb: 2, justifyContent: 'space-between' }}>
+        <Flex
+          sx={{ mb: 2, justifyContent: 'space-between', alignItems: 'center' }}
+        >
           <Text
             as={Link}
             href={doiLink}
@@ -32,7 +35,7 @@ function DocumentItem(props) {
           >
             {doi}
           </Text>
-          <Box>Relevancy = {score.toFixed(3)}</Box>
+          <ScoringIndicator score={score} />
         </Flex>
         <Heading
           as={Link}
