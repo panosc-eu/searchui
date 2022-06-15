@@ -72,7 +72,10 @@ function Numeric({ obj }) {
               fontSize={0}
             />
           </Box>
-          <Box width={units.length == 0 && 1 / 2} sx={{ marginRight: units.length > 0 && 1 }}>
+          <Box
+            width={units.length === 0 && 1 / 2}
+            sx={{ marginRight: units.length === 0 && 1 }}
+          >
             <Input
               type="number"
               id="max"
