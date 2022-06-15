@@ -12,7 +12,7 @@ const GlobalStyles = createGlobalStyle(
       bg: 'background',
       color: 'text',
       fontFamily: 'text',
-      fontSize: [0, 0, 1],
+      fontSize: [1, 1, 2],
       lineHeight: 'text',
     },
     ul: {
