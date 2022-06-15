@@ -74,7 +74,7 @@ function Numeric({ obj }) {
           </Box>
           <Box
             width={units.length === 0 && 1 / 2}
-            sx={{ marginRight: units.length === 0 && 1 }}
+            sx={{ marginRight: units.length > 0 && 1 }}
           >
             <Input
               type="number"
