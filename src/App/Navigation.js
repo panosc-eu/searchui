@@ -9,6 +9,7 @@ import ResultsCount from './ResultsCount'
 
 function Navigation() {
   const location = useLocation()
+  const isHome = location.pathname === '/'
   const { value: query, setValue: setQuery } = useQueryParam('q')
 
   function handleSubmit(evt) {
@@ -32,30 +33,39 @@ function Navigation() {
         bg: 'bgNav',
       }}
     >
-      <NavLink to="/" exact>
-        <Box height="logoHeight" p={[1, 0]}>
-          <Image height="100%" width="unset" alt="PaNOSC logo" src={logo} />
-        </Box>
-      </NavLink>
-
-      <Route path="/search">
-        {!query?.trim() && <Redirect to="/" />}
-        <Flex
-          as="form"
-          sx={{ flex: '1 1 0%', alignItems: 'center', px: 3 }}
-          onSubmit={handleSubmit}
-        >
-          <Flex sx={{ flex: '1 1 0%', maxWidth: '30rem' }}>
-            <Input key={location.search} name="q" defaultValue={query} mr={2} />
-            <Button aria-label="Search" type="submit">
-              <FiSearch />
-            </Button>
-          </Flex>
-          <Box sx={{ display: ['none', 'none', 'inline'], pl: 3 }}>
-            <ResultsCount />
+      <Flex
+        sx={isHome && { flex: '1 1 0%', maxWidth: '90rem', margin: '0 auto' }}
+      >
+        <NavLink to="/" exact ml={isHome ? [0, 0, 0, 0, -3] : [0, 0, 0, 3]}>
+          <Box height="logoHeight" p={[1, 0]}>
+            <Image height="100%" width="unset" alt="PaNOSC logo" src={logo} />
           </Box>
-        </Flex>
-      </Route>
+        </NavLink>
+
+        <Route path="/search">
+          {!query?.trim() && <Redirect to="/" />}
+          <Flex
+            as="form"
+            sx={{ flex: '1 1 0%', alignItems: 'center', px: 3 }}
+            onSubmit={handleSubmit}
+          >
+            <Flex sx={{ flex: '1 1 0%', maxWidth: '30rem' }}>
+              <Input
+                key={location.search}
+                name="q"
+                defaultValue={query}
+                mr={2}
+              />
+              <Button aria-label="Search" type="submit">
+                <FiSearch />
+              </Button>
+            </Flex>
+            <Box sx={{ display: ['none', 'none', 'inline'], pl: 3 }}>
+              <ResultsCount />
+            </Box>
+          </Flex>
+        </Route>
+      </Flex>
     </Flex>
   )
 }

@@ -19,7 +19,7 @@ function HomePage() {
   }
 
   return (
-    <>
+    <Box sx={{ maxWidth: '90rem', margin: '0 auto' }}>
       <Heading as="h1" variant="display">
         European Photon and Neutron Open Data Search Portal
       </Heading>
@@ -92,7 +92,7 @@ function HomePage() {
         policies, strategies and solutions in the area of FAIR data policy, data
         management and data services.
       </p>
-    </>
+    </Box>
   )
 }
 
