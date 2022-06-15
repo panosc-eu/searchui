@@ -1,11 +1,13 @@
 import { Input } from '@rebass/forms/styled-components'
-import { Suspense } from 'react'
+import { Fragment, Suspense } from 'react'
 import { FiSearch } from 'react-icons/fi'
-import { useHistory } from 'react-router-dom/index'
+import { useHistory, Link as RouterLink } from 'react-router-dom'
 
 import Spinner from '../App/Spinner'
-import { Link, Heading, Flex, Button, Box, Text } from '../Primitives'
-import SourceList from './List.js'
+import { Heading, Flex, Button, Box, Text, Link } from '../Primitives'
+import SourceList from './SourceList'
+
+const QUERY_SUGGESTIONS = ['diffraction', 'lung']
 
 function HomePage() {
   const history = useHistory()
@@ -23,8 +25,7 @@ function HomePage() {
       </Heading>
       <Box as="form" action="/search" onSubmit={handleSubmit} sx={{ my: 4 }}>
         <Text as="p" sx={{ mt: 0, mb: 2, fontStyle: 'italic' }}>
-          Type a query to search for open data from photon and neutron sources
-          &ndash; e.g. data
+          Type a query to search for open data from photon and neutron sources:
         </Text>
         <Flex
           sx={{
@@ -39,6 +40,17 @@ function HomePage() {
             <FiSearch />
           </Button>
         </Flex>
+        <Text as="p" sx={{ mt: 2, fontStyle: 'italic' }}>
+          ... or try one of these queries:{' '}
+          {QUERY_SUGGESTIONS.map((query, index) => (
+            <Fragment key={query}>
+              {index > 0 && ', '}
+              <Link as={RouterLink} to={`/search/?q=${query}`}>
+                {query}
+              </Link>
+            </Fragment>
+          ))}
+        </Text>
       </Box>
       <p>
         The European Photon and Neutron sources are working together in the{' '}
