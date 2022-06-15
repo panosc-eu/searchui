@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
 import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
 import Detailed from './Detailed'
@@ -58,15 +59,15 @@ function DocumentItem(props) {
             borderTop: '1px solid',
             borderColor: 'foreground',
             textAlign: 'center',
-            fontSize: 0,
+            fontSize: 2,
             mx: -3,
-            mb: -3,
+            mb: '-20px',
             ':hover': {
               bg: 'foreground',
             },
           }}
         >
-          <strong>{detailedMode ? '\u2227' : '\u2228'}</strong>
+          {detailedMode ? <FiChevronUp /> : <FiChevronDown />}
         </Box>
       </Card>
     </Box>
