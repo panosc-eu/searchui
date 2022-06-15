@@ -61,7 +61,7 @@ function Numeric({ obj }) {
     <FilterBox title={display || id} isActive={isActive}>
       <Box id={`form-${id}`} as="form" onSubmit={(e) => e.preventDefault()}>
         <Flex>
-          <Box>
+          <Box sx={{ marginRight: 1 }}>
             <Input
               type="number"
               id="min"
@@ -69,9 +69,10 @@ function Numeric({ obj }) {
               placeholder="min"
               defaultValue={min}
               onChange={(e) => update(e.target.value, max, unit)}
+              fontSize={0}
             />
           </Box>
-          <Box>
+          <Box width={units.length == 0 && 1 / 2} sx={{ marginRight: units.length > 0 && 1 }}>
             <Input
               type="number"
               id="max"
@@ -79,6 +80,7 @@ function Numeric({ obj }) {
               placeholder="max"
               defaultValue={max}
               onChange={(e) => update(min, e.target.value, unit)}
+              fontSize={0}
             />
           </Box>
           {units.length > 0 && (
@@ -90,6 +92,7 @@ function Numeric({ obj }) {
                 id="unit"
                 name="unit"
                 defaultValue={unit}
+                fontSize={0}
               >
                 <option value="">-</option>
                 <option key={defaultUnit}>{defaultUnit}</option>
