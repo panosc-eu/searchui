@@ -3,15 +3,7 @@ import { useState } from 'react'
 import { Box } from '../Primitives'
 
 function ScoreIndicator({ score }) {
-  const [text, setText] = useState(score.toFixed(3))
-
-  const handleHoverStart = () => {
-    setText('Relevancy')
-  }
-
-  const handleHoverEnd = () => {
-    setText(score.toFixed(3))
-  }
+  const [hintActive, setHintActive] = useState(false)
 
   return (
     <Box
@@ -22,11 +14,10 @@ function ScoreIndicator({ score }) {
         borderRadius: 8,
         marginLeft: 1,
         overflow: 'hidden',
+        zIndex: 0,
       }}
-      onMouseEnter={handleHoverStart}
-      onTouchStart={handleHoverStart}
-      onMouseLeave={handleHoverEnd}
-      onTouchEnd={handleHoverEnd}
+      onPointerEnter={() => setHintActive(true)}
+      onPointerLeave={() => setHintActive(false)}
     >
       <Box
         sx={{
@@ -44,7 +35,7 @@ function ScoreIndicator({ score }) {
           cursor: 'help',
         }}
       >
-        {text}
+        {hintActive ? 'Relevancy' : score.toFixed(3)}
       </Box>
       <Box
         sx={{
