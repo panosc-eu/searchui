@@ -26,7 +26,7 @@ function AsynAutocomplete(props) {
     <Select
       value={param.value || ''}
       onChange={handleChange}
-      sx={{ flex: '1 1 0%' }}
+      sx={{ flex: '1 1 0%', fontSize: 0 }}
     >
       <option value="">{emptyOption}</option>
       {sortedOptions.map((opt) => (

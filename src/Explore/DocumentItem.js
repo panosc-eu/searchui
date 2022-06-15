@@ -1,66 +1,21 @@
-import { useState } from 'react'
+import { useRef } from 'react'
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
-import { parseDate } from '../App/helpers'
 import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
-import Details from './Detail'
+import Detailed from './Detailed'
+import ScoringIndicator from './ScoreIndicator'
+import Simple from './Simple'
 
-const getMembers = (data) =>
-  data.members.map((member) => ({
-    ...member?.affiliation,
-    ...member?.person,
-  }))
-
-function DocumentItem({ document }) {
-  const { pid, title, score, doi, summary, releaseDate } = document
-  const [showDetail, setShowDetail] = useState(false)
+function DocumentItem(props) {
+  const { document, detailedMode, toggleMode } = props
+  const { pid, title, score, doi } = document
 
   const doiLink = `http://doi.org/${doi}`
-  function Detailed() {
-    return (
-      <>
-        <Box as="article">{summary}</Box>
-        <br />
-        <Text sx={{ fontWeight: 'bold' }}>
-          Released: {parseDate(releaseDate)}
-        </Text>
-        <Details
-          columns={[
-            ['Person', 'fullName'],
-            ['Affiliation', 'name'],
-          ]}
-          url={`/documents/${encodeURIComponent(pid)}`}
-          mergeFn={getMembers}
-          rowId="id"
-          title="Members"
-          config={{ include: ['person', 'affiliation'] }}
-        />
-      </>
-    )
-  }
-  function Simple() {
-    return (
-      <>
-        <Box
-          sx={{
-            display: '-webkit-box',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            '-webkit-line-clamp': '2',
-            '-webkit-box-orient': 'vertical',
-          }}
-        >
-          {summary}
-        </Box>
-        <br />
-        <Text sx={{ fontStyle: 'italic' }}>
-          Released: {parseDate(releaseDate)}
-        </Text>
-      </>
-    )
-  }
+  const itemRef = useRef(null)
 
   return (
     <Box
+      ref={itemRef}
       as="article"
       sx={{
         display: ['block', 'flex'],
@@ -69,7 +24,9 @@ function DocumentItem({ document }) {
       }}
     >
       <Card width={1} key={pid}>
-        <Flex sx={{ mb: 2, justifyContent: 'space-between' }}>
+        <Flex
+          sx={{ mb: 2, justifyContent: 'space-between', alignItems: 'center' }}
+        >
           <Text
             as={Link}
             href={doiLink}
@@ -78,7 +35,7 @@ function DocumentItem({ document }) {
           >
             {doi}
           </Text>
-          <Box>Relevancy = {score.toFixed(3)}</Box>
+          <ScoringIndicator score={score} />
         </Flex>
         <Heading
           as={Link}
@@ -86,32 +43,34 @@ function DocumentItem({ document }) {
           target="_blank"
           sx={{
             display: 'block',
-            whiteSpace: showDetail ? 'wrap' : 'nowrap',
-            overflow: showDetail ? 'visible' : 'hidden',
-            textOverflow: showDetail ? 'none' : 'ellipsis',
+            whiteSpace: detailedMode ? 'wrap' : 'nowrap',
+            overflow: detailedMode ? 'visible' : 'hidden',
+            textOverflow: detailedMode ? 'none' : 'ellipsis',
             textDecoration: 'none',
           }}
         >
           {title}
         </Heading>
-        <Box>{showDetail ? <Detailed /> : <Simple />}</Box>
+        <Box>
+          {detailedMode ? <Detailed {...document} /> : <Simple {...document} />}
+        </Box>
         <br />
         <Box
-          onClick={() => setShowDetail(!showDetail)}
+          onClick={() => toggleMode(itemRef.current)}
           sx={{
             cursor: 'pointer',
             borderTop: '1px solid',
             borderColor: 'foreground',
             textAlign: 'center',
-            fontSize: 0,
+            fontSize: 2,
             mx: -3,
-            mb: -3,
+            mb: '-20px',
             ':hover': {
               bg: 'foreground',
             },
           }}
         >
-          <strong>{showDetail ? '\u2227' : '\u2228'}</strong>
+          {detailedMode ? <FiChevronUp /> : <FiChevronDown />}
         </Box>
       </Card>
     </Box>
