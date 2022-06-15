@@ -1,66 +1,19 @@
-import { useState } from 'react'
+import { useRef } from 'react'
 
-import { parseDate } from '../App/helpers'
 import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
-import Details from './Detail'
+import Detailed from './Detailed'
+import Simple from './Simple'
 
-const getMembers = (data) =>
-  data.members.map((member) => ({
-    ...member?.affiliation,
-    ...member?.person,
-  }))
-
-function DocumentItem({ document }) {
-  const { pid, title, score, doi, summary, releaseDate } = document
-  const [showDetail, setShowDetail] = useState(false)
+function DocumentItem(props) {
+  const { document, detailedMode, toggleMode } = props
+  const { pid, title, score, doi } = document
 
   const doiLink = `http://doi.org/${doi}`
-  function Detailed() {
-    return (
-      <>
-        <Box as="article">{summary}</Box>
-        <br />
-        <Text sx={{ fontWeight: 'bold' }}>
-          Released: {parseDate(releaseDate)}
-        </Text>
-        <Details
-          columns={[
-            ['Person', 'fullName'],
-            ['Affiliation', 'name'],
-          ]}
-          url={`/documents/${encodeURIComponent(pid)}`}
-          mergeFn={getMembers}
-          rowId="id"
-          title="Members"
-          config={{ include: ['person', 'affiliation'] }}
-        />
-      </>
-    )
-  }
-  function Simple() {
-    return (
-      <>
-        <Box
-          sx={{
-            display: '-webkit-box',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            '-webkit-line-clamp': '2',
-            '-webkit-box-orient': 'vertical',
-          }}
-        >
-          {summary}
-        </Box>
-        <br />
-        <Text sx={{ fontStyle: 'italic' }}>
-          Released: {parseDate(releaseDate)}
-        </Text>
-      </>
-    )
-  }
+  const itemRef = useRef(null)
 
   return (
     <Box
+      ref={itemRef}
       as="article"
       sx={{
         display: ['block', 'flex'],
@@ -86,18 +39,20 @@ function DocumentItem({ document }) {
           target="_blank"
           sx={{
             display: 'block',
-            whiteSpace: showDetail ? 'wrap' : 'nowrap',
-            overflow: showDetail ? 'visible' : 'hidden',
-            textOverflow: showDetail ? 'none' : 'ellipsis',
+            whiteSpace: detailedMode ? 'wrap' : 'nowrap',
+            overflow: detailedMode ? 'visible' : 'hidden',
+            textOverflow: detailedMode ? 'none' : 'ellipsis',
             textDecoration: 'none',
           }}
         >
           {title}
         </Heading>
-        <Box>{showDetail ? <Detailed /> : <Simple />}</Box>
+        <Box>
+          {detailedMode ? <Detailed {...document} /> : <Simple {...document} />}
+        </Box>
         <br />
         <Box
-          onClick={() => setShowDetail(!showDetail)}
+          onClick={() => toggleMode(itemRef.current)}
           sx={{
             cursor: 'pointer',
             borderTop: '1px solid',
@@ -111,7 +66,7 @@ function DocumentItem({ document }) {
             },
           }}
         >
-          <strong>{showDetail ? '\u2227' : '\u2228'}</strong>
+          <strong>{detailedMode ? '\u2227' : '\u2228'}</strong>
         </Box>
       </Card>
     </Box>
