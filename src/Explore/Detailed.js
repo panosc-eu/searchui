@@ -1,10 +1,12 @@
 import { useToggle } from '@react-hookz/web'
 import { Suspense } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
 import useApi from '../Api/useApi'
 import Spinner from '../App/Spinner'
 import { parseDate } from '../App/helpers'
-import { Text, Flex, Box } from '../Primitives'
+import { Text, Flex, Box, Button } from '../Primitives'
 
 const getMembers = (data) =>
   data.members.map((member) => ({
@@ -50,9 +52,21 @@ function Table({ table }) {
 
 function Title({ expand, onClick, text }) {
   return (
-    <Text onClick={onClick} fontWeight="bold">
-      {`${text} ${expand ? '\u2227' : '\u2228'}`}
-    </Text>
+    <Button
+      onClick={onClick}
+      sx={{
+        cursor: 'pointer',
+        fontWeight: 'bold',
+        ':hover': { textDecoration: 'underline' },
+        mb: 1,
+      }}
+      variant="base"
+    >
+      <Text as="span" mr={1}>
+        {text}
+      </Text>{' '}
+      {expand ? <FiChevronUp /> : <FiChevronDown />}
+    </Button>
   )
 }
 
@@ -67,24 +81,31 @@ function Detailed(props) {
       <Text sx={{ fontWeight: 'bold' }}>
         Released: {parseDate(releaseDate)}
       </Text>
-      <Box sx={{ cursor: 'pointer' }} onClick={() => toggle()}>
-        <Title expand={expanded} text="Members" />
-        <Suspense fallback={<Spinner />}>
-          {expanded && (
-            <Table
-              table={{
-                columns: [
-                  ['Person', 'fullName'],
-                  ['Affiliation', 'name'],
-                ],
-                url: `/documents/${encodeURIComponent(pid)}`,
-                mergeFn: getMembers,
-                rowId: 'id',
-                config: { include: ['person', 'affiliation'] },
-              }}
-            />
-          )}
-        </Suspense>
+      <Box>
+        <Title expand={expanded} text="Members" onClick={() => toggle()} />
+        {expanded && (
+          <ErrorBoundary
+            fallback={
+              <Text sx={{ color: 'darksalmon' }}>Unable to load members</Text>
+            }
+            resetKeys={[pid]}
+          >
+            <Suspense fallback={<Spinner />}>
+              <Table
+                table={{
+                  url: `/documents/${encodeURIComponent(pid)}`,
+                  config: { include: ['person', 'affiliation'] },
+                  mergeFn: getMembers,
+                  rowId: 'id',
+                  columns: [
+                    ['Person', 'fullName'],
+                    ['Affiliation', 'name'],
+                  ],
+                }}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        )}
       </Box>
     </>
   )
