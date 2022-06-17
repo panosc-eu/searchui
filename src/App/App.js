@@ -23,7 +23,11 @@ function App() {
       <Flex column sx={{ minHeight: '100vh' }}>
         <Navigation />
 
-        <Box mx={[3, 3, 3, 4]} mb={5} sx={{ flexGrow: 1, maxWidth: ['none', 'none', 'none', '1440px'] }}>
+        <Box
+          mx={[3, 3, 3, 4]}
+          mb={5}
+          sx={{ flexGrow: 1, maxWidth: ['none', 'none', 'none', '1440px'] }}
+        >
           <Switch>
             <Route exact path="/">
               <ScrollToTop />
