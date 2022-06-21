@@ -28,7 +28,6 @@ function ResultsCount() {
 
   return (
     <Flex alignItems="center">
-      <Text as="span">Showing</Text>
       <Box px={2} minWidth="fit-content">
         {showSelect ? (
           <Select
@@ -50,11 +49,13 @@ function ResultsCount() {
           </Select>
         ) : (
           <Link onClick={() => toggleShowSelect()} as={Text}>
-            {count === Number.parseInt(value) ? `${count}+` : count}
+            {count === Number.parseInt(value || defaultValue)
+              ? `${count}+`
+              : count}
           </Link>
         )}
       </Box>
-      <Text as="span">{`result${count === 1 ? '' : 's'}`}</Text>
+      <Text as="span">{`document${count === 1 ? '' : 's'}`} found</Text>
     </Flex>
   )
 }
