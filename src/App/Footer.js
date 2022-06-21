@@ -21,6 +21,7 @@ function Footer() {
             justifyContent: 'space-evenly',
             flexDirection: ['column', 'row', 'row', 'row'],
             alignItems: ['flex-start', 'stretch', 'stretch', 'stretch'],
+            maxWidth: ['none', 'none', 'none', '1440px'],
           }}
         >
           <Box as="div" sx={{ padding: '1.25rem', minWidth: '12.5rem' }}>
@@ -96,7 +97,12 @@ function Footer() {
 
         <Box
           as="section"
-          sx={{ padding: '0 1.875rem', borderTop: '1px #777 solid' }}
+          sx={{
+            padding: '0 1.875rem',
+
+            maxWidth: ['none', 'none', 'none', '1440px'],
+            borderTop: '1px #777 solid',
+          }}
         >
           <ul
             style={{
