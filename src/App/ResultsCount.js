@@ -2,7 +2,7 @@ import { useToggle } from '@react-hookz/web'
 import { Select } from '@rebass/forms/styled-components'
 import { useEffect, useState } from 'react'
 
-import { Flex, Box, Text } from '../Primitives'
+import { Link, Flex, Box, Text } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 import { useSearchStore } from './stores'
 
@@ -49,13 +49,9 @@ function ResultsCount() {
             ))}
           </Select>
         ) : (
-          <Text
-            sx={{ cursor: 'pointer', fontWeight: 'bold' }}
-            onClick={() => toggleShowSelect()}
-            as="span"
-          >
+          <Link onClick={() => toggleShowSelect()} as={Text}>
             {count === Number.parseInt(value) ? `${count}+` : count}
-          </Text>
+          </Link>
         )}
       </Box>
       <Text as="span">{`result${count === 1 ? '' : 's'}`}</Text>
