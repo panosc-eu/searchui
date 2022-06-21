@@ -5,7 +5,7 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
 import useApi from '../Api/useApi'
 import Spinner from '../App/Spinner'
-import { parseDate } from '../App/helpers'
+import { formatDate } from '../App/helpers'
 import { Text, Flex, Box, Button } from '../Primitives'
 
 const getMembers = (data) =>
@@ -79,7 +79,7 @@ function Detailed(props) {
       <Box as="article">{summary}</Box>
       <br />
       <Text sx={{ fontWeight: 'bold' }}>
-        Released: {parseDate(releaseDate)}
+        Released: {formatDate(releaseDate)}
       </Text>
       <Box>
         <Title expand={expanded} text="Members" onClick={() => toggle()} />

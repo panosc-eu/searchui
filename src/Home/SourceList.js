@@ -1,7 +1,7 @@
 import useSWRImmutable from 'swr/immutable'
 
 import { Link } from '../Primitives'
-import sources from './sources.json'
+import providers from '../providers.json'
 
 function SourceList() {
   const [infoUrl] = process.env.REACT_APP_API.split('/api')
@@ -9,7 +9,7 @@ function SourceList() {
 
   return (
     <ul>
-      {sources
+      {providers
         .filter((source) => data.data_providers.includes(source.source))
         .map((source) => (
           <li key={source.name}>
