@@ -1,8 +1,13 @@
 import { format, isValid } from 'date-fns'
 
-export function parseDate(date) {
+export function formatDate(date) {
   const dateObj = new Date(date)
   return isValid(dateObj) ? format(dateObj, 'd MMM yyyy') : 'not available'
+}
+
+export function formatDateVerbose(date) {
+  const dateObj = new Date(date)
+  return isValid(dateObj) ? format(dateObj, 'MMMM do yyyy') : ''
 }
 
 export function capitalizeAndSpace(str) {
