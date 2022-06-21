@@ -15,7 +15,6 @@ function NavLink({ to, exact, sx, ...props }) {
       sx={{
         alignItems: 'center',
         px: [2, 3],
-        bg: !!match && 'background',
         color: match ? 'text' : 'inherit',
         fontSize: [0, 1],
         fontWeight: 'semibold',
