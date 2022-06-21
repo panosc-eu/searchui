@@ -29,6 +29,7 @@ function Navigation() {
         zIndex: 1,
         height: 'navHeight',
         mb: [3, 4],
+        px: [3, 3, 3, 4],
         bg: 'bgNav',
       }}
     >
