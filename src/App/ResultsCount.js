@@ -2,6 +2,7 @@ import { useToggle } from '@react-hookz/web'
 import { Select } from '@rebass/forms/styled-components'
 import { useEffect, useState } from 'react'
 
+import Spinner from '../App/Spinner'
 import { Link, Flex, Box, Text } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 import { useSearchStore } from './stores'
@@ -26,7 +27,7 @@ function ResultsCount() {
 
   const defaultValue = process.env.REACT_APP_LIMIT || COUNT_OPTIONS[0]
 
-  return (
+  return count ? (
     <Flex alignItems="center">
       <Box px={2} minWidth="fit-content">
         {showSelect ? (
@@ -56,6 +57,10 @@ function ResultsCount() {
         )}
       </Box>
       <Text as="span">{`document${count === 1 ? '' : 's'}`} found</Text>
+    </Flex>
+  ) : (
+    <Flex alignItems="center">
+      <Spinner />
     </Flex>
   )
 }
