@@ -1,7 +1,8 @@
 import { useToggle } from '@react-hookz/web'
 import { Select } from '@rebass/forms/styled-components'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
+import useFilters from '../Api/useFilters'
 import Spinner from '../App/Spinner'
 import { Link, Flex, Box, Text } from '../Primitives'
 import { useQueryParam } from '../router-utils'
@@ -10,24 +11,26 @@ import { useSearchStore } from './stores'
 const COUNT_OPTIONS = [25, 50, 100, 250]
 
 function ResultsCount() {
+  const defaultValue = process.env.REACT_APP_LIMIT || COUNT_OPTIONS[0]
+
   const count = useSearchStore((state) => state.count)
+
   const { value, setValue } = useQueryParam('limit')
 
   const [showSelect, toggleShowSelect] = useToggle()
 
-  const [options, setOptions] = useState(COUNT_OPTIONS)
+  const strFilters = JSON.stringify(useFilters())
+  const setCount = useSearchStore((state) => state.setCount)
+
   useEffect(() => {
-    if (!!value && !COUNT_OPTIONS.includes(Number(value))) {
-      const modifiedOptions = [...COUNT_OPTIONS, value]
-      setOptions(modifiedOptions.sort((a, b) => a - b))
-    } else {
-      setOptions([...COUNT_OPTIONS])
-    }
-  }, [value])
+    strFilters && setCount()
+  }, [strFilters, setCount])
 
-  const defaultValue = process.env.REACT_APP_LIMIT || COUNT_OPTIONS[0]
-
-  return count ? (
+  return count === undefined ? (
+    <Flex alignItems="center">
+      <Spinner />
+    </Flex>
+  ) : (
     <Flex alignItems="center">
       <Box px={2} minWidth="fit-content">
         {showSelect ? (
@@ -38,13 +41,17 @@ function ResultsCount() {
             onChange={(e) => {
               setValue(e.target.value)
               toggleShowSelect()
+              setCount()
             }}
             sx={{
               overflow: 'visible',
               paddingRight: 4,
             }}
           >
-            {options.map((option) => (
+            {COUNT_OPTIONS.includes(value) || (
+              <option key={value}>{value}</option>
+            )}
+            {COUNT_OPTIONS.map((option) => (
               <option key={option}>{option}</option>
             ))}
           </Select>
@@ -57,10 +64,6 @@ function ResultsCount() {
         )}
       </Box>
       <Text as="span">{`document${count === 1 ? '' : 's'}`} found</Text>
-    </Flex>
-  ) : (
-    <Flex alignItems="center">
-      <Spinner />
     </Flex>
   )
 }

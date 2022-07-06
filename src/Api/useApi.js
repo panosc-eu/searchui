@@ -1,6 +1,5 @@
 import useSWRImmutable from 'swr/immutable'
 
-import { useSearchStore } from '../App/stores'
 import translate from './translate'
 
 const useApi = (path, filters = [], config = {}) => {
@@ -10,9 +9,6 @@ const useApi = (path, filters = [], config = {}) => {
 
   const query = encodeURIComponent(JSON.stringify(queryObject))
   const queryUrl = `${path}?filter=${query}`
-
-  const setCount = useSearchStore((state) => state.setCount)
-  setCount()
 
   return useSWRImmutable(queryUrl)
 }
