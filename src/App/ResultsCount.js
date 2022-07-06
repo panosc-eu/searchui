@@ -48,7 +48,7 @@ function ResultsCount() {
               paddingRight: 4,
             }}
           >
-            {COUNT_OPTIONS.includes(value) || (
+            {COUNT_OPTIONS.includes(Number.parseInt(value)) || (
               <option key={value}>{value}</option>
             )}
             {COUNT_OPTIONS.map((option) => (
