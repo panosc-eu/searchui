@@ -16,7 +16,7 @@ export const useAppStore = create((set) => ({
 }))
 
 export const useSearchStore = create((set, get) => ({
-  count: 0,
+  count: undefined,
   setCount: (count) => set(() => ({ count })),
   search: '',
   setSearch: (search) => {

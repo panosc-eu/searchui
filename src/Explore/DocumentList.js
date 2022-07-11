@@ -1,6 +1,6 @@
+import { useToggle } from '@react-hookz/web'
 import React, { useEffect, useLayoutEffect, useRef } from 'react'
 
-import { useToggle } from '../../node_modules/@react-hookz/web/cjs'
 import useApi from '../Api/useApi'
 import useFilters from '../Api/useFilters'
 import { useSearchStore } from '../App/stores'
@@ -10,6 +10,7 @@ import DocumentItem from './DocumentItem'
 function DocumentList() {
   const setCount = useSearchStore((state) => state.setCount)
   const filters = useFilters()
+
   const { data } = useApi('/documents', filters)
 
   const [detailedMode, toggleMode] = useToggle(false)
