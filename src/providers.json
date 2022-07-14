@@ -8,7 +8,7 @@
   {
     "name": "European Spallation Source",
     "abbr": "ESS",
-    "source": "https://scicat.ess.eu/panosc-api",
+    "source": "https://search.panosc.ess.eu/api",
     "link": "https://europeanspallationsource.se/"
   },
   {
