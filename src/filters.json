@@ -14,7 +14,7 @@
     "field": "name",
     "display": "Technique",
     "group": "techniques",
-    "optionsUrl": "https://techniques.scicat.ess.eu/techniques?filter=%7B%22where%22%3A%7B%22and%22%3A%5B%7B%22pid%22%3A%7B%22nlike%22%3A%22%3Adataset%22%7D%7D%2C%7B%22name%22%3A%7B%22nlike%22%3A%20%22CHMO%22%7D%7D%5D%7D%2C%22fields%22%3A%7B%22pid%22%3Atrue%2C%22name%22%3Atrue%7D%7D"
+    "optionsUrl": "https://techniques.panosc.ess.eu/techniques?filter=%7B%22where%22%3A%7B%22and%22%3A%5B%7B%22pid%22%3A%7B%22nlike%22%3A%22%3Adataset%22%7D%7D%2C%7B%22name%22%3A%7B%22nlike%22%3A%20%22CHMO%22%7D%7D%5D%7D%2C%22fields%22%3A%7B%22pid%22%3Atrue%2C%22name%22%3Atrue%7D%7D"
   },
   {
     "id": "incident_wavelength",
