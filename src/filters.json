@@ -56,13 +56,6 @@
     "units": ["Pa"]
   },
   {
-    "id": "count_events",
-    "field": "count_events",
-    "display": "count_events",
-    "group": "parameters",
-    "type": "numeric"
-  },
-  {
     "id": "limit",
     "field": "limit"
   }
