@@ -28,5 +28,11 @@
     "abbr": "PSI",
     "source": "https://dacat.psi.ch/panosc-api",
     "link": "https://www.psi.ch/en"
+  },
+  {
+    "name": "Central European Research Infrastructure Consortium",
+    "abbr": "CERIC",
+    "source": "https://data.ceric-eric.eu/search-api",
+    "link": "https://www.ceric-eric.eu"
   }
 ]
