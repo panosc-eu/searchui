@@ -22,7 +22,7 @@
     "display": "Incident Wavelength",
     "type": "numeric",
     "group": "parameters",
-    "units": ["nm"]
+    "units": ["nm", "pm", "Å"]
   },
   {
     "id": "incident_photon_energy",
