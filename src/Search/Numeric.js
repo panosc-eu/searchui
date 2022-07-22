@@ -57,10 +57,12 @@ function Numeric({ obj }) {
     500,
   )
 
-  const defaultUnitVL = ( defaultUnit.includes("|") ? defaultUnit.split("|") : [defaultUnit, defaultUnit] );
-  const otherUnitsVL = otherUnits.map((value) => (
-    ( value.includes("|") ? value.split("|") : [value, value] )
-  ))
+  const defaultUnitVL = defaultUnit.includes('|')
+    ? defaultUnit.split('|')
+    : [defaultUnit, defaultUnit]
+  const otherUnitsVL = otherUnits.map((value) =>
+    value.includes('|') ? value.split('|') : [value, value],
+  )
 
   return (
     <FilterBox title={display || id} isActive={isActive}>
@@ -100,9 +102,13 @@ function Numeric({ obj }) {
                 fontSize={0}
               >
                 <option value="">-</option>
-                <option value={defaultUnitVL[0]} key={defaultUnitVL[0]}>{defaultUnitVL[1]}</option>
+                <option value={defaultUnitVL[0]} key={defaultUnitVL[0]}>
+                  {defaultUnitVL[1]}
+                </option>
                 {otherUnitsVL.map((item) => (
-                  <option value={item[0]} key={item[0]}>{item[1]}</option>
+                  <option value={item[0]} key={item[0]}>
+                    {item[1]}
+                  </option>
                 ))}
               </Select>
             )}
