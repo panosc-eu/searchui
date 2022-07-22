@@ -57,6 +57,11 @@ function Numeric({ obj }) {
     500,
   )
 
+  const defaultUnitVL = ( defaultUnit.includes("|") ? defaultUnit.split("|") : [defaultUnit, defaultUnit] );
+  const otherUnitsVL = otherUnits.map((value) => (
+    ( value.includes("|") ? value.split("|") : [value, value] )
+  ))
+
   return (
     <FilterBox title={display || id} isActive={isActive}>
       <Box id={`form-${id}`} as="form" onSubmit={(e) => e.preventDefault()}>
@@ -95,9 +100,9 @@ function Numeric({ obj }) {
                 fontSize={0}
               >
                 <option value="">-</option>
-                <option key={defaultUnit}>{defaultUnit}</option>
-                {otherUnits.map((str) => (
-                  <option key={str}>{str}</option>
+                <option value={defaultUnitVL[0]} key={defaultUnitVL[0]}>{defaultUnitVL[1]}</option>
+                {otherUnitsVL.map((item) => (
+                  <option value={item[0]} key={item[0]}>{item[1]}</option>
                 ))}
               </Select>
             )}
