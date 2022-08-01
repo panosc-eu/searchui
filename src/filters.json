@@ -45,7 +45,7 @@
     "display": "Temperature",
     "type": "numeric",
     "group": "parameters",
-    "units": ["K", "C", "F"]
+    "units": ["K", "celsius|C", "fahrenheit|F"]
   },
   {
     "id": "sample_pressure",
