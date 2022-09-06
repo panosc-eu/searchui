@@ -17,5 +17,7 @@ export function capitalizeAndSpace(str) {
 const isEmpty = (obj) => JSON.stringify(obj) === '{}'
 export const stripEmptyKeys = (obj) =>
   Object.fromEntries(
-    Object.entries(obj).filter(([, v]) => v !== undefined && !isEmpty(v)),
+    Object.entries(obj).filter(
+      ([, v]) => ![undefined, ''].includes(v) && !isEmpty(v),
+    ),
   )

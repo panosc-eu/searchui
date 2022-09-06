@@ -1,6 +1,8 @@
 import { useCallback, useMemo } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
+import { stripEmptyKeys } from './App/helpers'
+
 export const JOIN_CHAR = '~'
 
 export function useQuery() {
@@ -36,6 +38,15 @@ export function useQueryParam(name) {
     isActive: !!value,
     setValue,
     remove,
+  }
+}
+
+export function useSetQueryParams() {
+  const history = useHistory()
+  return (obj) => {
+    const onlyActive = stripEmptyKeys(obj)
+    const params = new URLSearchParams(Object.entries(onlyActive))
+    history.push({ search: params.toString() })
   }
 }
 
