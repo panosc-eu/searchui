@@ -4,8 +4,10 @@ import { useQueryParam } from '../router-utils'
 import FilterBox from './Filter'
 
 function OptionsPicker(props) {
-  const { obj } = props
-  const param = useQueryParam(obj.id)
+  const { obj, isStateful, statefulParam } = props
+
+  const queryParam = useQueryParam(obj.id)
+  const param = isStateful ? statefulParam : queryParam
 
   return (
     <FilterBox

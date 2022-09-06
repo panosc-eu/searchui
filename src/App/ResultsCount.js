@@ -3,7 +3,6 @@ import { Select } from '@rebass/forms/styled-components'
 import { useEffect } from 'react'
 
 import useFilters from '../Api/useFilters'
-import Spinner from '../App/Spinner'
 import { Link, Flex, Box, Text } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 import { useSearchStore } from './stores'
@@ -26,45 +25,43 @@ function ResultsCount() {
     strFilters && setCount()
   }, [strFilters, setCount])
 
-  return count === undefined ? (
-    <Flex alignItems="center">
-      <Spinner />
-    </Flex>
-  ) : (
-    <Flex alignItems="center">
-      <Box px={2} minWidth="fit-content">
-        {showSelect ? (
-          <Select
-            id="limit"
-            name="limit"
-            value={value || defaultValue}
-            onChange={(e) => {
-              setValue(e.target.value)
-              toggleShowSelect()
-              setCount()
-            }}
-            sx={{
-              overflow: 'visible',
-              paddingRight: 4,
-            }}
-          >
-            {COUNT_OPTIONS.includes(Number.parseInt(value)) || (
-              <option key={value}>{value}</option>
-            )}
-            {COUNT_OPTIONS.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </Select>
-        ) : (
-          <Link onClick={() => toggleShowSelect()} as={Text}>
-            {count === Number.parseInt(value || defaultValue)
-              ? `${count}+`
-              : count}
-          </Link>
-        )}
-      </Box>
-      <Text as="span">{`document${count === 1 ? '' : 's'}`} found</Text>
-    </Flex>
+  return (
+    count === undefined || (
+      <Flex alignItems="center">
+        <Box px={2} minWidth="fit-content">
+          {showSelect ? (
+            <Select
+              id="limit"
+              name="limit"
+              value={value || defaultValue}
+              onChange={(e) => {
+                setValue(e.target.value)
+                toggleShowSelect()
+                setCount()
+              }}
+              sx={{
+                overflow: 'visible',
+                paddingRight: 4,
+              }}
+            >
+              {COUNT_OPTIONS.includes(Number.parseInt(value)) || (
+                <option key={value}>{value}</option>
+              )}
+              {COUNT_OPTIONS.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </Select>
+          ) : (
+            <Link onClick={() => toggleShowSelect()} as={Text}>
+              {count === Number.parseInt(value || defaultValue)
+                ? `${count}+`
+                : count}
+            </Link>
+          )}
+        </Box>
+        <Text as="span">{`document${count === 1 ? '' : 's'}`} found</Text>
+      </Flex>
+    )
   )
 }
 

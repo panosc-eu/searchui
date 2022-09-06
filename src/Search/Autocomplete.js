@@ -9,8 +9,9 @@ import AsynAutocomplete from './AsyncAutocomplete'
 import FilterBox from './Filter'
 
 function Autocomplete(props) {
-  const { obj } = props
-  const param = useQueryParam(obj.id)
+  const { obj, statefulParam, isStateful } = props
+  const queryParam = useQueryParam(obj.id)
+  const param = isStateful ? statefulParam : queryParam
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -25,18 +26,16 @@ function Autocomplete(props) {
             }
           >
             <AsynAutocomplete
-              id={obj.id}
-              url={obj.optionsUrl}
-              emptyOption={`Select a ${obj.display.toLowerCase()}...`}
+              obj={obj}
+              statefulParam={statefulParam}
+              isStateful={isStateful}
             />
           </Suspense>
           <Button
             variant="action"
             disabled={!param.isActive}
             aria-label="Clear"
-            onClick={() => {
-              param.remove()
-            }}
+            onClick={() => param.remove()}
           >
             <FiSlash />
           </Button>

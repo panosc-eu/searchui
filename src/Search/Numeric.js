@@ -11,21 +11,34 @@ const onlyMax = (max, unit) =>
   `${max + SEPARATE_CHAR}lte${unit ? SEPARATE_CHAR + unit : ''}`
 const onlyMin = (min, unit) =>
   `${min + SEPARATE_CHAR}gte${unit ? SEPARATE_CHAR + unit : ''}`
-const both = (min, max, unit) =>
+const between = (min, max, unit) =>
   `${min + JOIN_CHAR + max + SEPARATE_CHAR}between${
     unit ? SEPARATE_CHAR + unit : ''
   }`
 
-function Numeric({ obj }) {
+const processValues = (value) => {
+  const [rawVal, operator] = value?.split("'") || []
+  if (operator === 'gte') {
+    return [Number.parseInt(rawVal)]
+  }
+  if (operator === 'lte') {
+    return [undefined, Number.parseInt(rawVal)]
+  }
+  return rawVal.split('~').map((s) => Number.parseInt(s) || s)
+}
+
+function Numeric({ obj, isStateful, statefulParam }) {
   const { id, display, units = [], defaulUnit: defUnit } = obj
   const [firstUnit, ...otherUnits] = units
   const defaultUnit = defUnit || firstUnit
 
   const {
-    value,
+    value: val,
     operator,
-    unit = value ? '' : defaultUnit,
+    unit = val ? '' : defaultUnit,
   } = useFilters().find((filter) => filter.id === id) || {}
+
+  const value = isStateful ? processValues(statefulParam.value || '') : val
 
   const [min = '', max = ''] = Array.isArray(value)
     ? value
@@ -33,8 +46,9 @@ function Numeric({ obj }) {
     ? [value]
     : [undefined, value]
 
-  const param = useQueryParam(id)
-  const { setValue, remove, isActive } = param
+  const queryParam = useQueryParam(id)
+  const param = isStateful ? statefulParam : queryParam
+  const { setValue, remove, isActive } = isStateful ? statefulParam : param
   const reset = () => {
     remove()
     return document.querySelector(`#form-${id}`).reset()
@@ -46,7 +60,7 @@ function Numeric({ obj }) {
         return reset()
       }
       if (min && max) {
-        return setValue(both(min, max, unit))
+        return setValue(between(min, max, unit))
       }
       if (max && min === '') {
         return setValue(onlyMax(max, unit))
