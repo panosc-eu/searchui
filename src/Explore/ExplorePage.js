@@ -1,4 +1,3 @@
-import { useEventListener } from '@react-hookz/web'
 import React, { useRef, useEffect, Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useLocation } from 'react-router-dom'
@@ -20,13 +19,6 @@ function ExplorePage(props) {
   const { search } = useLocation()
   const setSearch = useSearchStore((state) => state.setSearch)
   const detailsRef = useRef()
-
-  const preventWhenModal = (e) => {
-    const open = detailsRef.current.hasAttribute('open')
-    open && e.preventDefault()
-  }
-  useEventListener(window, 'wheel', preventWhenModal, { passive: false })
-  useEventListener(window, 'touchmove', preventWhenModal, { passive: false })
 
   const filters = useFilters()
   const query = useQuery('/documents', filters)
