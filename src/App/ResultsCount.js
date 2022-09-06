@@ -3,7 +3,6 @@ import { Select } from '@rebass/forms/styled-components'
 import { useEffect } from 'react'
 
 import useFilters from '../Api/useFilters'
-import Spinner from '../App/Spinner'
 import { Link, Flex, Box, Text } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 import { useSearchStore } from './stores'
