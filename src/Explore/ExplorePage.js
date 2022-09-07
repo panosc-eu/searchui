@@ -70,12 +70,14 @@ function ExplorePage(props) {
                 <Box
                   sx={{
                     position: 'fixed',
-                    top: 'navHeight',
+                    top: '120px',
+                    pb: '120px',
                     left: 0,
                     width: '100%',
                     height: '100%',
                     bg: 'background',
                     zIndex: 10,
+                    overflowY: 'auto',
                   }}
                   mt={2}
                 >
