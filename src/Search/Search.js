@@ -9,9 +9,7 @@ import Numeric from './Numeric'
 import Basic from './Text'
 
 function Search(props) {
-  const { isDesktop, detailsRef } = props
-
-  const collapseDetails = () => detailsRef.current.removeAttribute('open')
+  const { isDesktop, exitModal } = props
 
   const currentParams = Object.fromEntries(useQuery())
   const setParams = useSetQueryParams()
@@ -83,7 +81,7 @@ function Search(props) {
               <Button
                 onClick={() => {
                   setParams(state)
-                  collapseDetails()
+                  exitModal()
                 }}
               >
                 Search
