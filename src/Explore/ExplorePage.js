@@ -70,7 +70,7 @@ function ExplorePage(props) {
                 <Box
                   sx={{
                     position: 'fixed',
-                    top: '120px',
+                    top: 'auto',
                     pb: '120px',
                     left: 0,
                     width: '100%',
