@@ -18,10 +18,20 @@ function ExplorePage(props) {
 
   const { search } = useLocation()
   const setSearch = useSearchStore((state) => state.setSearch)
-  const detailsRef = useRef()
+  const ref = useRef()
 
   const filters = useFilters()
   const query = useQuery('/documents', filters)
+
+  const lockBody = () => {
+    if (!isDesktop) {
+      document.querySelector('body').style.overflowY = 'hidden'
+    }
+  }
+  const exitModal = () => {
+    ref.current.removeAttribute('open')
+    document.querySelector('body').style.overflowY = 'visible'
+  }
 
   useEffect(() => {
     setSearch(search)
@@ -42,7 +52,7 @@ function ExplorePage(props) {
           <>
             <Flex alignItems="center">
               <Box
-                ref={detailsRef}
+                ref={ref}
                 as="details"
                 sx={{
                   flex: '1 1 0%',
@@ -50,23 +60,26 @@ function ExplorePage(props) {
                   width: [1, 1, 1 / 4],
                 }}
               >
-                <Box as="summary" sx={{ fontSize: 3, cursor: 'pointer' }}>
+                <Box
+                  as="summary"
+                  onClick={() => lockBody()}
+                  sx={{ fontSize: 3, cursor: 'pointer' }}
+                >
                   Filters
                 </Box>
                 <Box
-                  mt={2}
                   sx={{
-                    zIndex: 10,
-                    bg: 'background',
-                    position: 'absolute',
+                    position: 'fixed',
                     top: 'navHeight',
                     left: 0,
-                    width: '100vw',
-                    height: '100vh',
-                    overflowY: 'hidden',
+                    width: '100%',
+                    height: '100%',
+                    bg: 'background',
+                    zIndex: 10,
                   }}
+                  mt={2}
                 >
-                  <Search detailsRef={detailsRef} />
+                  <Search exitModal={exitModal} />
                 </Box>
               </Box>
             </Flex>
