@@ -2,7 +2,7 @@ import { useDebouncedCallback } from '@react-hookz/web'
 import { Input, Select } from '@rebass/forms/styled-components'
 import { FiSlash } from 'react-icons/fi'
 
-import useFilters, { SEPARATE_CHAR } from '../Api/useFilters'
+import useFilters, { processNumeric, SEPARATE_CHAR } from '../Api/useFilters'
 import { Flex, Box, Button } from '../Primitives'
 import { JOIN_CHAR, useQueryParam } from '../router-utils'
 import FilterBox from './Filter'
@@ -16,29 +16,24 @@ const between = (min, max, unit) =>
     unit ? SEPARATE_CHAR + unit : ''
   }`
 
-const processValues = (value) => {
-  const [rawVal, operator] = value?.split("'") || []
-  if (operator === 'gte') {
-    return [Number.parseInt(rawVal)]
-  }
-  if (operator === 'lte') {
-    return [undefined, Number.parseInt(rawVal)]
-  }
-  return rawVal.split('~').map((s) => Number.parseInt(s) || s)
+const getValues = (str) => {
+  const [rawVal, operator, unit] = str?.split("'") || []
+  const value = processNumeric(rawVal)
+  return { value, operator, unit }
 }
 
 function Numeric({ obj, isStateful, statefulParam }) {
   const { id, display, units = [], defaulUnit: defUnit } = obj
   const [firstUnit, ...otherUnits] = units
   const defaultUnit = defUnit || firstUnit
+  const uriData = useFilters().find((filter) => filter.id === id) || {}
+  const statefulData = getValues(statefulParam.value)
 
   const {
-    value: val,
+    value,
     operator,
-    unit = val ? '' : defaultUnit,
-  } = useFilters().find((filter) => filter.id === id) || {}
-
-  const value = isStateful ? processValues(statefulParam.value || '') : val
+    unit = value ? '' : defaultUnit,
+  } = isStateful ? statefulData : uriData
 
   const [min = '', max = ''] = Array.isArray(value)
     ? value

@@ -5,18 +5,17 @@ export const SEPARATE_CHAR = "'"
 
 const numericOperators = ['lt', 'lte', 'gt', 'gte', 'between']
 
-const parseNumericValue = (raw) => {
-  const arr = raw.split(JOIN_CHAR).map((i) => Number.parseInt(i))
-  return arr.length === 2 ? arr : arr[0]
+export const processNumeric = (raw) => {
+  return raw?.includes(JOIN_CHAR)
+    ? raw.split(JOIN_CHAR).map((i) => Number.parseInt(i))
+    : raw
 }
 
 const parsePair = ([k, v]) => {
   const id = k
   const [rawValue, operator, unit] = v.split(SEPARATE_CHAR)
   const value = numericOperators.includes(operator)
-    ? parseNumericValue(rawValue)
-    : rawValue.includes(JOIN_CHAR)
-    ? rawValue.split(JOIN_CHAR)
+    ? processNumeric(rawValue)
     : rawValue
   return stripEmptyKeys({ id, value, operator, unit })
 }
