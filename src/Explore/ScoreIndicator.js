@@ -11,7 +11,6 @@ function ScoreIndicator({ score }) {
         position: 'relative',
         width: 96,
         background: 'linear-gradient(to right, #bb4677, #82b8e4)',
-        borderRadius: 8,
         marginLeft: 1,
         overflow: 'hidden',
         zIndex: 0,

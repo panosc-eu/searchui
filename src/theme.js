@@ -54,7 +54,7 @@ export function useTheme() {
       },
       keyword: {
         bg: 'foreground',
-        borderRadius: 16,
+        borderRadius: 0,
         color: 'textVivid',
         fontSize: 0,
         lineHeight: 1.75,
@@ -79,7 +79,7 @@ export function useTheme() {
         py: 0,
         bg: 'transparent',
         border: 'none',
-        borderRadius: 8,
+        borderRadius: 0,
         color: 'inherit',
         fontSize: 'inherit',
         cursor: 'pointer',
@@ -89,8 +89,8 @@ export function useTheme() {
       },
       primary: {
         variant: 'buttons.base',
-        px: 3,
-        py: 2,
+        px: [2, 2, 3],
+        py: [1, 1, 2],
         bg: 'foreground',
         color: 'textVivid',
         fontSize: [1, 1, 2],
@@ -120,13 +120,15 @@ export function useTheme() {
     forms: {
       input: {
         bg: 'highlight',
-        borderRadius: 4,
+        fontSize: 0,
+        borderRadius: 0,
         borderColor: 'secondary',
       },
       select: {
         width: '100%',
         bg: 'highlight',
-        borderRadius: 4,
+        borderRadius: 0,
+        fontSize: 0,
         borderColor: 'secondary',
         textOverflow: 'ellipsis',
         overflow: 'hidden',

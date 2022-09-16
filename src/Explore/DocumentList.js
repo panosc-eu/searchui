@@ -1,5 +1,4 @@
-import { useToggle } from '@react-hookz/web'
-import React, { useEffect, useLayoutEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 
 import useApi from '../Api/useApi'
 import useFilters from '../Api/useFilters'
@@ -12,24 +11,6 @@ function DocumentList() {
   const filters = useFilters()
 
   const { data } = useApi('/documents', filters)
-
-  const [detailedMode, toggleMode] = useToggle(false)
-  const toggledItem = useRef(null)
-
-  function handleToggleMode(item) {
-    toggledItem.current = { item, offset: item.getBoundingClientRect().y }
-    toggleMode()
-  }
-
-  useLayoutEffect(() => {
-    if (toggledItem.current) {
-      // Restore scroll position when toggling mode
-      const { item, offset } = toggledItem.current
-      item.scrollIntoView()
-      window.scrollBy(0, -offset)
-      toggledItem.current = null
-    }
-  }, [detailedMode])
 
   useEffect(() => {
     setCount(data.length)
@@ -44,12 +25,7 @@ function DocumentList() {
         </Card>
       ) : (
         data.map((document) => (
-          <DocumentItem
-            key={document.pid}
-            document={document}
-            detailedMode={detailedMode}
-            toggleMode={handleToggleMode}
-          />
+          <DocumentItem key={document.pid} document={document} />
         ))
       )}
     </Flex>

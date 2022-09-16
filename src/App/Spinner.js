@@ -8,7 +8,7 @@ function Spinner() {
   const isDark = useAppStore((state) => state.isDark)
 
   return (
-    <Box>
+    <Box sx={{ bg: 'middleground', textAlign: 'center', py: 4 }}>
       <PulseLoader color={isDark ? 'white' : undefined} />
     </Box>
   )

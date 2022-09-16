@@ -1,25 +1,24 @@
-import { useRef } from 'react'
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { useState } from 'react'
+import { FiChevronUp, FiExternalLink } from 'react-icons/fi'
 
-import { Card, Box, Flex, Heading, Link, Text } from '../Primitives'
+import { Card, Box, Flex, Heading, Link } from '../Primitives'
 import Detailed from './Detailed'
 import ScoringIndicator from './ScoreIndicator'
 import Simple from './Simple'
 
 function DocumentItem(props) {
-  const { document, detailedMode, toggleMode } = props
+  const { document } = props
   const { pid, title, score, doi } = document
 
   const doiLink = `http://doi.org/${doi}`
-  const itemRef = useRef(null)
+  const [isHovered, setIsHovered] = useState(false)
+  const [isDetailed, setIsDetailed] = useState(false)
 
   return (
     <Box
-      ref={itemRef}
       as="article"
       sx={{
         display: ['block', 'flex'],
-        borderRadius: 4,
         overflow: 'hidden',
       }}
     >
@@ -27,50 +26,72 @@ function DocumentItem(props) {
         <Flex
           sx={{ mb: 2, justifyContent: 'space-between', alignItems: 'center' }}
         >
-          <Text
+          <Box
             as={Link}
             href={doiLink}
             target="_blank"
-            sx={{ textDecoration: 'none', color: 'text', fontSize: 1 }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            sx={{
+              color: isHovered ? 'text' : 'primary',
+              fontSize: 1,
+              ':hover': {
+                textDecoration: 'none',
+              },
+            }}
           >
+            <FiExternalLink />
             {doi}
-          </Text>
+          </Box>
           <ScoringIndicator score={score} />
         </Flex>
         <Heading
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           as={Link}
           href={doiLink}
           target="_blank"
           sx={{
             display: 'block',
-            whiteSpace: detailedMode ? 'wrap' : 'nowrap',
-            overflow: detailedMode ? 'visible' : 'hidden',
-            textOverflow: detailedMode ? 'none' : 'ellipsis',
-            textDecoration: 'none',
+            whiteSpace: isDetailed ? 'wrap' : 'nowrap',
+            overflow: isDetailed ? 'visible' : 'hidden',
+            textOverflow: isDetailed ? 'none' : 'ellipsis',
+            textDecoration: isHovered ? 'underline' : 'none',
           }}
         >
           {title}
         </Heading>
-        <Box>
-          {detailedMode ? <Detailed {...document} /> : <Simple {...document} />}
-        </Box>
-        <br />
         <Box
-          onClick={() => toggleMode(itemRef.current)}
+          onClick={() => isDetailed || setIsDetailed(true)}
           sx={{
-            cursor: 'pointer',
-            borderTop: '1px solid',
-            borderColor: 'foreground',
-            textAlign: 'center',
-            fontSize: 2,
             mx: -3,
-            mb: '-20px',
+            mb: -3,
+            pb: 3,
+            px: 3,
+            pt: 1,
             ':hover': {
-              bg: 'foreground',
+              bg: isDetailed || 'foreground',
+              cursor: isDetailed || 'pointer',
             },
           }}
         >
-          {detailedMode ? <FiChevronUp /> : <FiChevronDown />}
+          {isDetailed ? <Detailed {...document} /> : <Simple {...document} />}
+          <Box
+            onClick={() => setIsDetailed(false)}
+            sx={{
+              cursor: 'pointer',
+              textAlign: 'center',
+              fontSize: 4,
+              display: isDetailed ? 'block' : 'none',
+              mx: -3,
+              mb: -3,
+              ':hover': {
+                bg: 'foreground',
+              },
+            }}
+          >
+            <FiChevronUp />
+          </Box>
         </Box>
       </Card>
     </Box>

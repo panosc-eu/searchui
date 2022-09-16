@@ -5,7 +5,7 @@ import { useHistory, Link as RouterLink } from 'react-router-dom'
 
 import Spinner from '../App/Spinner'
 import { Heading, Flex, Button, Box, Text, Link } from '../Primitives'
-import SourceList from './SourceList'
+import Facilities from './Facilites'
 
 const QUERY_SUGGESTIONS = ['diffraction', 'lung']
 
@@ -69,7 +69,7 @@ function HomePage() {
         <strong>federated search engine</strong> from the following facilities:
       </p>
       <Suspense fallback={<Spinner />}>
-        <SourceList />
+        <Facilities />
       </Suspense>
       <p>
         Additional facilities will be included in the federated search as their

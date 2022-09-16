@@ -1,9 +1,9 @@
 import { formatDateVerbose } from '../App/helpers'
-import { Box, Text, Link } from '../Primitives'
+import { Box, Link } from '../Primitives'
 import providers from '../providers.json'
 
-function Simple({ summary, releaseDate, provider: url }) {
-  const provider = providers.find(({ source }) => url === source)
+function Simple({ summary, releaseDate, provider: providerURL }) {
+  const provider = providers.find((provider) => providerURL === provider.url)
   return (
     <>
       <Box
@@ -17,19 +17,27 @@ function Simple({ summary, releaseDate, provider: url }) {
       >
         {summary}
       </Box>
-      <br />
-      <Text sx={{ fontStyle: 'italic' }}>
-        Released on{' '}
-        {provider
-          ? `${formatDateVerbose(releaseDate)} by the
-            `
-          : formatDateVerbose(releaseDate)}
-        {provider && (
-          <Link href={provider.link} blank>
-            {provider.abbr}
-          </Link>
-        )}
-      </Text>
+      {(releaseDate || provider) && (
+        <Box pt={3}>
+          {releaseDate && provider ? (
+            <>
+              {`Released on ${formatDateVerbose(releaseDate)} by `}
+              <Link href={provider.homepage} blank>
+                {provider.abbr}
+              </Link>
+            </>
+          ) : releaseDate ? (
+            `Released on ${formatDateVerbose(releaseDate)}`
+          ) : (
+            <>
+              {'Released by '}
+              <Link href={provider.homepage} blank>
+                {provider.abbr}
+              </Link>
+            </>
+          )}
+        </Box>
+      )}
     </>
   )
 }
