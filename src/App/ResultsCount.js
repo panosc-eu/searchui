@@ -7,7 +7,7 @@ import { Link, Flex, Box, Text } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 import { useSearchStore } from './stores'
 
-const COUNT_OPTIONS = [25, 50, 100, 250]
+const COUNT_OPTIONS = ['25', '50', '100', '250']
 
 function ResultsCount() {
   const defaultValue = process.env.REACT_APP_LIMIT || COUNT_OPTIONS[0]
@@ -44,7 +44,7 @@ function ResultsCount() {
                 paddingRight: 4,
               }}
             >
-              {COUNT_OPTIONS.includes(Number.parseInt(value)) || (
+              {value !== 'null' && !COUNT_OPTIONS.includes(value) && (
                 <option key={value}>{value}</option>
               )}
               {COUNT_OPTIONS.map((option) => (

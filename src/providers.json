@@ -2,37 +2,37 @@
   {
     "name": "European Synchrotron Radiation Facility",
     "abbr": "ESRF",
-    "source": "https://icatplus.esrf.fr/api",
-    "link": "https://www.esrf.eu/"
+    "url": "https://icatplus.esrf.fr/api",
+    "homepage": "https://www.esrf.eu/"
   },
   {
     "name": "European Spallation Source",
     "abbr": "ESS",
-    "source": "https://search.panosc.ess.eu/api",
-    "link": "https://europeanspallationsource.se/"
+    "url": "https://search.panosc.ess.eu/api",
+    "homepage": "https://europeanspallationurl.se/"
   },
   {
     "name": "Institut Laue Langevin",
     "abbr": "ILL",
-    "source": "https://fairdata.ill.fr/fairdata/api",
-    "link": "https://www.ill.eu/"
+    "url": "https://fairdata.ill.fr/fairdata/api",
+    "homepage": "https://www.ill.eu/"
   },
   {
     "name": "MAX IV",
     "abbr": "MAXIV",
-    "source": "https://searchapi.maxiv.lu.se/api",
-    "link": "https://www.maxiv.lu.se"
+    "url": "https://searchapi.maxiv.lu.se/api",
+    "homepage": "https://www.maxiv.lu.se"
   },
   {
     "name": "Paul Scherrer Institut",
     "abbr": "PSI",
-    "source": "https://dacat.psi.ch/panosc-api",
-    "link": "https://www.psi.ch/en"
+    "url": "https://dacat.psi.ch/panosc-api",
+    "homepage": "https://www.psi.ch/en"
   },
   {
     "name": "Central European Research Infrastructure Consortium",
     "abbr": "CERIC",
-    "source": "https://data.ceric-eric.eu/search-api",
-    "link": "https://www.ceric-eric.eu"
+    "url": "https://data.ceric-eric.eu/search-api",
+    "homepage": "https://www.ceric-eric.eu"
   }
 ]

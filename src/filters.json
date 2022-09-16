@@ -4,12 +4,18 @@
     "field": "type",
     "display": "Type",
     "options": ["proposal", "publication"],
+    "placeholderOption": "any",
     "group": "documents",
     "type": "list"
   },
   {
-    "id": "remote-list",
-    "type": "remote-list",
+    "id": "facility",
+    "display": "Facility",
+    "placeholderOption": "all",
+    "type": "list"
+  },
+  {
+    "type": "remoteList",
     "id": "technique",
     "field": "name",
     "display": "Technique",
@@ -20,7 +26,7 @@
     "id": "incident_wavelength",
     "field": "incident_wavelength",
     "display": "Incident Wavelength",
-    "type": "numeric",
+    "type": "numbers",
     "group": "parameters",
     "units": ["nm", "pm", "angstrom|Å"]
   },
@@ -28,7 +34,7 @@
     "id": "incident_photon_energy",
     "field": "incident_photon_energy",
     "display": "Incident Photon Energy",
-    "type": "numeric",
+    "type": "numbers",
     "group": "parameters",
     "units": ["eV", "J"]
   },
@@ -43,7 +49,7 @@
     "id": "sample_temperature",
     "field": "sample_temperature",
     "display": "Temperature",
-    "type": "numeric",
+    "type": "numbers",
     "group": "parameters",
     "units": ["K", "celsius|C", "fahrenheit|F"]
   },
@@ -51,12 +57,8 @@
     "id": "sample_pressure",
     "field": "sample_pressure",
     "display": "Pressure",
-    "type": "numeric",
+    "type": "numbers",
     "group": "parameters",
     "units": ["Pa"]
-  },
-  {
-    "id": "limit",
-    "field": "limit"
   }
 ]

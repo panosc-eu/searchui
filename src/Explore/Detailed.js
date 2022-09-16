@@ -1,114 +1,60 @@
-import { useToggle } from '@react-hookz/web'
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
-import useApi from '../Api/useApi'
 import Spinner from '../App/Spinner'
-import { formatDate } from '../App/helpers'
-import { Text, Flex, Box, Button } from '../Primitives'
+import { CHAR, formatDate } from '../App/helpers'
+import { Box } from '../Primitives'
+import providers from '../providers.json'
+import { Members, Techniques, Parameters } from './Sections'
+import Table from './Table'
 
-const getMembers = (data) =>
-  data.members.map((member) => ({
-    ...member?.affiliation,
-    ...member?.person,
-  }))
+function DetailView(props) {
+  const {
+    pid,
+    keywords,
+    summary,
+    type,
+    releaseDate,
+    provider: providerURL,
+  } = props
+  const provider = providers.find((provider) => providerURL === provider.url)
 
-function Table({ table }) {
-  const { url, columns, mergeFn, rowId: id, config } = table
-  const { data: rawData } = useApi(url, [], config)
+  const properties = [
+    ['Released', releaseDate && formatDate(releaseDate)],
+    ['Facility', provider && provider.name + CHAR.split + provider.homepage],
+    ['Type', type],
+    [
+      'Keywords',
+      keywords?.length > 0 &&
+        keywords.map((keyword, idx, list) =>
+          idx + 1 === list.length ? keyword : `${keyword} | `,
+        ),
+    ],
+  ].filter(([, content]) => content)
 
-  const data = mergeFn(rawData)
-
-  function Row({ children }) {
-    return (
-      <Box px={2} width={1 / columns.length}>
-        {children}
+  return (
+    <Box>
+      <Box as="article" pb={3}>
+        {summary}
       </Box>
-    )
-  }
-
-  return (
-    <Flex column>
-      <Flex sx={{ borderBottom: '1px solid' }}>
-        {columns.map(([header]) => (
-          <Row key={header}>
-            <Text fontWeight="bold">{header}</Text>
-          </Row>
-        ))}
-      </Flex>
-      {data.map((row, idx) => (
-        <Flex bg={idx % 2 ? 'middleground' : 'foreground'} key={`f${row[id]}`}>
-          {columns.map(([, field]) => (
-            <Row key={field + row[id]}>
-              <Text>{row[field] || 'not available'}</Text>
-            </Row>
-          ))}
-        </Flex>
-      ))}
-    </Flex>
+      <Table data={properties} title="Properties" open />
+      <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
+        <Suspense fallback={<Spinner />}>
+          <Members pid={pid} />
+        </Suspense>
+      </ErrorBoundary>
+      <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
+        <Suspense fallback={<Box />}>
+          <Techniques pid={pid} />
+        </Suspense>
+      </ErrorBoundary>
+      <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
+        <Suspense fallback={<Box />}>
+          <Parameters pid={pid} />
+        </Suspense>
+      </ErrorBoundary>
+    </Box>
   )
 }
 
-function Title({ expand, onClick, text }) {
-  return (
-    <Button
-      onClick={onClick}
-      sx={{
-        cursor: 'pointer',
-        fontWeight: 'bold',
-        ':hover': { textDecoration: 'underline' },
-        mb: 1,
-      }}
-      variant="base"
-    >
-      <Text as="span" mr={1}>
-        {text}
-      </Text>{' '}
-      {expand ? <FiChevronUp /> : <FiChevronDown />}
-    </Button>
-  )
-}
-
-function Detailed(props) {
-  const { pid, summary, releaseDate } = props
-  const [expanded, toggle] = useToggle(false)
-
-  return (
-    <>
-      <Box as="article">{summary}</Box>
-      <br />
-      <Text sx={{ fontWeight: 'bold' }}>
-        Released: {formatDate(releaseDate)}
-      </Text>
-      <Box>
-        <Title expand={expanded} text="Members" onClick={() => toggle()} />
-        {expanded && (
-          <ErrorBoundary
-            fallback={
-              <Text sx={{ color: 'darksalmon' }}>Unable to load members</Text>
-            }
-            resetKeys={[pid]}
-          >
-            <Suspense fallback={<Spinner />}>
-              <Table
-                table={{
-                  url: `/documents/${encodeURIComponent(pid)}`,
-                  config: { include: ['person', 'affiliation'] },
-                  mergeFn: getMembers,
-                  rowId: 'id',
-                  columns: [
-                    ['Person', 'fullName'],
-                    ['Affiliation', 'name'],
-                  ],
-                }}
-              />
-            </Suspense>
-          </ErrorBoundary>
-        )}
-      </Box>
-    </>
-  )
-}
-
-export default Detailed
+export default DetailView

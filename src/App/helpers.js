@@ -2,7 +2,7 @@ import { format, isValid } from 'date-fns'
 
 export function formatDate(date) {
   const dateObj = new Date(date)
-  return isValid(dateObj) ? format(dateObj, 'd MMM yyyy') : 'not available'
+  return isValid(dateObj) ? format(dateObj, 'd. MMMM yyyy') : 'not available'
 }
 
 export function formatDateVerbose(date) {
@@ -21,3 +21,8 @@ export const stripEmptyKeys = (obj) =>
       ([, v]) => ![undefined, ''].includes(v) && !isEmpty(v),
     ),
   )
+
+export const CHAR = {
+  join: '~',
+  split: "'",
+}

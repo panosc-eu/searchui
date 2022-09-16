@@ -2,32 +2,28 @@ import { useDebouncedCallback } from '@react-hookz/web'
 import { Input, Select } from '@rebass/forms/styled-components'
 import { FiSlash } from 'react-icons/fi'
 
-import useFilters, { processNumeric, SEPARATE_CHAR } from '../Api/useFilters'
+import useFilters, { makeFilter } from '../Api/useFilters'
+import { CHAR } from '../App/helpers'
 import { Flex, Box, Button } from '../Primitives'
-import { JOIN_CHAR, useQueryParam } from '../router-utils'
+import { useQueryParam } from '../router-utils'
 import FilterBox from './Filter'
 
-const onlyMax = (max, unit) =>
-  `${max + SEPARATE_CHAR}lte${unit ? SEPARATE_CHAR + unit : ''}`
-const onlyMin = (min, unit) =>
-  `${min + SEPARATE_CHAR}gte${unit ? SEPARATE_CHAR + unit : ''}`
-const between = (min, max, unit) =>
-  `${min + JOIN_CHAR + max + SEPARATE_CHAR}between${
-    unit ? SEPARATE_CHAR + unit : ''
-  }`
-
-const getValues = (str) => {
-  const [rawVal, operator, unit] = str?.split("'") || []
-  const value = processNumeric(rawVal)
-  return { value, operator, unit }
-}
+const stringifyMax = (max, unit) =>
+  `${max + CHAR.split}lte${unit ? CHAR.split + unit : ''}`
+const stringifyMin = (min, unit) =>
+  `${min + CHAR.split}gte${unit ? CHAR.split + unit : ''}`
+const stringifyBetween = (min, max, unit) =>
+  `${min + CHAR.join + max + CHAR.split}between${unit ? CHAR.split + unit : ''}`
 
 function Numeric({ obj, isStateful, statefulParam }) {
   const { id, display, units = [], defaulUnit: defUnit } = obj
+  const { value: stringifiedData } = statefulParam
+
   const [firstUnit, ...otherUnits] = units
   const defaultUnit = defUnit || firstUnit
+
   const uriData = useFilters().find((filter) => filter.id === id) || {}
-  const statefulData = getValues(statefulParam.value)
+  const statefulData = stringifiedData ? makeFilter(id, stringifiedData) : {}
 
   const {
     value,
@@ -43,7 +39,7 @@ function Numeric({ obj, isStateful, statefulParam }) {
 
   const queryParam = useQueryParam(id)
   const param = isStateful ? statefulParam : queryParam
-  const { setValue, remove, isActive } = isStateful ? statefulParam : param
+  const { setValue, remove, isActive } = param
   const reset = () => {
     remove()
     return document.querySelector(`#form-${id}`).reset()
@@ -55,12 +51,12 @@ function Numeric({ obj, isStateful, statefulParam }) {
         return reset()
       }
       if (min && max) {
-        return setValue(between(min, max, unit))
+        return setValue(stringifyBetween(min, max, unit))
       }
       if (max && min === '') {
-        return setValue(onlyMax(max, unit))
+        return setValue(stringifyMax(max, unit))
       }
-      return setValue(onlyMin(min, unit))
+      return setValue(stringifyMin(min, unit))
     },
     [setValue, reset],
     500,

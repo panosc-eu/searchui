@@ -1,34 +1,21 @@
-import { stripEmptyKeys } from '../App/helpers'
-import { useQuery, JOIN_CHAR } from '../router-utils'
+import { stripEmptyKeys, CHAR } from '../App/helpers'
+import { useQuery } from '../router-utils'
 
-export const SEPARATE_CHAR = "'"
+const parseList = (str) => str.split(CHAR.join).map((x) => Number.parseInt(x))
 
-const numericOperators = ['lt', 'lte', 'gt', 'gte', 'between']
+export const makeFilter = (id, stringifiedFilter) => {
+  const [val, operator, unit] = stringifiedFilter.split(CHAR.split)
 
-export const processNumeric = (raw) => {
-  return raw?.includes(JOIN_CHAR)
-    ? raw.split(JOIN_CHAR).map((i) => Number.parseInt(i))
-    : raw
-}
+  const value = operator === 'between' ? parseList(val) : val
 
-const parsePair = ([k, v]) => {
-  const id = k
-  const [rawValue, operator, unit] = v.split(SEPARATE_CHAR)
-  const value = numericOperators.includes(operator)
-    ? processNumeric(rawValue)
-    : rawValue
   return stripEmptyKeys({ id, value, operator, unit })
-}
-
-const parseQuery = (query) => {
-  return [...query.entries()].map(parsePair)
 }
 
 function useFilters() {
   // Update state of every filter based on query params
   const query = useQuery()
 
-  return parseQuery(query)
+  return [...query.entries()].map(([k, v]) => makeFilter(k, v))
 }
 
 export default useFilters

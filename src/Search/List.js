@@ -1,52 +1,54 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-import { Text, Flex } from '../Primitives'
+import { Select } from '@rebass/forms/styled-components'
+import { FiSlash } from 'react-icons/fi'
+
+import { Box, Button, Flex } from '../Primitives'
 import { useQueryParam } from '../router-utils'
 import FilterBox from './Filter'
 
 function OptionsPicker(props) {
   const { obj, isStateful, statefulParam } = props
+  const { id, placeholderOption, display, options: opts } = obj
+  const options = opts.map((x) => (x.includes('|') ? x.split('|') : [x, x]))
 
-  const queryParam = useQueryParam(obj.id)
+  const queryParam = useQueryParam(id)
   const param = isStateful ? statefulParam : queryParam
 
   return (
-    <FilterBox
-      title={obj.display || obj.id}
-      isActive={param.isActive}
-      onClear={() => param.remove()}
-    >
-      <Flex column gap={1}>
-        {obj.options.map((option) => {
-          const isSelected = param.value === option
+    <FilterBox title={display || id} isActive={param.isActive}>
+      <Flex>
+        <Box sx={{ flexGrow: 1 }}>
+          <Select
+            id={id}
+            defaultValue={param.value}
+            onChange={(e) => param.setValue(e.target.value)}
+          >
+            {placeholderOption && (
+              <>
+                <option key={`${id}-no-option`} value="">
+                  {placeholderOption}
+                </option>
+                <optgroup />
+              </>
+            )}
 
-          return (
-            <Flex
-              key={option}
-              as="label"
-              sx={{
-                alignItems: 'center',
-                color: isSelected && 'textVivid',
-                fontSize: 0,
-                fontWeight: isSelected && 'bold',
-                cursor: 'pointer',
-                ':hover': { textDecoration: 'underline' },
-              }}
-            >
-              <input
-                name={obj.id}
-                value={option}
-                type="radio"
-                checked={isSelected}
-                onChange={(evt) => param.setValue(option)}
-                style={{ cursor: 'inherit' }}
-              />
-
-              <Text as="span" flex="1 1 0%" ml={2}>
-                {option}
-              </Text>
-            </Flex>
-          )
-        })}
+            {options.map(([optionValue, optionLabel]) => (
+              <option key={optionValue} value={optionValue}>
+                {optionLabel}
+              </option>
+            ))}
+          </Select>
+        </Box>
+        <Button
+          sx={{ flexGrow: 0 }}
+          variant="action"
+          disabled={!param.value}
+          aria-label="Clear"
+          onClick={() => {
+            param.remove()
+          }}
+        >
+          <FiSlash />
+        </Button>
       </Flex>
     </FilterBox>
   )

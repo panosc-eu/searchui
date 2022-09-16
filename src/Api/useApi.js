@@ -1,14 +1,24 @@
 import useSWRImmutable from 'swr/immutable'
 
+import useFilters from '../Api/useFilters'
+import providers from '../providers.json'
 import translate from './translate'
 
+const useProvider = () => {
+  const filters = useFilters()
+  const { value } = filters.find(({ id }) => id === 'facility') || {}
+  const { url } = providers.find((obj) => obj.abbr === value) || {}
+  return url || process.env.REACT_APP_API
+}
+
 const useApi = (path, filters = [], config = {}) => {
+  const provider = useProvider()
   const endpoint = path.startsWith('/documents') ? 'documents' : 'datasets'
 
   const queryObject = translate([...filters, config], endpoint)
 
   const query = encodeURIComponent(JSON.stringify(queryObject))
-  const queryUrl = `${path}?filter=${query}`
+  const queryUrl = `${provider}${path}?filter=${query}`
 
   return useSWRImmutable(queryUrl)
 }

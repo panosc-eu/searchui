@@ -23,11 +23,14 @@ function ExplorePage(props) {
   const filters = useFilters()
   const query = useQuery('/documents', filters)
 
-  const lockBody = () => {
-    if (!isDesktop) {
+  const toggleModal = () => {
+    if (ref.current.hasAttribute('open')) {
+      document.querySelector('body').style.overflowY = 'visible'
+    } else {
       document.querySelector('body').style.overflowY = 'hidden'
     }
   }
+
   const exitModal = () => {
     ref.current.removeAttribute('open')
     document.querySelector('body').style.overflowY = 'visible'
@@ -62,7 +65,7 @@ function ExplorePage(props) {
               >
                 <Box
                   as="summary"
-                  onClick={() => lockBody()}
+                  onClick={() => toggleModal()}
                   sx={{ fontSize: 3, cursor: 'pointer' }}
                 >
                   Filters
