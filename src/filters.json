@@ -12,7 +12,8 @@
     "id": "facility",
     "display": "Facility",
     "placeholderOption": "all",
-    "type": "list"
+    "type": "list",
+    "group": "none"
   },
   {
     "type": "remoteList",
