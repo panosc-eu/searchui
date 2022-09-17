@@ -25,5 +25,5 @@ export const stripEmptyKeys = (obj) =>
 export const CHAR = {
   join: '~',
   split: "'",
-  heavySplit: '$$$',
+  saferSplit: '@split@',
 }

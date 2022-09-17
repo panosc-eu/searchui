@@ -48,7 +48,7 @@ function Services({ providerURL, pid: unsafePID }) {
 
   const services = withURL.filter((_, idx) => availability[idx])
   const tableData = services.map(({ name, url }) => [
-    name + CHAR.heavySplit + url,
+    name + CHAR.saferSplit + url,
   ])
 
   return services.length > 0 && <Table title="Services" data={tableData} />

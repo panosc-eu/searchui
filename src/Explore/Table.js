@@ -4,8 +4,8 @@ import { dark } from '../colors'
 
 const getLink = (x) =>
   typeof x === 'string' &&
-  x.includes(CHAR.heavySplit) &&
-  x.split(CHAR.heavySplit)
+  x.includes(CHAR.saferSplit) &&
+  x.split(CHAR.saferSplit)
 
 function Table({ data, title, open }) {
   return (

@@ -24,7 +24,7 @@ function DetailView(props) {
     ['Released', releaseDate && formatDate(releaseDate)],
     [
       'Facility',
-      provider && provider.name + CHAR.heavySplit + provider.homepage,
+      provider && provider.name + CHAR.saferSplit + provider.homepage,
     ],
     ['Type', type],
     [
