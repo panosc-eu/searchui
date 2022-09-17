@@ -1,7 +1,6 @@
 import useSWR from 'swr/immutable'
 
 import { CHAR } from '../App/helpers'
-import providers from '../providers.json'
 import Table from './Table'
 
 const multiChecker = (...urls) =>
@@ -19,7 +18,7 @@ const multiChecker = (...urls) =>
     }),
   )
 
-const injectPID = (pid, template) => {
+const injectId = (id, template) => {
   if (!template) {
     return
   }
@@ -27,17 +26,16 @@ const injectPID = (pid, template) => {
     throw new Error('Invalid service template')
   }
   const [prefix, suffix] = template.split('%')
-  return suffix ? prefix + pid + suffix : prefix + pid
+  return suffix ? prefix + id + suffix : prefix + id
 }
 
-function Services({ providerURL, pid: unsafePID }) {
+function Services({ provider, pid: unsafePID }) {
   const pid = encodeURIComponent(unsafePID)
-  const provider = providers.find((x) => x.url === providerURL)
 
   const { services: withTemplate } = provider
   const withURL = withTemplate.map((service) => {
-    const url = injectPID(pid, service.url)
-    const availabilityURL = injectPID(pid, service?.availabilityURL)
+    const url = injectId(pid, service.url)
+    const availabilityURL = injectId(pid, service?.availabilityURL)
     return { ...service, url, availabilityURL }
   })
 

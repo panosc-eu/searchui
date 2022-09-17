@@ -18,7 +18,8 @@ function DetailView(props) {
     releaseDate,
     provider: providerURL,
   } = props
-  const provider = providers.find((provider) => providerURL === provider.url)
+  const provider =
+    providers.find((provider) => providerURL === provider.url) || {}
 
   const properties = [
     ['Released', releaseDate && formatDate(releaseDate)],
@@ -49,7 +50,7 @@ function DetailView(props) {
       </ErrorBoundary>
       <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
         <Suspense fallback={<Box />}>
-          <Services providerURL={providerURL} pid={pid} />
+          <Services provider={provider} pid={pid} />
         </Suspense>
       </ErrorBoundary>
       <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
