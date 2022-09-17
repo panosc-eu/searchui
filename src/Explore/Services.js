@@ -21,7 +21,7 @@ const multiChecker = (...urls) =>
 
 const injectPID = (pid, template) => {
   if (!template) {
-    return true
+    return
   }
   if (!template.includes('%')) {
     throw new Error('Invalid service template')
