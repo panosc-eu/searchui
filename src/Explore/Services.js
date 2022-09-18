@@ -1,6 +1,5 @@
 import useSWR from 'swr/immutable'
 
-import { CHAR } from '../App/helpers'
 import Table from './Table'
 
 const multiChecker = (...urls) =>
@@ -45,9 +44,7 @@ function Services({ provider, pid: unsafePID }) {
   })
 
   const services = withURL.filter((_, idx) => availability[idx])
-  const tableData = services.map(({ name, url }) => [
-    name + CHAR.saferSplit + url,
-  ])
+  const tableData = services.map(({ name, url }) => [[name, url]])
 
   return services.length > 0 && <Table title="Services" data={tableData} />
 }

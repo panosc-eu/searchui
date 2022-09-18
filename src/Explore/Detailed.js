@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import Spinner from '../App/Spinner'
-import { CHAR, formatDate } from '../App/helpers'
+import { formatDate } from '../App/helpers'
 import { Box } from '../Primitives'
 import providers from '../providers.json'
 import { Members, Techniques, Parameters } from './Sections'
@@ -23,18 +23,9 @@ function DetailView(props) {
 
   const properties = [
     ['Released', releaseDate && formatDate(releaseDate)],
-    [
-      'Facility',
-      provider && provider.name + CHAR.saferSplit + provider.homepage,
-    ],
+    ['Facility', [provider.name, provider.homepage]],
     ['Type', type],
-    [
-      'Keywords',
-      keywords?.length > 0 &&
-        keywords.map((keyword, idx, list) =>
-          idx + 1 === list.length ? keyword : `${keyword} | `,
-        ),
-    ],
+    ['Keywords', keywords?.length > 0 && keywords.join(' | ')],
   ].filter(([, content]) => content)
 
   return (

@@ -1,11 +1,7 @@
-import { CHAR } from '../App/helpers'
 import { Link, Flex, Box } from '../Primitives'
 import { dark } from '../colors'
 
-const getLink = (x) =>
-  typeof x === 'string' &&
-  x.includes(CHAR.saferSplit) &&
-  x.split(CHAR.saferSplit)
+const isLink = (x) => Array.isArray(x)
 
 function Table({ data, title, open }) {
   return (
@@ -29,10 +25,9 @@ function Table({ data, title, open }) {
               key={JSON.stringify(row)}
             >
               {row.map((field) => {
-                const link = getLink(field)
-                return link ? (
-                  <Link key={row + field} href={link[1]} blank>
-                    {link[0]}
+                return isLink(field) ? (
+                  <Link key={row + field} href={field[1]} blank>
+                    {field[0]}
                   </Link>
                 ) : (
                   <Box key={row + field}>{field}</Box>
