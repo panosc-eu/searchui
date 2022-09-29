@@ -1,14 +1,5 @@
 [
   {
-    "id": "type",
-    "field": "type",
-    "display": "Type",
-    "options": ["proposal", "publication"],
-    "placeholderOption": "any",
-    "group": "documents",
-    "type": "list"
-  },
-  {
     "id": "facility",
     "display": "Facility",
     "placeholderOption": "all",
@@ -22,6 +13,13 @@
     "display": "Technique",
     "group": "techniques",
     "optionsUrl": "https://techniques.panosc.ess.eu/techniques?filter=%7B%22where%22%3A%7B%22and%22%3A%5B%7B%22pid%22%3A%7B%22nlike%22%3A%22%3Adataset%22%7D%7D%2C%7B%22name%22%3A%7B%22nlike%22%3A%20%22CHMO%22%7D%7D%5D%7D%2C%22fields%22%3A%7B%22pid%22%3Atrue%2C%22name%22%3Atrue%7D%7D"
+  },
+  {
+    "id": "sample_chemical_formula",
+    "field": "sample_chemical_formula",
+    "display": "Chemical Formula",
+    "group": "parameters",
+    "operator": "like"
   },
   {
     "id": "incident_wavelength",
@@ -38,13 +36,6 @@
     "type": "numbers",
     "group": "parameters",
     "units": ["eV", "J"]
-  },
-  {
-    "id": "sample_chemical_formula",
-    "field": "sample_chemical_formula",
-    "display": "Chemical Formula",
-    "group": "parameters",
-    "operator": "like"
   },
   {
     "id": "sample_temperature",
