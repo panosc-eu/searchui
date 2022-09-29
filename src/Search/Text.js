@@ -15,7 +15,7 @@ function TextInput(props) {
   const handleChange = useDebouncedCallback(
     (val) => param.setValue(val),
     [param],
-    500,
+    1000,
   )
 
   return (

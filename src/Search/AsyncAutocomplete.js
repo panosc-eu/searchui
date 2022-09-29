@@ -26,7 +26,7 @@ function AsynAutocomplete({ obj, isStateful, statefulParam }) {
       }
     },
     [param],
-    500,
+    1000,
   )
 
   return (

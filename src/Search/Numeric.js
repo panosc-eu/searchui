@@ -59,7 +59,7 @@ function Numeric({ obj, isStateful, statefulParam }) {
       return setValue(stringifyMin(min, unit))
     },
     [setValue, reset],
-    500,
+    1000,
   )
 
   const defaultUnitVL = defaultUnit.includes('|')
