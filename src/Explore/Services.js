@@ -46,7 +46,7 @@ function Services({ provider, pid: unsafePID }) {
   const services = withURL.filter((_, idx) => availability[idx])
   const tableData = services.map(({ name, url }) => [[name, url]])
 
-  return services.length > 0 && <Table title="Services" data={tableData} />
+  return services.length > 0 && <Table title="Services" data={tableData} open />
 }
 
 export default Services

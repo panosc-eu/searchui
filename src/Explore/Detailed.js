@@ -36,7 +36,7 @@ function DetailView(props) {
       <Table data={properties} title="Properties" open />
       <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
         <Suspense fallback={<Box />}>
-          <Services provider={provider} pid={pid} open />
+          <Services provider={provider} pid={pid} />
         </Suspense>
       </ErrorBoundary>
       <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
