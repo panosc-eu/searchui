@@ -1,7 +1,7 @@
 import { stripEmptyKeys, CHAR } from '../App/helpers'
 import { useQuery } from '../router-utils'
 
-const parseList = (str) => str.split(CHAR.join).map((x) => Number.parseInt(x))
+const parseList = (str) => str.split(CHAR.join).map((x) => Number.parseFloat(x))
 
 export const makeFilter = (id, stringifiedFilter) => {
   const [val, operator, unit] = stringifiedFilter.split(CHAR.split)
