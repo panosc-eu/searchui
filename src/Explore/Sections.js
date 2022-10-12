@@ -2,14 +2,19 @@ import useApi from '../Api/useApi'
 import Table from './Table'
 
 const getMembers = (data) =>
-  data.members.map((member) => [
-    member.person.fullName,
-    member?.affiliation?.name,
-  ])
+  data.members.reduce(
+    (acc, scope) =>
+      acc.map(([name]) => name).includes(scope.person.fullName)
+        ? acc
+        : [...acc, [scope.person.fullName, scope?.affiliation?.name]],
+    [],
+  )
+
 const getTechniques = (data) =>
   data.datasets.flatMap((dataset) =>
     dataset.techniques.map((technique) => [technique.name]),
   )
+
 const getParameters = (data) =>
   data.datasets.flatMap((dataset) =>
     dataset.parameters.map((param) => [
