@@ -10,7 +10,7 @@ function DocumentList() {
   const setCount = useSearchStore((state) => state.setCount)
   const filters = useFilters()
 
-  const { data } = useApi('/documents', filters)
+  const { data } = useApi('/Documents', filters)
 
   useEffect(() => {
     setCount(data.length)
