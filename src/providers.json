@@ -37,7 +37,7 @@
   },
   {
     "name": "European XFEL",
-    "abbr": "XFEL",
+    "abbr": "EuXFEL",
     "url": "https://in.xfel.eu/metadata/api/panosc/v1",
     "homepage": "https://www.xfel.eu/index_eng.html"
   }
