@@ -18,14 +18,7 @@ const multiChecker = (...urls) =>
   )
 
 const injectId = (id, template) => {
-  if (!template) {
-    return
-  }
-  if (!template.includes('%')) {
-    throw new Error('Invalid service template')
-  }
-  const [prefix, suffix] = template.split('%')
-  return suffix ? prefix + id + suffix : prefix + id
+  return template ? template.replace('__PID__', id) : undefined
 }
 
 function Services({ provider, pid: unsafePID }) {
