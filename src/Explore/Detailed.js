@@ -2,10 +2,11 @@ import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import Spinner from '../App/Spinner'
-import { CHAR, formatDate } from '../App/helpers'
+import { formatDate } from '../App/helpers'
 import { Box } from '../Primitives'
 import providers from '../providers.json'
 import { Members, Techniques, Parameters } from './Sections'
+import Services from './Services'
 import Table from './Table'
 
 function DetailView(props) {
@@ -17,19 +18,14 @@ function DetailView(props) {
     releaseDate,
     provider: providerURL,
   } = props
-  const provider = providers.find((provider) => providerURL === provider.url)
+  const provider =
+    providers.find((provider) => providerURL === provider.url) || {}
 
   const properties = [
     ['Released', releaseDate && formatDate(releaseDate)],
-    ['Facility', provider && provider.name + CHAR.split + provider.homepage],
+    ['Facility', [provider.name, provider.homepage]],
     ['Type', type],
-    [
-      'Keywords',
-      keywords?.length > 0 &&
-        keywords.map((keyword, idx, list) =>
-          idx + 1 === list.length ? keyword : `${keyword} | `,
-        ),
-    ],
+    ['Keywords', keywords?.length > 0 && keywords.join(' | ')],
   ].filter(([, content]) => content)
 
   return (
@@ -38,6 +34,11 @@ function DetailView(props) {
         {summary}
       </Box>
       <Table data={properties} title="Properties" open />
+      <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
+        <Suspense fallback={<Box />}>
+          <Services provider={provider} pid={pid} />
+        </Suspense>
+      </ErrorBoundary>
       <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
         <Suspense fallback={<Spinner />}>
           <Members pid={pid} />

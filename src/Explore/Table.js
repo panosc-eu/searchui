@@ -1,6 +1,7 @@
-import { CHAR } from '../App/helpers'
 import { Link, Flex, Box } from '../Primitives'
 import { dark } from '../colors'
+
+const isLink = (x) => Array.isArray(x)
 
 function Table({ data, title, open }) {
   return (
@@ -9,11 +10,7 @@ function Table({ data, title, open }) {
         <strong>{title}</strong>
       </Box>
       <Box sx={{ maxHeight: '400px', overflowY: 'auto' }}>
-        {data.map(([label, content]) => {
-          const link =
-            typeof content === 'string' &&
-            content.includes(CHAR.split) &&
-            content.split(CHAR.split)
+        {data.map((row) => {
           return (
             <Flex
               sx={{
@@ -25,16 +22,17 @@ function Table({ data, title, open }) {
                   borderBottom: 0,
                 },
               }}
-              key={label + JSON.stringify(content)}
+              key={JSON.stringify(row)}
             >
-              <Box>{label}</Box>
-              {link ? (
-                <Link href={link[1]} blank>
-                  {link[0]}
-                </Link>
-              ) : (
-                <Box>{content}</Box>
-              )}
+              {row.map((field) => {
+                return isLink(field) ? (
+                  <Link key={row + field} href={field[1]} blank>
+                    {field[0]}
+                  </Link>
+                ) : (
+                  <Box key={row + field}>{field}</Box>
+                )
+              })}
             </Flex>
           )
         })}

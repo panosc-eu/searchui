@@ -24,7 +24,11 @@ function DocumentItem(props) {
     >
       <Card width={1} key={pid}>
         <Flex
-          sx={{ mb: 2, justifyContent: 'space-between', alignItems: 'center' }}
+          sx={{
+            mb: 2,
+            justifyContent: 'space-between',
+            flexWrap: 'wrap-reverse',
+          }}
         >
           <Box
             as={Link}
