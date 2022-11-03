@@ -20,12 +20,12 @@ test('custom ordering', () => {
   expect(query).toEqual({ order: ['foo ASC', 'bar DESC'], limit: 50 })
 })
 
-test('single root filter and custom include', () => {
+test('technique filter and custom include', () => {
   const query = translate([
     { include: ['datasets', 'affiliation', 'person'] },
     {
-      id: 'type',
-      value: 'proposal',
+      id: 'technique',
+      value: 'test',
     },
   ])
 
@@ -37,9 +37,22 @@ test('single root filter and custom include', () => {
           include: [{ relation: 'affiliation' }, { relation: 'person' }],
         },
       },
-      { relation: 'datasets' },
+      {
+        relation: 'datasets',
+        scope: {
+          include: [
+            {
+              relation: 'techniques',
+              scope: {
+                where: {
+                  name: 'test',
+                },
+              },
+            },
+          ],
+        },
+      },
     ],
-    where: { type: 'proposal' },
     limit: 50,
   })
 })
@@ -48,8 +61,8 @@ test('multiple filters and custom include', () => {
   const query = translate([
     { include: ['datasets', 'affiliation', 'person'] },
     {
-      id: 'type',
-      value: 'experiment',
+      id: 'technique',
+      value: 'test',
     },
     {
       id: 'sample_temperature',
@@ -72,6 +85,14 @@ test('multiple filters and custom include', () => {
         scope: {
           include: [
             {
+              relation: 'techniques',
+              scope: {
+                where: {
+                  name: 'test',
+                },
+              },
+            },
+            {
               relation: 'parameters',
               scope: {
                 where: {
@@ -87,7 +108,6 @@ test('multiple filters and custom include', () => {
         },
       },
     ],
-    where: { type: 'experiment' },
     limit: 50,
   })
 })

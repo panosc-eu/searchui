@@ -59,7 +59,7 @@ function Numeric({ obj, isStateful, statefulParam }) {
       return setValue(stringifyMin(min, unit))
     },
     [setValue, reset],
-    500,
+    1000,
   )
 
   const defaultUnitVL = defaultUnit.includes('|')
@@ -75,6 +75,7 @@ function Numeric({ obj, isStateful, statefulParam }) {
         <Flex>
           <Box sx={{ flex: '1 1 0%' }}>
             <Input
+              step="any"
               type="number"
               id="min"
               name="min"
