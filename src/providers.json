@@ -3,7 +3,13 @@
     "name": "European Synchrotron Radiation Facility",
     "abbr": "ESRF",
     "url": "https://icatplus.esrf.fr/api",
-    "homepage": "https://www.esrf.eu/"
+    "homepage": "https://www.esrf.eu/",
+    "services": [
+      {
+        "name": "Jupyter SLURM",
+        "url": "https://jupyter-slurm.esrf.fr/spawn?partition_simple=jupyter-nice&nprocs_simple=1&environment_simple=system&jupyterlab_simple=on&runtime_simple=1&partition=jupyter-nice&nprocs=1&runtime=1%3A00%3A00&default_url=%2Flab"
+      }
+    ]
   },
   {
     "name": "European Spallation Source",
