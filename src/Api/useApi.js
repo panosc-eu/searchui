@@ -9,6 +9,15 @@ const getProvider = (filters) => {
   return url || process.env.REACT_APP_API
 }
 
+const injectProvider = (provider) => (useSWRNext) => {
+  return (key, fetcher, config) => {
+    const swr = useSWRNext(key, fetcher, config)
+    const data = swr.data.map((record) => ({ ...record, provider }))
+
+    return { ...swr, data }
+  }
+}
+
 const useApi = (path, filters = [], config = {}) => {
   const provider = getProvider(filters)
   const endpoint = path.split('/')[1].toLowerCase()
@@ -18,7 +27,10 @@ const useApi = (path, filters = [], config = {}) => {
   const query = encodeURIComponent(JSON.stringify(queryObject))
   const queryUrl = `${provider}${path}?filter=${query}`
 
-  return useSWRImmutable(queryUrl)
+  return useSWRImmutable(queryUrl, {
+    use:
+      provider === process.env.REACT_APP_API ? [] : [injectProvider(provider)],
+  })
 }
 
 export default useApi
