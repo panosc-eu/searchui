@@ -1,17 +1,26 @@
 import { useState } from 'react'
-import { FiChevronUp, FiExternalLink } from 'react-icons/fi'
+import { FiChevronRight, FiExternalLink, FiChevronUp } from 'react-icons/fi'
 
-import { Card, Box, Flex, Heading, Link } from '../Primitives'
-import Detailed from './Detailed'
+import { formatDateVerbose } from '../App/helpers'
+import { Card, Box, Flex, Heading, Link, Button, Text } from '../Primitives'
+import providers from '../providers.json'
+import DetailView from './DetailView'
 import ScoringIndicator from './ScoreIndicator'
-import Simple from './Simple'
 
 function DocumentItem(props) {
   const { document } = props
-  const { pid, title, score, doi } = document
+  const {
+    pid,
+    title,
+    score,
+    doi,
+    summary,
+    releaseDate,
+    provider: providerURL,
+  } = document
+  const provider = providers.find((provider) => providerURL === provider.url)
 
   const doiLink = `http://doi.org/${doi}`
-  const [isHovered, setIsHovered] = useState(false)
   const [isDetailed, setIsDetailed] = useState(false)
 
   return (
@@ -22,81 +31,144 @@ function DocumentItem(props) {
         overflow: 'hidden',
       }}
     >
-      <Card width={1} key={pid}>
-        <Flex
+      <Card width={1} key={pid} pb={isDetailed ? 0 : 1}>
+        <Box
           sx={{
-            mb: 2,
-            justifyContent: 'space-between',
-            flexWrap: 'wrap-reverse',
+            cursor: 'pointer',
+            ':hover [data-title]': { textDecoration: 'underline' },
+          }}
+          onClick={(evt) => {
+            evt.currentTarget.querySelector('a').click()
           }}
         >
-          <Box
+          <Flex
+            sx={{
+              mb: 2,
+              justifyContent: 'space-between',
+              flexWrap: 'wrap-reverse',
+            }}
+          >
+            <Flex sx={{ color: 'primary', alignItems: 'center', fontSize: 1 }}>
+              <Text as="span" mr={2}>
+                {doi}
+              </Text>
+              <FiExternalLink />
+            </Flex>
+            <ScoringIndicator score={score} />
+          </Flex>
+          <Heading
             as={Link}
             href={doiLink}
+            data-title
             target="_blank"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onClick={(evt) => {
+              evt.stopPropagation()
+            }}
             sx={{
-              color: isHovered ? 'text' : 'primary',
-              fontSize: 1,
-              ':hover': {
-                textDecoration: 'none',
-              },
+              display: 'block',
+              textDecoration: 'none',
+              ...(!isDetailed && {
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }),
             }}
           >
-            <FiExternalLink />
-            {doi}
-          </Box>
-          <ScoringIndicator score={score} />
-        </Flex>
-        <Heading
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          as={Link}
-          href={doiLink}
-          target="_blank"
-          sx={{
-            display: 'block',
-            whiteSpace: isDetailed ? 'wrap' : 'nowrap',
-            overflow: isDetailed ? 'visible' : 'hidden',
-            textOverflow: isDetailed ? 'none' : 'ellipsis',
-            textDecoration: isHovered ? 'underline' : 'none',
-          }}
-        >
-          {title}
-        </Heading>
-        <Box
-          onClick={() => isDetailed || setIsDetailed(true)}
-          sx={{
-            mx: -3,
-            mb: -3,
-            pb: 3,
-            px: 3,
-            pt: 1,
-            ':hover': {
-              bg: isDetailed || 'foreground',
-              cursor: isDetailed || 'pointer',
-            },
-          }}
-        >
-          {isDetailed ? <Detailed {...document} /> : <Simple {...document} />}
+            {title}
+          </Heading>
           <Box
-            onClick={() => setIsDetailed(false)}
-            sx={{
-              cursor: 'pointer',
-              textAlign: 'center',
-              fontSize: 4,
-              display: isDetailed ? 'block' : 'none',
-              mx: -3,
-              mb: -3,
-              ':hover': {
-                bg: 'foreground',
-              },
-            }}
+            sx={
+              !isDetailed && {
+                display: '-webkit-box',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                '-webkit-line-clamp': '2',
+                '-webkit-box-orient': 'vertical',
+              }
+            }
           >
-            <FiChevronUp />
+            {summary}
           </Box>
         </Box>
+        {!isDetailed && (
+          <Flex
+            sx={{
+              flexDirection: ['column', 'row'],
+              alignItems: ['flex-start', 'center'],
+              fontSize: [0, 0, 1],
+              mt: 1,
+              py: 2,
+            }}
+          >
+            <Button
+              variant="base"
+              sx={{
+                flex: 'none',
+                py: 1,
+                ':hover': { textDecoration: 'underline' },
+              }}
+              onClick={(evt) => {
+                setIsDetailed(true)
+              }}
+            >
+              <FiChevronRight />
+              <Text as="span" ml={2}>
+                Details, services ...
+              </Text>
+            </Button>
+            {(releaseDate || provider) && (
+              <Text
+                as="p"
+                sx={{
+                  m: 0,
+                  my: [2, 0],
+                  flex: '1 1 0%',
+                  textAlign: 'right',
+                  order: [-1, 0],
+                }}
+              >
+                {releaseDate && provider ? (
+                  <>
+                    {`Released on ${formatDateVerbose(releaseDate)} by `}
+                    <Link href={provider.homepage} blank>
+                      {provider.abbr}
+                    </Link>
+                  </>
+                ) : releaseDate ? (
+                  `Released on ${formatDateVerbose(releaseDate)}`
+                ) : (
+                  <>
+                    {'Released by '}
+                    <Link href={provider.homepage} blank>
+                      {provider.abbr}
+                    </Link>
+                  </>
+                )}
+              </Text>
+            )}
+          </Flex>
+        )}
+        {isDetailed && <DetailView {...document} />}
+        {isDetailed && (
+          <Flex>
+            <Button
+              variant="base"
+              onClick={() => setIsDetailed(false)}
+              sx={{
+                flex: '1 1 0%',
+                display: 'flex',
+                justifyContent: 'center',
+                py: 2,
+                mx: -3,
+                fontSize: 3,
+                ':hover': { bg: 'foreground' },
+                ':focus': { outlineOffset: '-2px' },
+              }}
+            >
+              <FiChevronUp />
+            </Button>
+          </Flex>
+        )}
       </Card>
     </Box>
   )

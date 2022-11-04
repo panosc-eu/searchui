@@ -85,7 +85,10 @@ export function useTheme() {
         cursor: 'pointer',
         outlineOffset: 2,
         ':disabled': { pointerEvents: 'none', opacity: 0.2 },
-        ':focus-visible': { outlineColor: 'currentColor' },
+        ':focus-visible': {
+          outlineColor: 'currentColor',
+          outlineStyle: 'auto',
+        },
       },
       primary: {
         variant: 'buttons.base',
