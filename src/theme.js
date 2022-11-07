@@ -66,7 +66,7 @@ export function useTheme() {
       link: {
         color: 'primary',
         textDecoration: 'none',
-        ':hover, :focus, .active': { color: 'text' },
+        ':hover, :focus-visible, .active': { color: 'text' },
         ':hover': { textDecoration: 'underline' },
       },
     },
