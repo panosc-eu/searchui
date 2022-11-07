@@ -127,23 +127,21 @@ function DocumentItem(props) {
                   order: [-1, 0],
                 }}
               >
-                {releaseDate && provider ? (
+                Released
+                {provider && (
                   <>
-                    {`Released on ${formatDateVerbose(releaseDate)} by `}
-                    <Link href={provider.homepage} blank>
-                      {provider.abbr}
-                    </Link>
-                  </>
-                ) : releaseDate ? (
-                  `Released on ${formatDateVerbose(releaseDate)}`
-                ) : (
-                  <>
-                    {'Released by '}
-                    <Link href={provider.homepage} blank>
+                    {' '}
+                    by{' '}
+                    <Link
+                      href={provider.homepage}
+                      blank
+                      sx={{ fontWeight: 'bold', letterSpacing: '0.03em' }}
+                    >
                       {provider.abbr}
                     </Link>
                   </>
                 )}
+                {releaseDate && <> on {formatDateVerbose(releaseDate)}</>}
               </Text>
             )}
           </Flex>
