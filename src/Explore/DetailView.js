@@ -10,14 +10,7 @@ import Services from './Services'
 import Table from './Table'
 
 function DetailView(props) {
-  const {
-    pid,
-    keywords,
-    summary,
-    type,
-    releaseDate,
-    provider: providerURL,
-  } = props
+  const { pid, keywords, type, releaseDate, provider: providerURL } = props
   const provider =
     providers.find((provider) => providerURL === provider.url) || {}
 
@@ -29,11 +22,8 @@ function DetailView(props) {
   ].filter(([, content]) => content)
 
   return (
-    <Box>
-      <Box as="article" pb={3}>
-        {summary}
-      </Box>
-      <Table data={properties} title="Properties" open />
+    <Box mt={3} fontSize={1}>
+      <Table data={properties} />
       <ErrorBoundary resetKeys={[pid]} fallback={<Box />}>
         <Suspense fallback={<Box />}>
           <Services provider={provider} pid={pid} />

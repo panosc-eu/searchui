@@ -23,21 +23,19 @@ const getParameters = (data) =>
     ]),
   )
 
-function Section({ pid, include, fn, title, open }) {
+function Section({ pid, include, fn, title }) {
   const { data } = useApi(`/documents/${encodeURIComponent(pid)}`, [], {
     include,
     limit: 0,
   })
   const tableData = fn(data)
   const isEmpty = tableData.length === 0
-  return isEmpty || <Table title={title} data={tableData} open={open} />
+  return isEmpty || <Table title={title} data={tableData} />
 }
 
 export function Members({ pid }) {
   const include = ['affiliation', 'person']
-  return (
-    <Section open include={include} title="Members" fn={getMembers} pid={pid} />
-  )
+  return <Section include={include} title="Members" fn={getMembers} pid={pid} />
 }
 
 export function Techniques({ pid }) {
