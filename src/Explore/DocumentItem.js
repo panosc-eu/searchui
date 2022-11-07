@@ -95,7 +95,7 @@ function DocumentItem(props) {
             sx={{
               flexDirection: ['column', 'row'],
               alignItems: ['flex-start', 'center'],
-              fontSize: [0, 0, 1],
+              fontSize: [1, 1, 2],
               mt: 1,
               py: 2,
             }}
