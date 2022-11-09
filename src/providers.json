@@ -6,8 +6,16 @@
     "homepage": "https://www.esrf.eu/",
     "services": [
       {
+        "name": "VISA",
+        "url": "https://visa.esrf.fr"
+      },
+      {
         "name": "Jupyter SLURM",
         "url": "https://jupyter-slurm.esrf.fr/spawn?partition_simple=jupyter-nice&nprocs_simple=1&environment_simple=system&jupyterlab_simple=on&runtime_simple=1&partition=jupyter-nice&nprocs=1&runtime=1%3A00%3A00&default_url=%2Flab"
+      },
+      {
+        "name": "PaNdata Software Catalogue",
+        "url": "https://software.pan-data.eu/"
       }
     ]
   },
@@ -15,36 +23,72 @@
     "name": "European Spallation Source",
     "abbr": "ESS",
     "url": "https://search.panosc.ess.eu/api",
-    "homepage": "https://europeanspallationsource.se/"
+    "homepage": "https://europeanspallationsource.se/",
+    "services": [
+      {
+        "name": "PaNdata Software Catalogue",
+        "url": "https://software.pan-data.eu/"
+      }
+    ]
   },
   {
     "name": "Institut Laue Langevin",
     "abbr": "ILL",
     "url": "https://fairdata.ill.fr/fairdata/api",
-    "homepage": "https://www.ill.eu/"
+    "homepage": "https://www.ill.eu/",
+    "services": [
+      {
+        "name": "PaNdata Software Catalogue",
+        "url": "https://software.pan-data.eu/"
+      }
+    ]
   },
   {
     "name": "MAX IV",
     "abbr": "MAXIV",
     "url": "https://searchapi.maxiv.lu.se/api",
-    "homepage": "https://www.maxiv.lu.se"
+    "homepage": "https://www.maxiv.lu.se",
+    "services": [
+      {
+        "name": "PaNdata Software Catalogue",
+        "url": "https://software.pan-data.eu/"
+      }
+    ]
   },
   {
     "name": "Paul Scherrer Institut",
     "abbr": "PSI",
     "url": "https://dacat.psi.ch/panosc-api",
-    "homepage": "https://www.psi.ch/en"
+    "homepage": "https://www.psi.ch/en",
+    "services": [
+      {
+        "name": "PaNdata Software Catalogue",
+        "url": "https://software.pan-data.eu/"
+      }
+    ]
   },
   {
     "name": "Central European Research Infrastructure Consortium",
     "abbr": "CERIC",
     "url": "https://data.ceric-eric.eu/search-api",
-    "homepage": "https://www.ceric-eric.eu"
+    "homepage": "https://www.ceric-eric.eu",
+    "services": [
+      {
+        "name": "PaNdata Software Catalogue",
+        "url": "https://software.pan-data.eu/"
+      }
+    ]
   },
   {
     "name": "European XFEL",
     "abbr": "EuXFEL",
     "url": "https://in.xfel.eu/metadata/api/panosc/v1",
-    "homepage": "https://www.xfel.eu/index_eng.html"
+    "homepage": "https://www.xfel.eu/index_eng.html",
+    "services": [
+      {
+        "name": "PaNdata Software Catalogue",
+        "url": "https://software.pan-data.eu/"
+      }
+    ]
   }
 ]
