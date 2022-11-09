@@ -86,6 +86,10 @@
     "homepage": "https://www.xfel.eu/index_eng.html",
     "services": [
       {
+        "name": "VISA",
+        "url": "https://visa.xfel.eu"
+      },
+      {
         "name": "PaNdata Software Catalogue",
         "url": "https://software.pan-data.eu/"
       }
