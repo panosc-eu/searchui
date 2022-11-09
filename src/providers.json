@@ -45,6 +45,12 @@
     "name": "European XFEL",
     "abbr": "EuXFEL",
     "url": "https://in.xfel.eu/metadata/api/panosc/v1",
-    "homepage": "https://www.xfel.eu/index_eng.html"
+    "homepage": "https://www.xfel.eu/index_eng.html",
+    "services": [
+      {
+        "name": "VISA",
+        "url": "https://visa.xfel.eu"
+      }
+    ]
   }
 ]
