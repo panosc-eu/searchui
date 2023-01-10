@@ -62,6 +62,14 @@
     "homepage": "https://www.psi.ch/en",
     "services": [
       {
+        "name": "Remote Desktop Service",
+        "url": "https://marketplace.eosc-portal.eu/services/eosc.psi.remote_desktop_service"
+      },
+      {
+        "name": "Jupyter Hub (PSI Network only)",
+        "url": "https://jupytera.psi.ch/"
+      },
+      {
         "name": "PaNdata Software Catalogue",
         "url": "https://software.pan-data.eu/"
       }
