@@ -1,6 +1,16 @@
 import useApi from '../Api/useApi'
 import Table from './Table'
 
+const isValidHttpUrl = (string) => {
+  let url
+  try {
+    url = new URL(string)
+  } catch {
+    return false
+  }
+  return url.protocol === 'http:' || url.protocol === 'https:'
+}
+
 const getMembers = (data) =>
   data.members.reduce(
     (acc, scope) =>
@@ -12,7 +22,11 @@ const getMembers = (data) =>
 
 const getTechniques = (data) =>
   data.datasets.flatMap((dataset) =>
-    dataset.techniques.map((technique) => [technique.name]),
+    dataset.techniques.map((technique) =>
+      isValidHttpUrl(technique.pid)
+        ? [[technique.name, technique.pid]]
+        : [technique.name],
+    ),
   )
 
 const getParameters = (data) =>
