@@ -102,5 +102,21 @@
         "url": "https://software.pan-data.eu/"
       }
     ]
+  },
+  {
+    "name": "ELI Beamlines",
+    "abbr": "ELIBL",
+    "url": "https://searchapi.k8s.eli-beams.eu/api",
+    "homepage": "https://eli-beams.eu/",
+    "services": [
+      {
+        "name": "PaNdata Software Catalogue",
+        "url": "https://software.pan-data.eu/"
+      },
+      {
+        "name": "VISA",
+        "url": "https://visa.k8s.eli-beams.eu/"
+      }
+    ]
   }
 ]
