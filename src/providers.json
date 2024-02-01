@@ -23,11 +23,11 @@
     "name": "European Spallation Source",
     "abbr": "ESS",
     "url": "https://search.panosc.ess.eu/api",
-    "homepage": "https://europeanspallationsource.se/",
+    "homepage": "https://ess.eu/",
     "services": [
       {
-        "name": "PaNdata Software Catalogue",
-        "url": "https://software.pan-data.eu/"
+        "name": "PaNOSC Search API",
+        "url": "https://search.panosc.ess.eu/api"
       }
     ]
   },
@@ -100,6 +100,18 @@
       {
         "name": "PaNdata Software Catalogue",
         "url": "https://software.pan-data.eu/"
+      }
+    ]
+  },
+  {
+    "name": "ALBA Synchrotron",
+    "abbr": "ALBA",
+    "url": "https://data.cells.es/iws/panosc/search-api",
+    "homepage": "https://www.cells.es/en",
+    "services": [
+      {
+        "name": "PaNOSC Search API",
+        "url": "https://data.cells.es/iws/panosc/search-api"
       }
     ]
   }
