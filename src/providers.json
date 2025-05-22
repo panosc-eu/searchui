@@ -114,5 +114,17 @@
         "url": "https://data.cells.es/iws/panosc/search-api"
       }
     ]
+  },
+  {
+    "name": "Helmholtz-Zentrum Dresden-Rossendorf",
+    "abbr": "HZDR",
+    "url": "https://scicat.hzdr.de/panosc-api",
+    "homepage": "https://www.hzdr.de/",
+    "services": [
+      {
+        "name": "PaNOSC Search API",
+        "url": "https://scicat.hzdr.de/panosc-api"
+      }
+    ]
   }
 ]
